@@ -1,0 +1,7 @@
+*~
+.meteor/*
+packages/*
+*.sublime-workspace
+
+client/styles/bootstrap/custom.bootstrap.less
+client/styles/bootstrap/custom.bootstrap.mixins.import.less
