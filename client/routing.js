@@ -1,7 +1,10 @@
 Router.route('/', function(){
-	if(Meteor.userId()){
+	if(Meteor.userId())
 		this.render('Dashboard');
-	} else{
+	else
 		this.render('LandingPage');
-	}
+});
+
+Router.route('/edit-trip', function(){
+	this.render('EditTrip');
 });
