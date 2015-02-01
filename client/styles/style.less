@@ -6,13 +6,141 @@ style.less
 
 @import "bootstrap/custom.bootstrap.import.less";
 
+.form-group {
+	margin-bottom: 0px;
+}
+
 .trip {
 	height: 150px;
-	line-height: 150px;
-	vertical-align: middle;
-	text-align: center;
 
-	font-size: 50px;
+	& > div {
+		width: 100%;
+		height: 100%;
 
-	background-color: @gray-lighter;
+		background-color: @gray-lighter;
+
+		&.trip-add-new {
+			a {
+				display: block;
+
+				line-height: 150px;
+				vertical-align: middle;
+				text-align: center;
+
+				font-size: 50px;
+
+				span {
+					left: 4px;
+				}
+			}
+		}
+	}
+}
+
+.edit-trip-container {
+	position: absolute;
+	display: block;
+	height: 100%;
+	width: 100%;
+
+	padding: 0;
+
+	div.row {
+		padding: 0;
+		margin: 0;
+
+		width: 100%;
+		height: 100%;
+
+		.map-area {
+			padding: 0;
+			height: 100%;
+
+			#map-canvas {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+				height: 100%;
+
+				z-index: 0;
+			}
+		}
+
+		.options-area {
+			padding: 0;
+			height: 100%;
+			z-index: 1;
+
+			box-shadow: -5px 0px 10px 0px rgba(0, 0, 0, 0.2);
+			border-left: 1px solid @brand-primary;
+
+			display: table;
+
+			.option-header {
+				height: 50px;
+
+				background-color: white;
+				display:table-row;
+
+				.options-container {
+					width: 100%;
+					height: 50px;
+					display: table;
+
+					border-bottom: 1px solid @brand-primary;
+
+					box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+
+					div.back-button {
+						display: table-cell;
+						width: 50px;
+
+						a {
+							background-color: @brand-primary;
+							color: white;
+
+							display: block;
+							width: 36px;
+							height: 50px;
+
+							font-size: 16px;
+
+							line-height: 50px;
+							vertical-align: middle;
+							text-align: center;
+
+							&:hover {
+								background-color: darken(@brand-primary, 10%);
+							}
+						}
+					}
+
+					div.title {
+						display: table-cell;
+						width: 100%;
+
+						background-color: white;
+
+						padding-left: 10px;
+						padding-right: 10px;
+					}
+				}
+			}
+
+			.timeline-container {
+				display:table-row;
+				
+				height: 100%;
+
+				.timeline {
+					overflow: auto;
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+	}
+
+	
 }

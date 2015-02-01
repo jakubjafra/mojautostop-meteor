@@ -1,12 +1,28 @@
 <template name="EditTrip">
-	<div class="container-fluid">
+	<div class="container-fluid edit-trip-container">
 		<div class="row">
-			<div class="col-xs-8">
-				map here
+			<div class="col-xs-8 map-area">
+				<div id="map-canvas"></div>
 			</div>
-			<div class="col-xs-4">
-				options here
+			<div class="col-xs-4 options-area">
+				<div class="option-header">
+					<div class="options-container">
+						<div class="back-button">
+							<a href="/">
+								<span class="glyphicon glyphicon-align-justify"></span>
+							</a>
+						</div>
+						<div class="title">
+							title
+						</div>
+					</div>
+				</div>
+				<div class="timeline-container">
+					<div class="timeline">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
+

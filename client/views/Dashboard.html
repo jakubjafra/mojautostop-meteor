@@ -5,15 +5,49 @@
 		<div class="row">
 			<div class="col-xs-8">
 				<div class="container-fluid">
-					<div class="col-xs-3 trip trip-add-new">
-						<a href="/edit-trip">
-							<span class="glyphicon glyphicon-plus"></span>
-						</a>
+					{{#each mineTrips}}
+						<div class="col-xs-3 trip">
+							<div>
+								{{#linkTo route='edit-trip'}}
+										{{ name }}
+								{{/linkTo}}
+							</div>
+						</div>
+					{{/each}}
+					<div class="col-xs-3 trip">
+						<div class="trip-add-new">
+							<a href="#" id="trip-add-new">
+								<span class="glyphicon glyphicon-plus"></span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-4">
 				stats
+			</div>
+		</div>
+	</div>
+
+	{{> NewTripModal}}
+</template>
+
+<template name="NewTripModal">
+	<div class="modal fade" id="new-trip-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form id="new-trip-form">
+						<div class="form-group">
+							<label for="name">Nazwa</label>
+							<input type="text" class="form-control trip-name" placeholder="Nazwij tripa">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="cancel-adding" data-dismiss="modal">Anuluj</button>
+					<button type="button" class="btn btn-success" id="new-trip">Dodaję nowy trip</button>
+				</div>
 			</div>
 		</div>
 	</div>
