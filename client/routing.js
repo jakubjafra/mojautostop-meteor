@@ -1,8 +1,6 @@
-/*
-Router.route('/', function(){
+Router.route('/index', function(){
 	this.render('LandingPage');
 });
-*/
 
 Router.route('/', {
 	name: 'dashboard',

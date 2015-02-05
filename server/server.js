@@ -6,8 +6,16 @@ server.js
 
 Meteor.methods({
 	'NewTrip': function(name){
-		if(Meteor.userId() !== null)
-			return Trips.insert({ name: name, user: Meteor.userId() });
+		if(Meteor.userId() !== null){
+			return Trips.insert(new Trip(name, Meteor.userId()));
+		}
+	},
+	'NewRoutePoint': function(tripId, point){
+		console.log(tripId);
+		console.log(point);
+		Trips.update(tripId, {
+			$push: { points: point }
+		});
 	}
 });
 

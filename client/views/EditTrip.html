@@ -13,16 +13,23 @@
 							</a>
 						</div>
 						<div class="title">
-							title
+							{{ name }}
 						</div>
 					</div>
 				</div>
 				<div class="timeline-container">
 					<div class="timeline">
+						<ul>
+							{{#each points}}
+								<li>
+									{{ name }}
+								</li>
+							{{/each}}
+						</ul>
+						<input type="text" id="new-route-input" placeholder="add route point" class="form-control" />
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
-
