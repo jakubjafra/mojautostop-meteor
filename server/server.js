@@ -16,6 +16,19 @@ Meteor.methods({
 		Trips.update(tripId, {
 			$push: { points: point }
 		});
+	},
+	'RemoveRoutePoint': function(tripId, pointId){
+		var points = Trips.findOne(tripId).points;
+
+		var newPoints = points.filter(function(curr){
+			return !(curr.id === pointId);
+		});
+
+		console.log(newPoints);
+
+		Trips.update(tripId, {
+			$set: { points: newPoints }
+		});
 	}
 });
 

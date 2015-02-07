@@ -5,24 +5,19 @@ client.js
 */
 
 (function(){
+	var routeId = undefined;
+
 	var map = null;
+	var directionsDisplays = [];
 
-	Template.EditTrip.rendered = function(){
-		var mapOptions = {
-			// zoom: 7,
-			// center: new google.maps.LatLng(52.40637, 16.92517),
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			disableDefaultUI: true
-		};
+	function makeRoute(){
+		directionsDisplays.forEach(function(display){
+			display.setMap(null);
+		});
 
-		map = new google.maps.Map(
-			document.getElementById('map-canvas'),
-			mapOptions
-		);
+		directionsDisplays = [];
 
 		if(Trips.findOne({}).points.length >= 2){
-			
-
 			var directionsService = new google.maps.DirectionsService();
 
 			function makeRequest(directionDisplay, requestObject){
@@ -36,8 +31,6 @@ client.js
 					});
 				}
 			}
-
-			var directionsDisplays = [];
 
 			var maxPointsAtRequest = 10;
 			var points = Trips.findOne({}).points;
@@ -88,9 +81,38 @@ client.js
 				Meteor.setTimeout(makeRequest(display, requests[i]), i * 500);
 			}
 		}
+	}
+
+	var isRendered = false;
+
+	Template.EditTrip.rendered = function(){
+		routeId = this._id;
+
+		var mapOptions = {
+			zoom: 7,
+			center: new google.maps.LatLng(52.40637, 16.92517),
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			disableDefaultUI: true
+		};
+
+		map = new google.maps.Map(
+			document.getElementById('map-canvas'),
+			mapOptions
+		);
+
+		// makeRoute();
+
+		isRendered = true;
+		makeRoute();
 	};
 
-	Template.EditTrip.helpers({});
+	Template.EditTrip.helpers({
+		'points': function(){
+			if(isRendered)
+				makeRoute();
+			return Trips.findOne({}).points;
+		}
+	});
 
 	Template.EditTrip.events({
 		'change #new-route-input': function(event){
@@ -109,8 +131,29 @@ client.js
 			);
 
 			$(event.currentTarget).val("");
+		},
+		'click .point-action-remove': function(event){
+			Meteor.call('RemoveRoutePoint', Trips.findOne({})._id, this.id);
 		}
-	})
+	});
+
+	Template.AddPointModal.events({
+		'click #new-point': function(event){
+			HTTP.get(
+				"http://nominatim.openstreetmap.org/search?format=json&q=" + $('#new-route-input').val(),
+				(function(error, response){
+					if(response.data.length > 0){
+						var bestResult = response.data[0];
+						Meteor.call('NewRoutePoint', this._id,  new RoutePoint(
+							bestResult.display_name,
+							bestResult.lat,
+							bestResult.lon
+						));
+					}
+				}).bind(this)
+			);
+		}
+	});
 })();
 
 (function(){
@@ -137,7 +180,3 @@ client.js
 		}
 	})
 })();
-
-Meteor.startup(function(){
-	// ...
-});

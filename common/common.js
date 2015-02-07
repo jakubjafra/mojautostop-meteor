@@ -11,6 +11,7 @@ Trip = function(name, userId){
 };
 
 RoutePoint = function(name, lat, lon){
+	this.id = CryptoJS.SHA1(name).toString();
 	this.name = name;
 	this.lat = lat;
 	this.lon = lon;

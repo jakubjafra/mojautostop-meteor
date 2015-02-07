@@ -22,14 +22,50 @@
 						<ul>
 							{{#each points}}
 								<li>
-									{{ name }}
+									<span class="point-name">{{ name }}</span>
+									<small class="text-muted">#{{ id }}</small>
+									<br>
+									<a class="point-action-add btn btn-default btn-xs" disabled><span class="glyphicon glyphicon-plus"></span></a>
+									<a class="point-action-edit btn btn-default btn-xs" disabled><span class="glyphicon glyphicon-pencil"></span></a>
+									<a class="point-action-remove btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
 								</li>
 							{{/each}}
 						</ul>
-						<input type="text" id="new-route-input" placeholder="add route point" class="form-control" />
+						<button class="btn btn-primary" data-toggle="modal" data-target="#new-point-modal">
+							Dodaj nowy punkt
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	{{> AddPointModal}}
+</template>
+
+<template name="AddPointModal">
+	<div class="modal fade" id="new-point-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Dodaj nowy punkt na trasie</h4>
+				</div>
+				<div class="modal-body">
+					{{> ModalContents}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="cancel-adding" data-dismiss="modal">Anuluj</button>
+					<button type="button" class="btn btn-primary" id="new-point" data-dismiss="modal">Dodaję!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="ModalContents">
+	<div class="form-group">
+		<label for="name">Nazwa miejsca</label>
+		<input type="text" id="new-route-input" class="form-control trip-name" placeholder="Napisz gdzie byłeś ;)">
 	</div>
 </template>
