@@ -13,7 +13,7 @@
 							</a>
 						</div>
 						<div class="title">
-							{{ name }}
+							{{ name }} <small class="text-muted">({{ distance }} km)</small>
 						</div>
 					</div>
 				</div>
@@ -22,16 +22,25 @@
 						<ul>
 							{{#each points}}
 								<li>
-									<span class="point-name">{{ name }}</span>
-									<small class="text-muted">#{{ id }}</small>
-									<br>
-									<a class="point-action-add btn btn-default btn-xs" disabled><span class="glyphicon glyphicon-plus"></span></a>
-									<a class="point-action-edit btn btn-default btn-xs" disabled><span class="glyphicon glyphicon-pencil"></span></a>
-									<a class="point-action-remove btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span></a>
+									<div>
+										{{{ pointTypeHtml }}}
+										<span class="point-name">{{ name }}</span>
+									</div>
+									<div>
+										<a class="point-action-add btn btn-default btn-xs" data-toggle="modal" data-target="#new-point-modal">
+											<span class="glyphicon glyphicon-plus"></span>
+										</a>
+										<a class="point-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-point-modal">
+											<span class="glyphicon glyphicon-pencil"></span>
+										</a>
+										<a class="point-action-remove btn btn-default btn-xs">
+											<span class="glyphicon glyphicon-remove"></span>
+										</a>
+									</div>
 								</li>
 							{{/each}}
 						</ul>
-						<button class="btn btn-primary" data-toggle="modal" data-target="#new-point-modal">
+						<button class="btn btn-primary" id="new-point-button" data-toggle="modal" data-target="#new-point-modal">
 							Dodaj nowy punkt
 						</button>
 					</div>
@@ -41,6 +50,7 @@
 	</div>
 
 	{{> AddPointModal}}
+	{{> EditPointModal}}
 </template>
 
 <template name="AddPointModal">
@@ -52,7 +62,22 @@
         			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Dodaj nowy punkt na trasie</h4>
 				</div>
 				<div class="modal-body">
-					{{> ModalContents}}
+					{{#if atLeastOnePoint}}
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-xs-12">
+									<label for="insert-position">Umieść ten punkt za</label>
+									{{#each points}}
+										{{#if isSelected}}
+											<input type="text" class="form-control" value="{{ name }}" disabled />
+										{{/if}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+					{{/if}}
+
+					{{> ModalPointCommonContents}}
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" id="cancel-adding" data-dismiss="modal">Anuluj</button>
@@ -63,9 +88,81 @@
 	</div>
 </template>
 
-<template name="ModalContents">
-	<div class="form-group">
-		<label for="name">Nazwa miejsca</label>
-		<input type="text" id="new-route-input" class="form-control trip-name" placeholder="Napisz gdzie byłeś ;)">
+<template name="EditPointModal">
+	<div class="modal fade" id="edit-point-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Edytuj punkt</h4>
+				</div>
+				<div class="modal-body">
+					{{> ModalPointCommonContents}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="cancel-editing" data-dismiss="modal">Anuluj</button>
+					<button type="button" class="btn btn-primary" id="edit-point" data-dismiss="modal">Jest ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="ModalPointCommonContents">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<label for="name" class="divider">Nazwa miejsca <span class="important">*</span></label>
+				<select class="trip-name">
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<label class="divider">Typ punktu <span class="important">*</span></label>
+			</div>
+		</div>
+		<div class="row point-type-selector">
+			<div class="col-xs-6">
+				<input type="radio" name="point-type" value="special"><br>
+				<span class="badge badge-special">
+					<span class="glyphicon glyphicon-map-marker"></span>
+				</span><br>
+				Początek/koniec podróży<br>
+				<small>
+					Będzie stąd wywalone byś nie musiał zaznaczać że spałeś w swoim łóżku ;)
+				</small>
+			</div>
+			<div class="col-xs-6">
+				<input type="radio" name="point-type" value="passing"><br>
+				<span class="badge badge-passing">
+					<span class="glyphicon glyphicon-arrow-right"></span>
+				</span><br>
+				Tylko przejazdem<br>
+				<small>
+					Jeśli chcesz zaznaczyć że przejeżdzałeś konkretną trasą a domyślnie wyznaczona Ci nie odpowiada.
+				</small>
+			</div>
+			<div class="col-xs-6">
+				<input type="radio" name="point-type" value="tent"><br>
+				<span class="badge badge-tent">
+					<span class="glyphicon glyphicon-flag"></span>
+				</span><br>
+				Na dziko<br>
+				<small>
+					Ciekawe miejsce warte zapamiętania? Koniecznie dodaj opis i zdjęcia!
+				</small>
+			</div>
+			<div class="col-xs-6">
+				<input type="radio" name="point-type" value="house"><br>
+				<span class="badge badge-house">
+					<span class="glyphicon glyphicon-home"></span>
+				</span><br>
+				Na bogato<br>
+				<small>
+					Ktoś obcy zaproponował Ci nocleg lub załatwiłeś go sobie na CS? Podziel się opinią!
+				</small>
+			</div>
+		</div>
 	</div>
 </template>

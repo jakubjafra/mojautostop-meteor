@@ -10,6 +10,11 @@ client.js
 	var map = null;
 	var directionsDisplays = [];
 
+	var editPointId = new ReactiveVar(null);
+	var insertAfterId = new ReactiveVar(null);
+
+	var distance = new ReactiveVar(0);
+
 	function makeRoute(){
 		directionsDisplays.forEach(function(display){
 			display.setMap(null);
@@ -17,17 +22,21 @@ client.js
 
 		directionsDisplays = [];
 
+		distance.set(0);
+
 		if(Trips.findOne({}).points.length >= 2){
 			var directionsService = new google.maps.DirectionsService();
-
 			function makeRequest(directionDisplay, requestObject){
 				return function(){
 					directionsService.route(requestObject, function(response, status){
-						console.log('generating route (' + status + '):');
 						console.log(response);
-
-						if(status == google.maps.DirectionsStatus.OK)
+						if(status == google.maps.DirectionsStatus.OK){
 							directionDisplay.setDirections(response);
+
+							response.routes[0].legs.forEach(function(leg){
+								distance.set(distance.get() + leg.distance.value);
+							});
+						}
 					});
 				}
 			}
@@ -53,10 +62,15 @@ client.js
 						requests[pointsOffset].origin = points[i].name;
 					} else{
 						requests[pointsOffset].origin = points[i-1].name;
-						requests[pointsOffset].waypoints.push({
-							location: points[i].name,
-							stopover: true
-						});
+
+						if(!isDestination){
+							requests[pointsOffset].waypoints.push({
+								location: points[i].name,
+								stopover: true
+							});
+						} else{
+							requests[pointsOffset].destination = points[i].name;
+						}
 					}
 				} else if(isDestination){
 					requests[pointsOffset].destination = points[i].name;
@@ -91,16 +105,14 @@ client.js
 		var mapOptions = {
 			zoom: 7,
 			center: new google.maps.LatLng(52.40637, 16.92517),
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			disableDefaultUI: true
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			// disableDefaultUI: true
 		};
 
 		map = new google.maps.Map(
 			document.getElementById('map-canvas'),
 			mapOptions
 		);
-
-		// makeRoute();
 
 		isRendered = true;
 		makeRoute();
@@ -111,49 +123,161 @@ client.js
 			if(isRendered)
 				makeRoute();
 			return Trips.findOne({}).points;
+		},
+		'distance': function(){
+			return Math.floor(distance.get() / 1000);
+		},
+		'pointTypeHtml': function(){
+			switch(this.type){
+				case "special":
+					return '<span class="badge badge-special"><span class="glyphicon glyphicon-map-marker"></span></span>';
+
+				case "passing":
+					return '<span class="badge badge-passing"><span class="glyphicon glyphicon-arrow-right"></span></span>';
+
+				case "tent":
+					return '<span class="badge badge-tent"><span class="glyphicon glyphicon-flag"></span></span>';
+
+				case "house":
+					return '<span class="badge badge-house"><span class="glyphicon glyphicon-home"></span></span>';
+			}
 		}
 	});
 
 	Template.EditTrip.events({
-		'change #new-route-input': function(event){
-			HTTP.get(
-				"http://nominatim.openstreetmap.org/search?format=json&q=" + $(event.currentTarget).val(),
-				(function(error, response){
-					if(response.data.length > 0){
-						var bestResult = response.data[0];
-						Meteor.call('NewRoutePoint', this._id,  new RoutePoint(
-							bestResult.display_name,
-							bestResult.lat,
-							bestResult.lon
-						));
-					}
-				}).bind(this)
-			);
-
-			$(event.currentTarget).val("");
-		},
 		'click .point-action-remove': function(event){
 			Meteor.call('RemoveRoutePoint', Trips.findOne({})._id, this.id);
+		},
+		'click .point-action-edit': function(event){
+			editPointId.set(this.id);
+
+			$("#edit-point-modal").find('.trip-name').val(this.name);
+		},
+		'click .point-action-add': function(event){
+			insertAfterId.set(this.id);
+		},
+		'click #new-point-button': function(event){
+			var points = Trips.findOne({}).points;
+			if(points.length == 0)
+				insertAfterId.set(null);
+			else
+				insertAfterId.set(points[points.length - 1].id);
 		}
 	});
+
+	// ~~~
 
 	Template.AddPointModal.events({
 		'click #new-point': function(event){
+			var placeName = $('#new-point-modal').find('.trip-name.selectize-control.single.selectized').val();
+			var placeType = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+
+			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), new RoutePoint(
+				placeName,
+				placeType
+			));
+
+			/*
 			HTTP.get(
-				"http://nominatim.openstreetmap.org/search?format=json&q=" + $('#new-route-input').val(),
+				"http://nominatim.openstreetmap.org/search?format=json&q=" + placeName,
 				(function(error, response){
 					if(response.data.length > 0){
 						var bestResult = response.data[0];
-						Meteor.call('NewRoutePoint', this._id,  new RoutePoint(
+						Meteor.call('NewRoutePoint', this.tripId, this.insertAfter, new RoutePoint(
 							bestResult.display_name,
 							bestResult.lat,
 							bestResult.lon
 						));
 					}
-				}).bind(this)
+				}).bind({
+					tripId: this._id,
+					insertAfter: insertAfterId.get()
+				})
 			);
+			*/
+
+			// ~~~
+
+			$('#new-point-modal').find('.trip-name').val("");
 		}
 	});
+
+	Template.AddPointModal.helpers({
+		'isSelected': function(){
+			return this.id == insertAfterId.get();
+		},
+		'atLeastOnePoint': function(){
+			return Trips.findOne({}).points.length > 0;
+		}
+	});
+
+	// ~~~
+
+	Template.EditPointModal.events({
+		'click #edit-point': function(event){
+			var placeName = $('#new-point-modal').find('.trip-name.selectize-control.single.selectized').val();
+			var placeType = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+
+			Meteor.call('NewRoutePoint', this._id, editPointId.get(), new RoutePoint(
+				placeName,
+				placeType
+			));
+
+			// ~~~
+
+			$('#edit-point-modal').find('.trip-name').val("");
+			editPointId.set(null);
+		},
+		'click #cancel-editing': function(event){
+			editPointId.set(null);
+		}
+	});
+
+	Template.EditPointModal.helpers({
+		'editPointId': function(){
+			return editPointId.get();
+		}
+	});
+
+	// ~~~
+
+	Template.ModalPointCommonContents.rendered = function(){
+		var service = new google.maps.places.AutocompleteService();
+		$(".trip-name").selectize({
+			valueField: 'value',
+			labelField: 'value',
+			searchField: 'value',
+			create: false,
+			maxItems: 1,
+			cache: false,
+
+			render: {
+				option: function(item, escape) {
+					return '<div>' +
+								'<span class="title">' +
+									'<span class="name">' + escape(item.value) + '</span>' +
+								'</span>' +
+							'</div>';
+				}
+			},
+			load: function(query, callback) {
+				if(query.length > 0){
+					service.getPlacePredictions({
+						input: query,
+						types: ["geocode"]
+					}, function(predictions, status){
+						if(status == google.maps.places.PlacesServiceStatus.OK){
+							callback($.map(predictions, function(item){
+								return { value: item.description };
+							}));
+						} else
+							callback();
+					});
+				} else
+				callback();
+			}
+		});
+	}
 })();
 
 (function(){

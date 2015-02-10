@@ -10,11 +10,10 @@ Trip = function(name, userId){
 	this.points = [];
 };
 
-RoutePoint = function(name, lat, lon){
-	this.id = CryptoJS.SHA1(name).toString();
+RoutePoint = function(name, type){
+	this.id = CryptoJS.SHA1(name + (new Date).getTime()).toString();
 	this.name = name;
-	this.lat = lat;
-	this.lon = lon;
+	this.type = type;
 };
 
 Trips = new Mongo.Collection("trips");
