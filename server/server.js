@@ -54,6 +54,8 @@ Meteor.methods({
 	'EditRoutePoint': function(tripId, pointId, newPoint){
 		newPoint.id = pointId;
 
+		console.log(newPoint);
+
 		var newPoints = Trips.findOne(tripId).points.map(function(curr){
 			if(curr.id == pointId)
 				return newPoint;

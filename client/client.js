@@ -25,24 +25,61 @@ client.js
 		distance.set(0);
 
 		if(Trips.findOne({}).points.length >= 2){
+			var points = Trips.findOne({}).points;
+			var k = 0;
+
 			var directionsService = new google.maps.DirectionsService();
 			function makeRequest(directionDisplay, requestObject){
 				return function(){
 					directionsService.route(requestObject, function(response, status){
-						console.log(response);
 						if(status == google.maps.DirectionsStatus.OK){
 							directionDisplay.setDirections(response);
 
-							response.routes[0].legs.forEach(function(leg){
+							function addPoint(leg_loc, point){
+								function getMarkerNameForPoint(point_){
+									return {
+										url: '/' + point_.type + '_marker.png',
+										size: new google.maps.Size(32, 32),
+										origin: new google.maps.Point(0, 0),
+										anchor: new google.maps.Point(16, 16)
+									};
+								}
+
+								var loc = new google.maps.LatLng(leg_loc.k, leg_loc.C);
+								var point__ = new google.maps.Marker({
+									position: loc,
+									title: "test",
+									icon: getMarkerNameForPoint(point)
+								});
+								point__.setMap(map);
+								directionsDisplays.push(point__);
+							}
+
+							function processLeg(leg, point){
 								distance.set(distance.get() + leg.distance.value);
-							});
+
+								addPoint(leg.end_location, point);
+							}
+
+							for(var i = 0; i < response.routes[0].legs.length; i++, k++){
+								var point = points[k];
+
+								if(i > 0)
+									processLeg(response.routes[0].legs[i], point);
+								else {
+									addPoint(response.routes[0].legs[i].start_location, point);
+									
+									k++;
+									point = points[k];
+									processLeg(response.routes[0].legs[i], point);
+								}
+							}
 						}
 					});
 				}
 			}
 
 			var maxPointsAtRequest = 10;
-			var points = Trips.findOne({}).points;
 
 			var requests = [];
 
@@ -122,7 +159,15 @@ client.js
 		'points': function(){
 			if(isRendered)
 				makeRoute();
-			return Trips.findOne({}).points;
+
+			var points = Trips.findOne({}).points;
+			
+			var i = 0;
+			return points.map(function(item){
+				item.index = (i++);
+				item.isEnd = (i === points.length);
+				return item;
+			});
 		},
 		'distance': function(){
 			return Math.floor(distance.get() / 1000);
@@ -130,16 +175,16 @@ client.js
 		'pointTypeHtml': function(){
 			switch(this.type){
 				case "special":
-					return '<span class="badge badge-special"><span class="glyphicon glyphicon-map-marker"></span></span>';
+					return '<span class="badge badge-special-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
 
 				case "passing":
-					return '<span class="badge badge-passing"><span class="glyphicon glyphicon-arrow-right"></span></span>';
+					return '<span class="badge badge-passing-iconic"><span class="glyphicon glyphicon-arrow-right"></span></span>';
 
 				case "tent":
-					return '<span class="badge badge-tent"><span class="glyphicon glyphicon-flag"></span></span>';
+					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
 
 				case "house":
-					return '<span class="badge badge-house"><span class="glyphicon glyphicon-home"></span></span>';
+					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
 			}
 		}
 	});
@@ -177,25 +222,6 @@ client.js
 				placeType
 			));
 
-			/*
-			HTTP.get(
-				"http://nominatim.openstreetmap.org/search?format=json&q=" + placeName,
-				(function(error, response){
-					if(response.data.length > 0){
-						var bestResult = response.data[0];
-						Meteor.call('NewRoutePoint', this.tripId, this.insertAfter, new RoutePoint(
-							bestResult.display_name,
-							bestResult.lat,
-							bestResult.lon
-						));
-					}
-				}).bind({
-					tripId: this._id,
-					insertAfter: insertAfterId.get()
-				})
-			);
-			*/
-
 			// ~~~
 
 			$('#new-point-modal').find('.trip-name').val("");
@@ -215,10 +241,10 @@ client.js
 
 	Template.EditPointModal.events({
 		'click #edit-point': function(event){
-			var placeName = $('#new-point-modal').find('.trip-name.selectize-control.single.selectized').val();
-			var placeType = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+			var placeName = $('#edit-point-modal').find('.trip-name.selectize-control.single.selectized').val();
+			var placeType = $('#edit-point-modal').find('input[name="point-type"]:checked').val();
 
-			Meteor.call('NewRoutePoint', this._id, editPointId.get(), new RoutePoint(
+			Meteor.call('EditRoutePoint', this._id, editPointId.get(), new RoutePoint(
 				placeName,
 				placeType
 			));

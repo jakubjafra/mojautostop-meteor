@@ -19,27 +19,33 @@
 				</div>
 				<div class="timeline-container">
 					<div class="timeline">
-						<ul>
-							{{#each points}}
-								<li>
-									<div>
-										{{{ pointTypeHtml }}}
-										<span class="point-name">{{ name }}</span>
-									</div>
-									<div>
-										<a class="point-action-add btn btn-default btn-xs" data-toggle="modal" data-target="#new-point-modal">
-											<span class="glyphicon glyphicon-plus"></span>
-										</a>
-										<a class="point-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-point-modal">
-											<span class="glyphicon glyphicon-pencil"></span>
-										</a>
-										<a class="point-action-remove btn btn-default btn-xs">
-											<span class="glyphicon glyphicon-remove"></span>
-										</a>
-									</div>
-								</li>
-							{{/each}}
-						</ul>
+						<div class="begin"></div>
+						{{#each points}}
+							<div class="point point-{{ type }}">
+								<div class="point-badge">
+									{{{ pointTypeHtml }}}
+								</div><div class="point-name">
+									{{ name }}
+									<a class="point-action point-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-point-modal">
+										<span class="glyphicon glyphicon-pencil"></span>
+									</a>
+									<a class="point-action point-action-remove btn btn-default btn-xs">
+										<span class="glyphicon glyphicon-remove"></span>
+									</a>
+								</div>
+							</div>
+							{{#unless isEnd}}
+								<div class="route">
+									<a class="point-action point-action-add btn btn-default btn-xs" data-toggle="modal" data-target="#new-point-modal">
+										<span class="glyphicon glyphicon-plus"></span>
+									</a>
+								</div>
+							{{/unless}}
+						{{/each}}
+						<div class="end"></div>
+						<br>
+						<br>
+						<br>
 						<button class="btn btn-primary" id="new-point-button" data-toggle="modal" data-target="#new-point-modal">
 							Dodaj nowy punkt
 						</button>

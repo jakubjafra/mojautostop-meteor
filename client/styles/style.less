@@ -53,6 +53,8 @@ style.less
 		height: 100%;
 
 		.map-area {
+			position: fixed;
+
 			padding: 0;
 			height: 100%;
 
@@ -68,6 +70,9 @@ style.less
 		}
 
 		.options-area {
+			position: absolute;
+			right: 0px;
+
 			padding: 0;
 			height: 100%;
 			z-index: 1;
@@ -132,33 +137,136 @@ style.less
 				display:table-row;
 				
 				height: 100%;
-
-				.timeline {
-					overflow: auto;
-					width: 100%;
-					height: 100%;
-
-					padding: 10px;
-				}
 			}
 		}
 	}
 }
 
+@color-darkblue: @brand-primary;
+@color-green: @brand-success;
+@color-lightblue: @brand-info;
+@color-orange: @brand-warning;
+@color-red: @brand-danger;
+
+@badge-size: 32px;
+.badge-custom-common {
+	width: @badge-size;
+	height: @badge-size;
+	border-radius: @badge-size;
+	line-height: @badge-size;
+	text-align: center;
+
+	& > .glyphicon {
+		position: relative;
+		top: -1px;
+	}
+}
+
+@badge-size-small: @badge-size / 2;
+.badge-custom-common-small {
+	width: @badge-size-small;
+	height: @badge-size-small;
+	border-radius: @badge-size-small;
+	line-height: @badge-size-small;
+	text-align: center;
+
+	margin-left: @badge-size-small / 2;
+
+	& > .glyphicon {
+		display: none;
+	}
+}
+
+.timeline {
+	width: 100%;
+
+	padding-left: 10px;
+	padding-right: 10px;
+
+	.begin, .end {
+		height: 20px;
+	}
+
+	@point-margin: 10px;
+	@point-spacing: 20px;
+
+	.point {
+		margin-top: -@point-spacing / 2;
+		margin-bottom: -@point-spacing / 2;
+
+		.point-badge {
+			display: inline-block;
+		}
+
+		.point-name {
+			display: inline-block;
+			padding-left: @point-margin;
+
+			line-height: @badge-size;
+			font-size: 14px;
+
+			vertical-align: top;
+		}
+
+		&.point-passing {
+			.point-name {
+				line-height: @badge-size-small;
+				font-size: 11px;
+			}
+		}
+	}
+
+	@route-size: 4px;
+	.route {
+		border-left: @route-size solid @gray-lighter;
+
+		@line-margins: (@badge-size - @route-size) / 2;
+		margin-left: @line-margins;
+		padding-left: @line-margins + @point-margin;
+
+		padding-top: @point-spacing;
+		padding-bottom: @point-spacing;
+	}
+}
+
 .badge-special {
-	background-color: green;
+	.badge-custom-common;
+	background-color: @color-red;
 }
 
 .badge-passing {
-	background-color: orange;
+	.badge-custom-common;
+	background-color: @color-orange;
 }
 
 .badge-tent {
-	background-color: red;
+	.badge-custom-common;
+	background-color: @color-green;
 }
 
 .badge-house {
-	background-color: blue;
+	.badge-custom-common;
+	background-color: @color-lightblue;
+}
+
+.badge-special-iconic {
+	.badge-custom-common;
+	background-color: @color-red;
+}
+
+.badge-passing-iconic {
+	.badge-custom-common-small;
+	background-color: @color-orange;
+}
+
+.badge-tent-iconic {
+	.badge-custom-common;
+	background-color: @color-green;
+}
+
+.badge-house-iconic {
+	.badge-custom-common;
+	background-color: @color-lightblue;
 }
 
 .modal {
