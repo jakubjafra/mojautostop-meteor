@@ -13,7 +13,11 @@
 							</a>
 						</div>
 						<div class="title">
-							{{ name }} <small class="text-muted">({{ distance }} km)</small>
+							<span id="name-box">
+								<span class="name-show">{{ name }}</span>
+								<input class="name-edit" type="text" value="{{ name }}" style="display: none;" />
+							</span>
+							<small class="text-muted">({{ stats.distance }} km)</small>
 						</div>
 					</div>
 				</div>
@@ -24,21 +28,33 @@
 							<div class="point point-{{ type }}">
 								<div class="point-badge">
 									{{{ pointTypeHtml }}}
-								</div><div class="point-name">
+								</div>
+								<div class="point-name">
 									{{ name }}
-									<a class="point-action point-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-point-modal">
-										<span class="glyphicon glyphicon-pencil"></span>
-									</a>
-									<a class="point-action point-action-remove btn btn-default btn-xs">
-										<span class="glyphicon glyphicon-remove"></span>
-									</a>
+									<span class="edit-helpers">
+										<a class="point-action point-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-point-modal">
+											<span class="glyphicon glyphicon-pencil"></span>
+										</a>
+										<a class="point-action point-action-remove btn btn-default btn-xs">
+											<span class="glyphicon glyphicon-remove"></span>
+										</a>
+									</span>
 								</div>
 							</div>
 							{{#unless isEnd}}
 								<div class="route">
-									<a class="point-action point-action-add btn btn-default btn-xs" data-toggle="modal" data-target="#new-point-modal">
-										<span class="glyphicon glyphicon-plus"></span>
-									</a>
+									<div class="route-line">
+									</div>
+									<div class="route-button">
+										<a class="point-action point-action-add btn btn-default btn-xs" data-toggle="modal" data-target="#new-point-modal">
+											<span class="glyphicon glyphicon-plus"></span>
+										</a>
+									</div>
+									<div class="route-stats-container">
+										<div class="route-stats">
+											<small class="text-muted">{{ route.stats.distance }} km</small>
+										</div>
+									</div>
 								</div>
 							{{/unless}}
 						{{/each}}
@@ -129,45 +145,23 @@
 			</div>
 		</div>
 		<div class="row point-type-selector">
-			<div class="col-xs-6">
-				<input type="radio" name="point-type" value="special"><br>
-				<span class="badge badge-special">
+			<div class="col-xs-4">
+				<input type="radio" name="point-type" value="normal" checked><br>
+				<span class="badge badge-normal">
 					<span class="glyphicon glyphicon-map-marker"></span>
-				</span><br>
-				Początek/koniec podróży<br>
-				<small>
-					Będzie stąd wywalone byś nie musiał zaznaczać że spałeś w swoim łóżku ;)
-				</small>
+				</span>
 			</div>
-			<div class="col-xs-6">
-				<input type="radio" name="point-type" value="passing"><br>
-				<span class="badge badge-passing">
-					<span class="glyphicon glyphicon-arrow-right"></span>
-				</span><br>
-				Tylko przejazdem<br>
-				<small>
-					Jeśli chcesz zaznaczyć że przejeżdzałeś konkretną trasą a domyślnie wyznaczona Ci nie odpowiada.
-				</small>
-			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-4">
 				<input type="radio" name="point-type" value="tent"><br>
 				<span class="badge badge-tent">
 					<span class="glyphicon glyphicon-flag"></span>
-				</span><br>
-				Na dziko<br>
-				<small>
-					Ciekawe miejsce warte zapamiętania? Koniecznie dodaj opis i zdjęcia!
-				</small>
+				</span>
 			</div>
-			<div class="col-xs-6">
+			<div class="col-xs-4">
 				<input type="radio" name="point-type" value="house"><br>
 				<span class="badge badge-house">
 					<span class="glyphicon glyphicon-home"></span>
-				</span><br>
-				Na bogato<br>
-				<small>
-					Ktoś obcy zaproponował Ci nocleg lub załatwiłeś go sobie na CS? Podziel się opinią!
-				</small>
+				</span>
 			</div>
 		</div>
 	</div>

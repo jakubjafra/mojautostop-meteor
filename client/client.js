@@ -53,26 +53,41 @@ client.js
 								});
 								point__.setMap(map);
 								directionsDisplays.push(point__);
+
+								google.maps.event.addListener(point__, 'click', function() {
+									editPointId.set(this.id);
+									$("#edit-point-modal").modal('show');
+								});
+							}
+
+							function processRoute(point, leg){
+								var dirs = leg.steps.map(function(item){
+									var ret = {};
+									ret.distance = item.distance.value;
+									ret.coordsBegin = item.start_location;
+									ret.coordsEnd = item.end_location;
+									return ret;
+								});
+
+								Meteor.call('AddTripRouteDirections', Trips.findOne({})._id, point.id, dirs);
 							}
 
 							function processLeg(leg, point){
-								distance.set(distance.get() + leg.distance.value);
-
 								addPoint(leg.end_location, point);
 							}
 
 							for(var i = 0; i < response.routes[0].legs.length; i++, k++){
 								var point = points[k];
 
-								if(i > 0)
-									processLeg(response.routes[0].legs[i], point);
-								else {
+								if(i == 0){
 									addPoint(response.routes[0].legs[i].start_location, point);
 									
 									k++;
 									point = points[k];
-									processLeg(response.routes[0].legs[i], point);
 								}
+
+								processLeg(response.routes[0].legs[i], point);
+								processRoute(points[k - 1], response.routes[0].legs[i]);
 							}
 						}
 					});
@@ -169,19 +184,13 @@ client.js
 				return item;
 			});
 		},
-		'distance': function(){
-			return Math.floor(distance.get() / 1000);
-		},
 		'pointTypeHtml': function(){
 			switch(this.type){
-				case "special":
-					return '<span class="badge badge-special-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
-
-				case "passing":
-					return '<span class="badge badge-passing-iconic"><span class="glyphicon glyphicon-arrow-right"></span></span>';
+				case "normal":
+					return '<span class="badge badge-normal-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
 
 				case "tent":
-					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
+					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
 
 				case "house":
 					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
@@ -207,6 +216,16 @@ client.js
 				insertAfterId.set(null);
 			else
 				insertAfterId.set(points[points.length - 1].id);
+		},
+		'click #name-box > .name-show': function(event){
+			$("#name-box > .name-show").hide();
+			$("#name-box > .name-edit").show().focus();
+		},
+		'change #name-box > .name-edit': function(event){
+			Meteor.call('ChangeTripName', this._id, $(event.currentTarget).val());
+			
+			$("#name-box > .name-show").show();
+			$("#name-box > .name-edit").hide();
 		}
 	});
 
@@ -215,7 +234,10 @@ client.js
 	Template.AddPointModal.events({
 		'click #new-point': function(event){
 			var placeName = $('#new-point-modal').find('.trip-name.selectize-control.single.selectized').val();
-			var placeType = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+			
+			var placeType = "normal";
+			if($('#new-point-modal').find('input[name="point-type"]:checked').length == 1)
+				placeType = $('#new-point-modal').find('input[name="point-type"]:checked').val();
 
 			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), new RoutePoint(
 				placeName,
@@ -242,7 +264,10 @@ client.js
 	Template.EditPointModal.events({
 		'click #edit-point': function(event){
 			var placeName = $('#edit-point-modal').find('.trip-name.selectize-control.single.selectized').val();
-			var placeType = $('#edit-point-modal').find('input[name="point-type"]:checked').val();
+			
+			var placeType = "normal";
+			if($('#edit-point-modal').find('input[name="point-type"]:checked').length == 1)
+				placeType = $('#edit-point-modal').find('input[name="point-type"]:checked').val();
 
 			Meteor.call('EditRoutePoint', this._id, editPointId.get(), new RoutePoint(
 				placeName,
@@ -306,6 +331,7 @@ client.js
 	}
 })();
 
+/*
 (function(){
 	Template.NewTripModal.events({
 		'click #new-trip': function(){
@@ -316,11 +342,14 @@ client.js
 		}
 	});
 })();
+*/
 
 (function(){
 	Template.Dashboard.events({
 		'click .trip-add-new a': function(){
-			$('#new-trip-modal').modal('show');
+			Meteor.call('NewTrip', function(error, result){
+				Router.go('edit-trip', { _id: result });
+			});
 		}
 	});
 

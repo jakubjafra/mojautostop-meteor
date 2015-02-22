@@ -196,6 +196,9 @@ style.less
 
 		.point-badge {
 			display: inline-block;
+
+			position: relative;
+			z-index: 1;
 		}
 
 		.point-name {
@@ -206,6 +209,10 @@ style.less
 			font-size: 14px;
 
 			vertical-align: top;
+
+			.edit-helpers {
+				visibility: hidden;
+			}
 		}
 
 		&.point-passing {
@@ -214,34 +221,75 @@ style.less
 				font-size: 11px;
 			}
 		}
+
+		&:hover {
+			.point-name {
+				.edit-helpers {
+					visibility: visible;
+				}
+			}
+		}
 	}
 
 	@route-size: 4px;
 	.route {
-		border-left: @route-size solid @gray-lighter;
+		position: relative;
+		height: 70px;
 
-		@line-margins: (@badge-size - @route-size) / 2;
-		margin-left: @line-margins;
-		padding-left: @line-margins + @point-margin;
+		.route-line {
+			height: 100%;
 
-		padding-top: @point-spacing;
-		padding-bottom: @point-spacing;
+			border-left: @route-size solid @gray-lighter;
+
+			@line-margins: (@badge-size - @route-size) / 2;
+			margin-left: @line-margins;
+			padding-left: @line-margins + @point-margin;
+
+			padding-top: @point-spacing;
+			padding-bottom: @point-spacing;
+		}
+
+		.route-button {
+			position: absolute;
+			top: 50%;
+			left: @point-spacing - @route-size;
+
+			margin-top: -12px;
+			margin-left: -12px;
+
+			visibility: hidden;
+		}
+
+		&:hover {
+			.route-button {
+				visibility: visible;
+			}
+		}
+
+		.route-stats-container {
+			position: absolute;
+			top: 0px;
+			left: (@route-size + 2 * @point-margin + @point-spacing);
+
+			height: 100%;
+			display: table;
+
+			.route-stats {
+				display: table-cell;
+				vertical-align: middle;
+			}
+		}
 	}
 }
 
-.badge-special {
+.badge-normal {
 	.badge-custom-common;
-	background-color: @color-red;
-}
-
-.badge-passing {
-	.badge-custom-common;
-	background-color: @color-orange;
+	background-color: @color-green;
 }
 
 .badge-tent {
 	.badge-custom-common;
-	background-color: @color-green;
+	background-color: @color-red;
 }
 
 .badge-house {
@@ -249,19 +297,14 @@ style.less
 	background-color: @color-lightblue;
 }
 
-.badge-special-iconic {
+.badge-normal-iconic {
 	.badge-custom-common;
-	background-color: @color-red;
-}
-
-.badge-passing-iconic {
-	.badge-custom-common-small;
-	background-color: @color-orange;
+	background-color: @color-green;
 }
 
 .badge-tent-iconic {
 	.badge-custom-common;
-	background-color: @color-green;
+	background-color: @color-red;
 }
 
 .badge-house-iconic {
