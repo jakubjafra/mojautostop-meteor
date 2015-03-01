@@ -4,6 +4,10 @@ server.js
 
 */
 
+var CONFIG = {
+	NEW_ID_ON_PUBLISH: true
+};
+
 function bindRoutesToPoints(points){
 	if(points.length >= 2){
 		for(var i = 0; i < points.length; i++){
@@ -40,6 +44,65 @@ Meteor.methods({
 			return Trips.insert(new Trip("Nienazwany trip", Meteor.userId()));
 		}
 	},
+
+	// ~~~
+
+	'ChangeTripName': function(tripId, newTripName){
+		Trips.update(tripId, {
+			$set: { name: newTripName }
+		});
+
+		console.log("Renamed #" + tripId + " to \"" + newTripName + "\"");
+	},
+
+	'PublishTrip': function(tripId){
+		// 1. publikowanie = obliczanie statystyk
+		Meteor.call('GenerateStatsFor', tripId, function(error, trip){
+			// 2. usunięcie starego tripa (jeśli w ogóle jakiś był)
+			if(trip.publish.id !== null)
+				PublishedTrips.remove(trip.publish.id);
+
+			// 3. publikowanie = escapowanie danych
+			trip._id = trip.publish.id;
+			if(trip.publish.id === null || CONFIG.NEW_ID_ON_PUBLISH)
+				delete trip._id;
+
+			trip.points = trip.points.map(function(point){
+				delete point.route.gmap_directions;
+				return point;
+			});
+
+			// publish jest teraz w "drugą stronę"
+			trip.publish.visible = true;
+			trip.publish.id = tripId;
+
+			// 3. publikowanie = kopiowanie escapeniętych danych
+			var publishTripId = PublishedTrips.insert(trip);
+
+			// ~~~
+
+			Trips.update(tripId, {
+				$set: {
+					'publish.visible': true,
+					'publish.id': publishTripId
+				}
+			});
+		});
+	},
+	'UnPublishTrip': function(tripId){
+		var trip = Trips.findOne(tripId);
+
+		PublishedTrips.update(trip.publish.id, {
+			$set: { 'publish.visible': false }
+		});
+
+		Trips.update(tripId, {
+			$set: { 'publish.visible': false }
+		});
+	},
+
+	// ~~~
+
 	'NewRoutePoint': function(tripId, insertAfter, newPoint){
 		var points = Trips.findOne(tripId).points;
 
@@ -108,13 +171,6 @@ Meteor.methods({
 			$set: { points: newPoints }
 		});
 	},
-	'ChangeTripName': function(tripId, newTripName){
-		Trips.update(tripId, {
-			$set: { name: newTripName }
-		});
-
-		console.log("Renamed #" + tripId + " to \"" + newTripName + "\"");
-	},
 	'AddTripRouteDirections': function(tripId, pointId, directions){
 		var newPoints = Trips.findOne(tripId).points;
 
@@ -132,90 +188,104 @@ Meteor.methods({
 
 	// ~~~
 
-	'i_GeneratePerCountryStats': function(){
+	'GenerateStatsFor': function(tripId){
+		var trip = Trips.findOne(tripId);
+
+		trip.points = trip.points.map(function(point){
+			if(point.route.endId !== null && point.route.gmap_directions.length > 0){
+				var begin = point.route.gmap_directions[0].coordsBegin;
+				var end = point.route.gmap_directions[point.route.gmap_directions.length - 1].coordsEnd;
+
+				var countryBegin = getCountryCodeForCoords(begin);
+				var countryEnd = getCountryCodeForCoords(end);
+
+				// head odcinka (punkt) jest w jakimś konkretnym kraju
+				point.stats.countryCode = countryBegin;
+
+				// ~~~
+
+				var dist = point.route.gmap_directions.reduce(function(prev, curr){
+					return prev + (curr.distance / 1000);
+				}, 0);
+
+				// długość danego odcinka
+				point.route.stats.distance = dist;
+
+				// ~~~
+
+				if(countryBegin === countryEnd){
+					// prosta sprawa...
+					point.route.stats.countries.push({
+						countryCode: countryBegin,
+						distance: dist
+					});
+				} else {
+					// już trochę trudniej...
+					var countryStats = {};
+					var lastCountry = countryBegin;
+
+					for(var i = 0; i < point.route.gmap_directions.length; i++){
+						var countryBegin = getCountryCodeForCoords(point.route.gmap_directions[i].coordsBegin);
+						var countryEnd = getCountryCodeForCoords(point.route.gmap_directions[i].coordsEnd);
+
+						if(countryStats[countryBegin] == undefined)
+							countryStats[countryBegin] = 0;
+
+						if(countryStats[countryEnd] == undefined)
+							countryStats[countryEnd] = 0;
+
+						if(countryBegin === countryEnd)
+							countryStats[countryBegin] += point.route.gmap_directions[i].distance;
+						else {
+							// to jest still chujowe
+							countryStats[countryBegin] += Math.floor(point.route.gmap_directions[i].distance / 2);
+							countryStats[countryEnd] += Math.floor(point.route.gmap_directions[i].distance / 2);
+						}
+					}
+
+					point.route.stats.countries = [];
+					for(var country in countryStats){
+						point.route.stats.countries.push({
+							countryCode: country,
+							distance: countryStats[country]
+						});
+					}
+				}
+			} else {
+				// ostatni punkt na trasie:
+				point.stats.countryCode = getCountryCodeForName(point.name);
+			}
+
+			return point;
+		});
+
+		trip.stats.distance = trip.points.reduce(function(prev, point){
+			return prev + point.route.stats.distance;
+		}, 0);
+
+		Trips.update(trip._id, trip);
+
+		return trip;
+	},
+
+	// ~~~
+
+	'g_GenerateStatsFor': function(){
 		var trips = Trips.find({}).fetch();
 
 		trips.forEach(function(trip){
-			trip.points = trip.points.map(function(point){
-				if(point.route.endId !== null && point.route.gmap_directions.length > 0){
-					var begin = point.route.gmap_directions[0].coordsBegin;
-					var end = point.route.gmap_directions[point.route.gmap_directions.length - 1].coordsEnd;
-
-					var countryBegin = getCountryCodeForCoords(begin);
-					var countryEnd = getCountryCodeForCoords(end);
-
-					// head odcinka (punkt) jest w jakimś konkretnym kraju
-					point.stats.countryCode = countryBegin;
-
-					// ~~~
-
-					var dist = point.route.gmap_directions.reduce(function(prev, curr){
-						return prev + (curr.distance / 1000);
-					}, 0);
-
-					// długość danego odcinka
-					point.route.stats.distance = dist;
-
-					// ~~~
-
-					if(countryBegin === countryEnd){
-						// prosta sprawa...
-						point.route.stats.countries.push({
-							countryCode: countryBegin,
-							distance: dist
-						});
-					} else {
-						// już trochę trudniej...
-						var countryStats = {};
-						var lastCountry = countryBegin;
-
-						for(var i = 0; i < point.route.gmap_directions.length; i++){
-							var countryBegin = getCountryCodeForCoords(point.route.gmap_directions[i].coordsBegin);
-							var countryEnd = getCountryCodeForCoords(point.route.gmap_directions[i].coordsEnd);
-
-							if(countryStats[countryBegin] == undefined)
-								countryStats[countryBegin] = 0;
-
-							if(countryStats[countryEnd] == undefined)
-								countryStats[countryEnd] = 0;
-
-							if(countryBegin === countryEnd)
-								countryStats[countryBegin] += point.route.gmap_directions[i].distance;
-							else {
-								// to jest still chujowe
-								countryStats[countryBegin] += Math.floor(point.route.gmap_directions[i].distance / 2);
-								countryStats[countryEnd] += Math.floor(point.route.gmap_directions[i].distance / 2);
-							}
-						}
-
-						point.route.stats.countries = [];
-						for(var country in countryStats){
-							point.route.stats.countries.push({
-								countryCode: country,
-								distance: countryStats[country]
-							});
-						}
-					}
-				} else {
-					// ostatni punkt na trasie:
-					point.stats.countryCode = getCountryCodeForName(point.name);
-				}
-
-				return point;
-			});
-
-			trip.stats.distance = trip.points.reduce(function(prev, point){
-				return prev + point.route.stats.distance;
-			}, 0);
-
-			Trips.update(trip._id, trip);
+			Meteor.call(trip._id);
 		});
 	}
 });
 
 Meteor.startup(function(){
 	Meteor.publish("get-trip-data", function(tripId){
-		return Trips.find({_id: tripId});
+		return Trips.find({ _id: tripId });
+	});
+
+	Meteor.publish("get-published-trip-data", function(publishTripId){
+		return PublishedTrips.find({ _id: publishTripId, 'publish.visible': true });
 	});
 
 	Meteor.publish("mine-trips", function(){

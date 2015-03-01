@@ -168,6 +168,8 @@ client.js
 
 		isRendered = true;
 		makeRoute();
+
+		$('[data-toggle="tooltip"]').tooltip();
 	};
 
 	Template.EditTrip.helpers({
@@ -221,8 +223,10 @@ client.js
 				insertAfterId.set(points[points.length - 1].id);
 		},
 		'click #name-box > .name-show': function(event){
-			$("#name-box > .name-show").hide();
-			$("#name-box > .name-edit").show().focus();
+			if(event.currentTarget === event.target){
+				$("#name-box > .name-show").hide();
+				$("#name-box > .name-edit").show().focus();
+			}
 		},
 		'keyup #name-box > .name-edit': function(event){
 			if(event.which == 13){
@@ -370,6 +374,17 @@ client.js
 	Template.ModalPointCommonContents.helpers({
 		'atLeastOnePoint': function(){
 			return Trips.findOne({}).points.length > 0;
+		}
+	});
+
+	// ~~~
+
+	Template.PublishModal.events({
+		'click #do-publish': function(){
+			Meteor.call('PublishTrip', Trips.findOne({})._id);
+		},
+		'click #stop-publish': function(){
+			Meteor.call('UnPublishTrip', Trips.findOne({})._id);
 		}
 	})
 })();

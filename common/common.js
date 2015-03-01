@@ -11,6 +11,15 @@ Trip = function(name, userId){
 	// id użytkownika-właściciela
 	this.user = userId;
 
+	// czy został upubliczniony (false | _id)
+	this.publish = {
+		// czy jest widoczny?
+		visible: false,
+
+		// id PublishTrip
+		id: null
+	};
+
 	// punkty na trasie
 	this.points = [];
 
@@ -21,7 +30,7 @@ Trip = function(name, userId){
 	};
 };
 
-// point.id != point._id
+// FIXME: point.id != point._id <-- fuckup
 RoutePoint = function(name){
 	// id (w sumie nie wiem dlaczego...)
 	this.id = CryptoJS.SHA1(name + (new Date).getTime()).toString();
@@ -67,4 +76,7 @@ Route = function(beginId, endId){
 	this.gmap_directions = [];
 };
 
+// ~~~
+
 Trips = new Mongo.Collection("trips");
+PublishedTrips = new Mongo.Collection("public_trips");

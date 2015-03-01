@@ -8,17 +8,32 @@
 				<div class="option-header">
 					<div class="options-container">
 						<div class="back-button">
-							<a href="/">
+							{{#linkTo route='dashboard'}}
 								<span class="glyphicon glyphicon-align-justify"></span>
-							</a>
+							{{/linkTo}}
 						</div>
 						<div class="title">
 							<span id="name-box">
-								<span class="name-show">
+								<div class="name-show">
 									{{ name }}
-									&nbsp;
 									<small class="text-muted">({{ parseInt stats.distance }} km)</small>
-								</span>
+
+									<div class="pull-right">
+										{{#if publish.visible}}
+											<div data-toggle="tooltip" data-placement="left" title="Publiczny trip.">
+												<a class="publish btn btn-default btn-xs" data-toggle="modal" data-target="#publish-modal">
+													<span class="glyphicon glyphicon-globe"></span>
+												</a>
+											</div>
+										{{else}}
+											<div data-toggle="tooltip" data-placement="left" title="Upublicznij swoją podróż by podzielić się nią z innymi.">
+												<a class="publish btn btn-primary btn-xs" data-toggle="modal" data-target="#publish-modal">
+													<span class="glyphicon glyphicon-eye-close"></span>
+												</a>
+											</div>
+										{{/if}}
+									</div>
+								</div>
 								<input class="name-edit form-control" type="text" value="{{ name }}" style="display: none;" />
 							</span>
 						</div>
@@ -76,6 +91,7 @@
 
 	{{> AddPointModal}}
 	{{> EditPointModal}}
+	{{> PublishModal}}
 </template>
 
 <template name="AddPointModal">
@@ -185,5 +201,42 @@
 				</div>
 			</div>
 		{{/if}}
+	</div>
+</template>
+
+<template name="PublishModal">
+	<div class="modal fade" id="publish-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">
+        				Publikacja tripa
+        			</h4>
+				</div>
+				<div class="modal-body" style="text-align: justify;">
+					Publikacja tripa pozwala podzielić się swoją podróżą z innymi. Po publikacji zostanie wygenerowany <strong>publiczny link</strong> do trasy oraz wygenerowane zostaną <strong>szczegółowe statystyki</strong> wyprawy. Kiedy wprowadzisz zmiany do raz opublikowanej trasy wejdą one w życie dopiero po ponownej publikacji.
+				
+					{{#if publish.visible}}
+						<hr>
+						<div class="form-group">
+							<label>
+								Publiczny link do trasy
+							</label>
+							<input type="text" class="form-control" disabled="disabled" value="{{urlFor route='show-trip' _id=publish.id}}">
+						</div>
+						<br>
+						<button class="btn btn-danger" id="stop-publish">
+							Przestań publikować trasę
+						</button>
+					{{else}}
+						<hr>
+						<button class="btn btn-success" id="do-publish">
+							Opublikuj trasę
+						</button>
+					{{/if}}
+				</div>
+			</div>
+		</div>
 	</div>
 </template>

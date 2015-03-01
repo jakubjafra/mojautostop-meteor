@@ -1,8 +1,12 @@
-Router.route('/index', function(){
+Router.route('/', function(){
 	this.render('LandingPage');
 });
 
-Router.route('/', {
+Router.plugin('dataNotFound', {
+	notFoundTemplate: 'NotFound'
+});
+
+Router.route('/dashboard', {
 	name: 'dashboard',
 	template: 'Dashboard',
 
@@ -27,4 +31,19 @@ Router.route('/edit-trip/:_id', {
 	action: function(){
 		this.render();
 	}
-})
+});
+
+Router.route('/show/:_id', {
+	name: 'show-trip',
+	template: 'ShowTrip',
+
+	waitOn: function(){
+		return Meteor.subscribe('get-published-trip-data', this.params._id);
+	},
+	data: function(){
+		return PublishedTrips.findOne({ _id: this.params._id });
+	},
+	action: function(){
+		this.render();
+	}
+});
