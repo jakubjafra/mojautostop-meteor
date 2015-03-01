@@ -22,7 +22,7 @@ Trip = function(name, userId){
 };
 
 // point.id != point._id
-RoutePoint = function(name, type){
+RoutePoint = function(name){
 	// id (w sumie nie wiem dlaczego...)
 	this.id = CryptoJS.SHA1(name + (new Date).getTime()).toString();
 
@@ -35,10 +35,10 @@ RoutePoint = function(name, type){
 	this.name = name;
 
 	// dane o punkcie:
-	this.type = type;
+	this.type = "normal";
 
 	// ile się czekało w danym punkcie
-	this.waitingTime = 0;
+	this.waitingTime = null;
 
 	// statystyki generowane przez serwer
 	this.stats = {

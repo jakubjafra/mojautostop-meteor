@@ -14,10 +14,13 @@
 						</div>
 						<div class="title">
 							<span id="name-box">
-								<span class="name-show">{{ name }}</span>
-								<input class="name-edit" type="text" value="{{ name }}" style="display: none;" />
+								<span class="name-show">
+									{{ name }}
+									&nbsp;
+									<small class="text-muted">({{ parseInt stats.distance }} km)</small>
+								</span>
+								<input class="name-edit form-control" type="text" value="{{ name }}" style="display: none;" />
 							</span>
-							<small class="text-muted">({{ parseInt stats.distance }} km)</small>
 						</div>
 					</div>
 				</div>
@@ -134,14 +137,20 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12">
-				<label for="name" class="divider">Nazwa miejsca <span class="important">*</span></label>
+				<label class="divider">
+					Nazwa miejsca
+					&nbsp;
+					<span class="important">*</span>
+				</label>
 				<select class="trip-name">
 				</select>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<label class="divider">Typ punktu <span class="important">*</span></label>
+				<label class="divider">
+				Typ punktu
+				</label>
 			</div>
 		</div>
 		<div class="row point-type-selector">
@@ -164,5 +173,17 @@
 				</span>
 			</div>
 		</div>
+		{{#if atLeastOnePoint}}
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="form-group">
+						<label class="control-label divider">
+							Ile czekałeś?
+						</label>
+						<input type="text" name="point-waiting-time" class="point-waiting-time form-control">
+					</div>
+				</div>
+			</div>
+		{{/if}}
 	</div>
 </template>

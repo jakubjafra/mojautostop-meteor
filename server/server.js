@@ -52,8 +52,15 @@ Meteor.methods({
 			var currPoint = points[i];
 
 			newPoints.push(currPoint);
-			if(insertAfter != null && currPoint.id == insertAfter)
+			if(insertAfter != null && currPoint.id == insertAfter){
+				// dodaje się przejazd między punktem N-1 a N
+				// więc trzeba czas czekania dodać do punktu N-1 a nie
+				// zostawiac go w N
+				currPoint.waitingTime = newPoint.waitingTime;
+				newPoint.waitingTime = null;
+
 				newPoints.push(newPoint);
+			}
 		}
 
 		bindRoutesToPoints(newPoints);

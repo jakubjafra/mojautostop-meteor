@@ -224,11 +224,13 @@ client.js
 			$("#name-box > .name-show").hide();
 			$("#name-box > .name-edit").show().focus();
 		},
-		'change #name-box > .name-edit': function(event){
-			Meteor.call('ChangeTripName', this._id, $(event.currentTarget).val());
-			
-			$("#name-box > .name-show").show();
-			$("#name-box > .name-edit").hide();
+		'keyup #name-box > .name-edit': function(event){
+			if(event.which == 13){
+				Meteor.call('ChangeTripName', this._id, $(event.currentTarget).val());
+
+				$("#name-box > .name-show").show();
+				$("#name-box > .name-edit").hide();
+			}
 		}
 	});
 
@@ -236,16 +238,30 @@ client.js
 
 	Template.AddPointModal.events({
 		'click #new-point': function(event){
+			// pola wymagane:
 			var placeName = $('#new-point-modal').find('.trip-name.selectize-control.single.selectized').val();
 			
-			var placeType = "normal";
-			if($('#new-point-modal').find('input[name="point-type"]:checked').length == 1)
-				placeType = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+			// ~~~
 
-			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), new RoutePoint(
-				placeName,
-				placeType
-			));
+			var routePoint = new RoutePoint(placeName);
+
+			// pola dodatkowe:
+
+			if($('#new-point-modal').find('input[name="point-type"]:checked').length == 1)
+				routePoint.type = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+
+			if(	$('#new-point-modal').find('input[name="point-waiting-time"]').length == 1 &&
+				$('#new-point-modal').find('input[name="point-waiting-time"]').val().length > 0){
+				var inputValue = $('#new-point-modal').find('input[name="point-waiting-time"]').val();
+
+				try {
+					routePoint.waitingTime = juration.parse(inputValue);
+				} catch(error){
+					// propably do something
+				}
+			}
+
+			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), routePoint);
 
 			// ~~~
 
@@ -266,6 +282,9 @@ client.js
 
 	Template.EditPointModal.events({
 		'click #edit-point': function(event){
+			console.log("todo");
+
+			/*
 			var placeName = $('#edit-point-modal').find('.trip-name.selectize-control.single.selectized').val();
 			
 			var placeType = "normal";
@@ -281,6 +300,7 @@ client.js
 
 			$('#edit-point-modal').find('.trip-name').val("");
 			editPointId.set(null);
+			*/
 		},
 		'click #cancel-editing': function(event){
 			editPointId.set(null);
@@ -331,7 +351,27 @@ client.js
 				callback();
 			}
 		});
-	}
+	};
+
+	Template.ModalPointCommonContents.events({
+		'keyup .point-waiting-time': function(event){
+			$(event.currentTarget).parent().removeClass("has-error");
+
+			if($(event.currentTarget).val().length > 0){
+				try {
+					juration.parse($(event.currentTarget).val());
+				} catch(error){
+					$(event.currentTarget).parent().addClass("has-error");
+				}
+			}
+		}
+	});
+
+	Template.ModalPointCommonContents.helpers({
+		'atLeastOnePoint': function(){
+			return Trips.findOne({}).points.length > 0;
+		}
+	})
 })();
 
 /*
