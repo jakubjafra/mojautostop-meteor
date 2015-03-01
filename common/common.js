@@ -36,6 +36,14 @@ RoutePoint = function(name, type){
 
 	// dane o punkcie:
 	this.type = type;
+
+	// ile się czekało w danym punkcie
+	this.waitingTime = 0;
+
+	// statystyki generowane przez serwer
+	this.stats = {
+		countryCode: ""
+	};
 };
 
 Route = function(beginId, endId){

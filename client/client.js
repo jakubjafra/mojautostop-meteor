@@ -195,6 +195,9 @@ client.js
 				case "house":
 					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
 			}
+		},
+		'parseInt': function(x){
+			return Math.round(x);
 		}
 	});
 

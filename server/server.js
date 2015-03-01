@@ -16,13 +16,22 @@ function bindRoutesToPoints(points){
 	}
 }
 
-function getCountryCodeForPoint(coords){
-	var lat = coords.k || coords.lat || undefined;
-	var lon = coords.C || coords.lon || undefined;
+function getCountryCodeForCoords(coords){
+	var lat = coords.k || coords.lat;
+	var lon = coords.C || coords.lon;
+
+	if(typeof lat !== "number" || typeof lon !== "number")
+		return "";
 
 	var ret = HTTP.get("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
 
 	return ret.data.address.country_code;
+}
+
+function getCountryCodeForName(name){
+	var ret = HTTP.get("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+
+	return ret.data[0].address.country_code;
 }
 
 Meteor.methods({
@@ -122,19 +131,26 @@ Meteor.methods({
 		trips.forEach(function(trip){
 			trip.points = trip.points.map(function(point){
 				if(point.route.endId !== null && point.route.gmap_directions.length > 0){
+					var begin = point.route.gmap_directions[0].coordsBegin;
+					var end = point.route.gmap_directions[point.route.gmap_directions.length - 1].coordsEnd;
+
+					var countryBegin = getCountryCodeForCoords(begin);
+					var countryEnd = getCountryCodeForCoords(end);
+
+					// head odcinka (punkt) jest w jakimś konkretnym kraju
+					point.stats.countryCode = countryBegin;
+
+					// ~~~
+
 					var dist = point.route.gmap_directions.reduce(function(prev, curr){
 						return prev + (curr.distance / 1000);
 					}, 0);
 
+					// długość danego odcinka
 					point.route.stats.distance = dist;
 
 					// ~~~
 
-					var begin = point.route.gmap_directions[0].coordsBegin;
-					var end = point.route.gmap_directions[point.route.gmap_directions.length - 1].coordsEnd;
-
-					var countryBegin = getCountryCodeForPoint(begin);
-					var countryEnd = getCountryCodeForPoint(end);
 					if(countryBegin === countryEnd){
 						// prosta sprawa...
 						point.route.stats.countries.push({
@@ -147,22 +163,19 @@ Meteor.methods({
 						var lastCountry = countryBegin;
 
 						for(var i = 0; i < point.route.gmap_directions.length; i++){
-							var countryBegin = getCountryCodeForPoint(point.route.gmap_directions[i].coordsBegin);
-							var countryEnd = getCountryCodeForPoint(point.route.gmap_directions[i].coordsEnd);
+							var countryBegin = getCountryCodeForCoords(point.route.gmap_directions[i].coordsBegin);
+							var countryEnd = getCountryCodeForCoords(point.route.gmap_directions[i].coordsEnd);
 
-							if(countryBegin === countryEnd){
-								if(countryStats[countryBegin] == undefined)
-									countryStats[countryBegin] = 0;
+							if(countryStats[countryBegin] == undefined)
+								countryStats[countryBegin] = 0;
 
+							if(countryStats[countryEnd] == undefined)
+								countryStats[countryEnd] = 0;
+
+							if(countryBegin === countryEnd)
 								countryStats[countryBegin] += point.route.gmap_directions[i].distance;
-							}
 							else {
-								if(countryStats[countryBegin] == undefined)
-									countryStats[countryBegin] = 0;
-
-								if(countryStats[countryEnd] == undefined)
-									countryStats[countryEnd] = 0;
-
+								// to jest still chujowe
 								countryStats[countryBegin] += Math.floor(point.route.gmap_directions[i].distance / 2);
 								countryStats[countryEnd] += Math.floor(point.route.gmap_directions[i].distance / 2);
 							}
@@ -176,6 +189,9 @@ Meteor.methods({
 							});
 						}
 					}
+				} else {
+					// ostatni punkt na trasie:
+					point.stats.countryCode = getCountryCodeForName(point.name);
 				}
 
 				return point;

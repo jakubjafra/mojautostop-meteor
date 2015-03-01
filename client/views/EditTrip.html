@@ -17,7 +17,7 @@
 								<span class="name-show">{{ name }}</span>
 								<input class="name-edit" type="text" value="{{ name }}" style="display: none;" />
 							</span>
-							<small class="text-muted">({{ stats.distance }} km)</small>
+							<small class="text-muted">({{ parseInt stats.distance }} km)</small>
 						</div>
 					</div>
 				</div>
@@ -52,7 +52,7 @@
 									</div>
 									<div class="route-stats-container">
 										<div class="route-stats">
-											<small class="text-muted">{{ route.stats.distance }} km</small>
+											<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
 										</div>
 									</div>
 								</div>
