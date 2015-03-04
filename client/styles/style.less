@@ -37,6 +37,58 @@ style.less
 	}
 }
 
+#route-desc {
+	// background-color: rgba(255, 255, 255, 0.15);
+	background: linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 1) 0%,
+		rgba(255, 255, 255, 0.7) 15%,
+		rgba(255, 255, 255, 0.7) 85%,
+		rgba(255, 255, 255, 1) 100%
+	);
+
+	.begin {
+		margin-top: 50px;
+	}
+
+	.end {
+		margin-bottom: 50px;
+	}
+}
+
+#map-affix-container {
+	width: 100%;
+	height: 100%;
+	background-color: red;
+	z-index: -1000;
+
+	#map-affix-canvas {
+		width: 100%;
+		height: 100%;
+	}
+
+	&.affix-top {
+		position: absolute;
+		top: 520px;
+		left: 0px;
+	}
+
+	&.affix-bottom {
+		position: absolute;
+		bottom: 40px;
+		left: 0px;
+	}
+}
+
+.show-trip-container {
+	#map-canvas {
+		width: 100%;
+		height: 500px;
+
+		z-index: 0;
+	}
+}
+
 .edit-trip-container {
 	position: absolute;
 	display: block;

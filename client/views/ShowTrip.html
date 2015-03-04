@@ -1,3 +1,70 @@
 <template name="ShowTrip">
-	show trip {{ _id }}
+	<div id="map-affix-container">
+		<div id="map-affix-canvas"></div>
+	</div>
+
+	<div class="container-fluid show-trip-container" style="background-color: red;">
+		<div class="row">
+			<div class="col-xs-12">
+				menu
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-8">
+				<div id="map-canvas"></div>
+			</div>
+			<div class="col-xs-4">
+				info
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid" id="route-desc">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="timeline-container">
+					<div class="timeline">
+						<div class="begin"></div>
+						{{#each points}}
+							<div class="point point-{{ type }}">
+								<div class="point-badge">
+									{{{ pointTypeHtml }}}
+								</div>
+								<div class="point-name">
+									{{ name }}
+									<span class="edit-helpers">
+									</span>
+								</div>
+							</div>
+							{{#unless isEnd}}
+								<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
+									<div class="route-line">
+									</div>
+									<div class="route-button">
+									</div>
+									<div class="route-stats-container">
+										<div class="route-stats">
+											<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
+										</div>
+									</div>
+								</div>
+							{{/unless}}
+						{{/each}}
+						<div class="end"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12" style="background-color: green;">
+				statystyki
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12" style="background-color: blue;">
+				stopka
+			</div>
+		</div>
+	</div>
 </template>

@@ -1,5 +1,10 @@
-Router.route('/', function(){
-	this.render('LandingPage');
+Router.route('/', {
+	name: 'index',
+	template: 'LandingPage',
+
+	action: function(){
+		this.render();
+	}
 });
 
 Router.plugin('dataNotFound', {

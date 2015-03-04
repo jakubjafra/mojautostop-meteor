@@ -67,10 +67,12 @@ Meteor.methods({
 			if(trip.publish.id === null || CONFIG.NEW_ID_ON_PUBLISH)
 				delete trip._id;
 
+			/*
 			trip.points = trip.points.map(function(point){
 				delete point.route.gmap_directions;
 				return point;
 			});
+			*/
 
 			// publish jest teraz w "drugą stronę"
 			trip.publish.visible = true;
