@@ -1,5 +1,5 @@
-<template name="StaticTopBar">
-	<nav class="navbar navbar-static-top navbar-default {{#if currentUser}} navbar-inverse {{/if}}">
+<template name="StaticTopBar_NoUnderlay">
+	<nav class="navbar navbar-default navbar-static-top"> <!-- {{#if currentUser}} navbar-inverse {{/if}} -->
 		<div class="container">
 			<div class="navbar-header">
 				{{#linkTo route='index' class='navbar-brand'}}
@@ -9,20 +9,31 @@
 
 			{{#if currentUser}}
 				<ul class="nav navbar-nav">
-					<li class="active">
+					<li>
 						{{#linkTo route='dashboard' class='text-uppercase'}}
 							moje trasy
 						{{/linkTo}}
 					</li>
-					<li><a href="#" class="text-uppercase">
-						wskazówki
-					</a></li>
-					<li><a href="#" class="text-uppercase">
-						list
-					</a></li>
-					<li><a href="#" class="text-uppercase">
+					<li class="disabled">
+						<a href="#" class="text-uppercase" disabled="disabled">
+							wskazówki
+						</a>
+					</li>
+					<li class="disabled">
+						<a href="#" class="text-uppercase" disabled="disabled">
+							list
+						</a>
+					</li>
+					<li class="disabled">
+						<a href="#" class="text-uppercase" disabled="disabled">
 						ubezpieczenie
-					</a></li>
+						</a>
+					</li>
+					<li>
+						{{#linkTo route='buy-book' class='text-uppercase'}}
+							książeczka
+						{{/linkTo}}
+					</li>
 				</ul>
 			{{/if}}
 
@@ -31,4 +42,12 @@
 			</ul>
 		</div>
 	</nav>
+</template>
+
+<template name="StaticTopBar">
+	{{> StaticTopBar_NoUnderlay}}
+
+	<div class="navbar-top-underlay">
+		&nbsp;
+	</div>
 </template>

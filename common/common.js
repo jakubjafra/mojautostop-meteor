@@ -80,3 +80,5 @@ Route = function(beginId, endId){
 
 Trips = new Mongo.Collection("trips");
 PublishedTrips = new Mongo.Collection("public_trips");
+
+Books = new Mongo.Collection("books");

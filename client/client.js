@@ -541,3 +541,11 @@ RouteMapRenderer = function(){
 		}
 	});
 })();
+
+(function(){
+	Template.BuyBook.events({
+		'click #book_submit': function(event){
+			// ...
+		}
+	});
+})();

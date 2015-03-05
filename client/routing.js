@@ -1,3 +1,7 @@
+Router.plugin('dataNotFound', {
+	notFoundTemplate: 'NotFound'
+});
+
 Router.route('/', {
 	name: 'index',
 	template: 'LandingPage',
@@ -7,16 +11,23 @@ Router.route('/', {
 	}
 });
 
-Router.plugin('dataNotFound', {
-	notFoundTemplate: 'NotFound'
-});
-
 Router.route('/dashboard', {
 	name: 'dashboard',
 	template: 'Dashboard',
 
-	waitOn: function(){
+	data: function(){
 		return Meteor.subscribe('mine-trips');
+	},
+	action: function(){
+		this.render();
+	}
+});
+
+Router.route('/buy-book', {
+	name: 'buy-book',
+	template: 'BuyBook',
+
+	waitOn: function(){
 	},
 	action: function(){
 		this.render();

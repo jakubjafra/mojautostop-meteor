@@ -4,5 +4,17 @@
 </head>
 
 <template name="LandingPage">
-	{{> StaticTopBar}}
+	{{> StaticTopBar_NoUnderlay}}
+
+	{{> LP_Header}}
+</template>
+
+<template name="LP_Header">
+	<header class="container-fluid landing-page">
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<img src="/big_logo.png" style="height: 400px; width: auto;" />
+			</div>
+		</div>
+	</header>
 </template>

@@ -21,7 +21,7 @@ algorythm = (function(){
 			var third = generatedKey.substr(4, 4);
 			var fourth = generatedKey.substr(-4, 4);
 
-			return first + "-" + second + "-" + third + "-" + fourth;
+			return first + "-" + fourth;
 		},
 		isMathing: function(bookId, key){
 			return this.generateKey(bookId) === key;
