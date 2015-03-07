@@ -21,8 +21,8 @@ function bindRoutesToPoints(points){
 }
 
 function getCountryCodeForCoords(coords){
-	var lat = coords.k || coords.lat;
-	var lon = coords.C || coords.lon;
+	var lat = coords.lat();
+	var lon = coords.lng();
 
 	if(typeof lat !== "number" || typeof lon !== "number")
 		return "";
@@ -39,6 +39,31 @@ function getCountryCodeForName(name){
 }
 
 Meteor.methods({
+	'BindBook': function(bookId, bookKey){
+		bookId = parseInt(bookId);
+
+		if(algorythm.isMathing(bookId, bookKey)){
+			if(Books.findOne({bookId: bookId}) === undefined){
+				Books.insert(new Book(
+					bookId,
+					Meteor.userId()
+				));
+				
+				Meteor.users.update(Meteor.userId(), {
+					$set: {
+						'profile.isPremium': true
+					}
+				});
+
+				return true;
+			} else
+				return false;
+		} else
+			return false;
+	},
+
+	// ~~~
+
 	'NewTrip': function(){
 		if(Meteor.userId() !== null){
 			return Trips.insert(new Trip("Nienazwany trip", Meteor.userId()));
@@ -276,7 +301,7 @@ Meteor.methods({
 		var trips = Trips.find({}).fetch();
 
 		trips.forEach(function(trip){
-			Meteor.call(trip._id);
+			Meteor.call('GenerateStatsFor', trip._id);
 		});
 	}
 });
@@ -293,5 +318,22 @@ Meteor.startup(function(){
 	Meteor.publish("mine-trips", function(){
 		if(this.userId !== null)
 			return Trips.find({ user: this.userId });
+	});
+
+	Meteor.publish("book-user-data", function(bookId){
+		bookId = parseInt(bookId);
+		var book = Books.findOne({bookId: bookId});
+
+		if(book !== undefined){
+			return PublishedTrips.find({ user: book.userId });
+		}
+	});
+
+	// ~~~
+
+	UploadServer.init({
+		tmpDir: process.env.PWD + '/public/uploads/tmp',
+		uploadDir: process.env.PWD + '/public/uploads/',
+		checkCreateDirectories: true //create the directories for you
 	});
 });

@@ -63,3 +63,18 @@ Router.route('/show/:_id', {
 		this.render();
 	}
 });
+
+Router.route('/book/:id', {
+	name: 'book-owner-published-trips',
+	template: 'Profile',
+
+	waitOn: function(){
+		return Meteor.subscribe('book-user-data', this.params.id);
+	},
+	data: function(){
+		return PublishedTrips.find({});
+	},
+	action: function(){
+		this.render();
+	}
+});

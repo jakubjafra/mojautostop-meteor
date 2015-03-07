@@ -54,15 +54,15 @@ RouteMapRenderer = function(){
 										};
 									}
 
-									var loc = new google.maps.LatLng(leg_loc.k, leg_loc.C);
 									var point__ = new google.maps.Marker({
-										position: loc,
+										position: leg_loc,
 										title: "test",
 										icon: getMarkerNameForPoint(point)
 									});
+
 									point__.setMap(map);
 									directionsDisplays.push(point__);
-
+									
 									google.maps.event.addListener(point__, 'click', function() {
 										editPointId.set(this.id);
 										$("#edit-point-modal").modal('show');
@@ -545,7 +545,15 @@ RouteMapRenderer = function(){
 (function(){
 	Template.BuyBook.events({
 		'click #book_submit': function(event){
-			// ...
+			var bookId = $("#book_id").val();
+			var bookKey = $("#book_key").val();
+
+			Meteor.call("BindBook", bookId, bookKey, function(error, result){
+				if(!result)
+					alert("błąd walidacji - czy na pewno podałeś odpowiedni klucz?");
+				else
+					alert("powiązano książeczkę");
+			});
 		}
 	});
 })();

@@ -4,6 +4,14 @@ common.js
 
 */
 
+Description = function(){
+	// opis
+	this.text = "";
+
+	// ścieżki do wgranych zdjęć na serwerze
+	this.pictures = [];
+}
+
 Trip = function(name, userId){
 	// nazwa tripa
 	this.name = name;
@@ -53,6 +61,9 @@ RoutePoint = function(name){
 	this.stats = {
 		countryCode: ""
 	};
+
+	// opis punktu
+	this.desc = new Description();
 };
 
 Route = function(beginId, endId){
@@ -74,6 +85,19 @@ Route = function(beginId, endId){
 
 	// directions generowane przez google maps przy edycji tripa
 	this.gmap_directions = [];
+
+	// opis punktu
+	this.desc = new Description();
+};
+
+// ~~~
+
+Book = function(id, userId){
+	// ID książeczki (1, 2, 3...)
+	this.bookId = parseInt(id);
+
+	// identyfikator użytkownika
+	this.userId = userId;
 };
 
 // ~~~

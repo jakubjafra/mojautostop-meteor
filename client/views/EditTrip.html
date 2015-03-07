@@ -201,6 +201,27 @@
 				</div>
 			</div>
 		{{/if}}
+		<div class="row">
+			<div class="col-xs-12" id="point-description">
+				{{> DescriptionContents}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="DescriptionContents">
+	<div class="form-group">
+		<label>
+			Opis
+		</label>
+		<br>
+		<textarea class="description-text form-control"></textarea>
+	</div>
+	<div class="form-group">
+		<label>
+			Zdjęcia
+		</label>
+		{{> upload_bootstrap multiple=true }}
 	</div>
 </template>
 
@@ -223,7 +244,16 @@
 							<label>
 								Publiczny link do trasy
 							</label>
-							<input type="text" class="form-control" disabled="disabled" value="{{urlFor route='show-trip' _id=publish.id}}">
+							<div class="input-group">
+								<input type="text" class="form-control" disabled="disabled" value="{{urlFor route='show-trip' _id=publish.id}}">
+								<span class="input-group-addon">
+									{{#linkTo route='show-trip' _id=publish.id target="_blank"}}
+										<b>
+											#
+										</b>
+									{{/linkTo}}
+								</span>
+							</div>
 						</div>
 						<br>
 						<button class="btn btn-danger" id="stop-publish">
