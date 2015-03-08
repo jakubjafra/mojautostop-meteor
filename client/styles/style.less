@@ -12,6 +12,15 @@ style.less
 }
 */
 
+.fancybox-image {
+	cusror: pointer;
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
 header.landing-page {
 	background-color: @gray-lighter;
 }
@@ -29,6 +38,8 @@ header.landing-page {
 
 .trip {
 	height: 150px;
+
+	margin-top: 15px;
 
 	& > div {
 		width: 100%;
@@ -86,7 +97,7 @@ header.landing-page {
 
 	&.affix-top {
 		position: absolute;
-		top: 571px;
+		top: 604px;
 		left: 0px;
 	}
 
@@ -401,11 +412,17 @@ header.landing-page {
 .badge-tent-iconic {
 	.badge-custom-common;
 	background-color: @color-red;
+	&:hover {
+		background-color: lighten(@color-red, 5%);
+	}
 }
 
 .badge-house-iconic {
 	.badge-custom-common;
 	background-color: @color-lightblue;
+	&:hover {
+		background-color: lighten(@color-lightblue, 5%);
+	}
 }
 
 .modal {

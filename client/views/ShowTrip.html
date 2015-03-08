@@ -5,7 +5,17 @@
 
 	{{> StaticTopBar}}
 
-	<div class="container-fluid show-trip-container">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2 style="margin: 0px">
+					{{ name }}
+				</h2>
+			</div>
+		</div>
+	</div>
+
+	<div class="container show-trip-container">
 		<div class="row">
 			<div class="col-xs-8">
 				<div id="map-canvas"></div>
@@ -15,7 +25,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid" id="route-desc">
+	<div class="container" id="route-desc">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="timeline-container">
@@ -26,10 +36,26 @@
 								<div class="point-badge">
 									{{{ pointTypeHtml }}}
 								</div>
+							</div>
+							<div>
 								<div class="point-name">
-									{{ name }}
-									<span class="edit-helpers">
-									</span>
+									<div>
+										{{ name }}
+									</div>
+									<div>
+										{{ desc.text }}
+									</div>
+									<div class="container-fluid" style="padding: 0px;">
+										<div class="row">
+											{{#each valueify desc.pictures}}
+												<div class="col-xs-3">
+													<div href="{{ value }}" class="fancybox-image">
+														<img src="{{ value }}" />
+													</div>
+												</div>
+											{{/each}}
+										</div>
+									</div>
 								</div>
 							</div>
 							{{#unless isEnd}}
@@ -52,7 +78,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div class="col-xs-12" style="background-color: green;">
 				statystyki

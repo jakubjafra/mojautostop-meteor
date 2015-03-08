@@ -72,8 +72,8 @@ RouteMapRenderer = function(){
 								function processRoute(point, leg){
 									if(showPoints){
 										var dirs = leg.steps.map(function(item){
-											var start_location = new google.map.LatLng(item.start_location);
-											var end_location = new google.map.LatLng(item.end_location);
+											var start_location = new google.maps.LatLng(item.start_location);
+											var end_location = new google.maps.LatLng(item.end_location);
 
 											start_location = {
 												lat: start_location.lat(),
@@ -474,6 +474,16 @@ RouteMapRenderer = function(){
 	}
 
 	Template.ShowTrip.rendered = function(){
+		$(".fancybox-image").fancybox();
+
+		/*
+		$(".fancybox-image").click(function(){
+			return false;
+		});
+		*/
+
+		// ~~~
+
 		map.initIn('map-canvas', {
 			zoom: 7,
 			center: new google.maps.LatLng(52.40637, 16.92517),
@@ -504,28 +514,33 @@ RouteMapRenderer = function(){
 
 		console.log(routeDirectionsPixelStep);
 
-		$("#map-affix-container").affix({
-			offset: {
-    			top: $("#route-desc").offset().top,
-    			left: 0,
-    			bottom: $("#route-desc").offset().bottom
-    		}
-		});
+		if(routeDirectionsPixelStep > 0){
+			/*
+			$("#map-affix-container").affix({
+				offset: {
+	    			top: $("#route-desc").offset().top,
+	    			left: 0,
+	    			bottom: $("#route-desc").offset().bottom
+	    		}
+			});
 
-		$(window).scroll(function(event){
-			var scrollStatus = $(document).scrollTop() - $("#route-desc").offset().top;
+			
+			$(window).scroll(function(event){
+				var scrollStatus = $(document).scrollTop() - $("#route-desc").offset().top;
 
-			var stepStatus = Math.floor((scrollStatus / routeDirectionsPixelStep));
+				var stepStatus = Math.floor((scrollStatus / routeDirectionsPixelStep));
 
-			if(stepStatus > 0){
-				hoverAffixMapOn(routeDirections[stepStatus]);
-				mapAffix.getGoogleMap().setZoom(10);
-			}
-			/*else {
-				hoverAffixMapOn(routeDirections[0]);
-				mapAffix.getGoogleMap().setZoom(10);
-			}*/
-		});
+				if(stepStatus > 0){
+					hoverAffixMapOn(routeDirections[stepStatus]);
+					mapAffix.getGoogleMap().setZoom(10);
+				}
+				/*else {
+					hoverAffixMapOn(routeDirections[0]);
+					mapAffix.getGoogleMap().setZoom(10);
+				}*
+			});
+			*/
+		}
 
 		/*
 		google.maps.event.addListener(mapAffix.getGoogleMap(), 'idle', function(){
@@ -581,6 +596,14 @@ RouteMapRenderer = function(){
 					alert("powiązano książeczkę");
 			});
 		}
+	});
+
+	UI.registerHelper("valueify", function(obj){
+	    result = [];
+	    for (var key in obj){
+	        result.push({name:key,value:obj[key]});
+	    }
+	    return result;
 	});
 })();
 
