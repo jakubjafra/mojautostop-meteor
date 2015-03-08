@@ -6,5 +6,4 @@ packages/*
 client/styles/bootstrap/custom.bootstrap.less
 client/styles/bootstrap/custom.bootstrap.mixins.import.less
 
-public/uploads/tmp/*
-public/uploads/*
+.uploads/*

@@ -21,8 +21,8 @@ function bindRoutesToPoints(points){
 }
 
 function getCountryCodeForCoords(coords){
-	var lat = coords.lat();
-	var lon = coords.lng();
+	var lat = coords.lat;
+	var lon = coords.lng;
 
 	if(typeof lat !== "number" || typeof lon !== "number")
 		return "";
@@ -332,8 +332,8 @@ Meteor.startup(function(){
 	// ~~~
 
 	UploadServer.init({
-		tmpDir: process.env.PWD + '/public/uploads/tmp',
-		uploadDir: process.env.PWD + '/public/uploads/',
+		tmpDir: process.env.PWD + '/.uploads/tmp',
+		uploadDir: process.env.PWD + '/.uploads/',
 		checkCreateDirectories: true //create the directories for you
 	});
 });

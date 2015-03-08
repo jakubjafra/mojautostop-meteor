@@ -62,7 +62,7 @@ RouteMapRenderer = function(){
 
 									point__.setMap(map);
 									directionsDisplays.push(point__);
-									
+
 									google.maps.event.addListener(point__, 'click', function() {
 										editPointId.set(this.id);
 										$("#edit-point-modal").modal('show');
@@ -72,10 +72,23 @@ RouteMapRenderer = function(){
 								function processRoute(point, leg){
 									if(showPoints){
 										var dirs = leg.steps.map(function(item){
+											var start_location = new google.map.LatLng(item.start_location);
+											var end_location = new google.map.LatLng(item.end_location);
+
+											start_location = {
+												lat: start_location.lat(),
+												lng: start_location.lng()
+											};
+
+											end_location = {
+												lat: end_location.lat(),
+												lng: end_location.lng()
+											};
+
 											var ret = {};
 											ret.distance = item.distance.value;
-											ret.coordsBegin = item.start_location;
-											ret.coordsEnd = item.end_location;
+											ret.coordsBegin = start_location;
+											ret.coordsEnd = end_location;
 											return ret;
 										});
 
@@ -172,6 +185,8 @@ RouteMapRenderer = function(){
 
 	var isRendered = false;
 
+	var uploadedFiles = [];
+
 	Template.EditTrip.rendered = function(){
 		routeId = this._id;
 
@@ -188,6 +203,10 @@ RouteMapRenderer = function(){
 		// makeRoute();
 
 		$('[data-toggle="tooltip"]').tooltip();
+
+		Uploader.finished = function(index, fileInfo, templateContext){
+			uploadedFiles.push(fileInfo.url);
+		};
 	};
 
 	Template.EditTrip.helpers({
@@ -283,11 +302,18 @@ RouteMapRenderer = function(){
 				}
 			}
 
+			if(	$('#new-point-modal').find('.description-text').length == 1 &&
+				$('#new-point-modal').find('.description-text').val().length > 0)
+				routePoint.desc.text = $('#new-point-modal').find('.description-text').val();
+
+			routePoint.desc.pictures = uploadedFiles.slice(0); // clone [ http://davidwalsh.name/javascript-clone-array ]
+
 			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), routePoint);
 
 			// ~~~
 
 			$('#new-point-modal').find('.trip-name').val("");
+			uploadedFiles = [];
 		}
 	});
 
@@ -470,7 +496,7 @@ RouteMapRenderer = function(){
 		for(var i = 0; i < trip.points.length; i++){
 			for(var j = 0; j < trip.points[i].route.gmap_directions.length; j++){
 				var latLng = trip.points[i].route.gmap_directions[j].coordsBegin;
-				routeDirections.push(new google.maps.LatLng(latLng.k, latLng.C));
+				routeDirections.push(new google.maps.LatLng(latLng));
 			}
 		}
 
@@ -557,3 +583,13 @@ RouteMapRenderer = function(){
 		}
 	});
 })();
+
+/*
+(function(){
+	Template.DescriptionContents.rendered = function(){
+		Uploader.finished = function(index, fileInfo, templateContext){
+			console.log(fileInfo);
+		};
+	};
+})();
+*/
