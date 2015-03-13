@@ -217,9 +217,25 @@
 		<br>
 		<textarea class="description-text form-control"></textarea>
 	</div>
+	{{#if atLeastOnePointPicture}}
+		<div class="form-group">
+			<label>
+				Zdjęcia
+			</label>
+			<div class="container-fluid">
+				{{#each valueify pointPictures}}
+					<div class="col-xs-3">
+						<div href="{{ value }}" class="fancybox-image">
+							<img src="{{ value }}" />
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	{{/if}}
 	<div class="form-group">
 		<label>
-			Zdjęcia
+			Dodaj zdjecia
 		</label>
 		{{> upload_bootstrap multiple=true }}
 	</div>

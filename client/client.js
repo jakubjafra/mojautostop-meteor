@@ -4,6 +4,16 @@ client.js
 
 */
 
+(function(){
+	UI.registerHelper("valueify", function(obj){
+	    result = [];
+	    for (var key in obj){
+	        result.push({name:key,value:obj[key]});
+	    }
+	    return result;
+	});
+})();
+
 RouteMapRenderer = function(){
 	// zmienne:
 	var map = null;
@@ -423,6 +433,41 @@ RouteMapRenderer = function(){
 
 	// ~~~
 
+	function getPoint(id){
+		if(editPointId.get() !== null) {
+			var points = Trips.findOne({}).points;
+					
+			for(var i = 0; i < points.length; i++)
+				if(points[i].id === editPointId.get())
+					return points[i];
+		}
+
+		return undefined;
+	}
+
+	Template.DescriptionContents.helpers({
+		'atLeastOnePointPicture': function(){
+			var point;
+			if((point = getPoint(editPointId.get())) !== undefined)
+				return point.desc.pictures.length > 0;
+			else
+				return false;
+		},
+		'pointPictures': function(){
+			var point;
+			if((point = getPoint(editPointId.get())) !== undefined)
+				return point.desc.pictures;
+			else
+				return [];
+		}
+	});
+
+	Template.DescriptionContents.rendered = function(){
+		$(".fancybox-image").fancybox();
+	};
+
+	// ~~~
+
 	Template.PublishModal.events({
 		'click #do-publish': function(){
 			Meteor.call('PublishTrip', Trips.findOne({})._id);
@@ -473,7 +518,7 @@ RouteMapRenderer = function(){
 		mapAffix.getGoogleMap().panTo(latLng);
 	}
 
-	Template.ShowTrip.rendered = function(){
+	Template.RouteBody.rendered = function(){
 		$(".fancybox-image").fancybox();
 
 		/*
@@ -484,6 +529,7 @@ RouteMapRenderer = function(){
 
 		// ~~~
 
+		
 		map.initIn('map-canvas', {
 			zoom: 7,
 			center: new google.maps.LatLng(52.40637, 16.92517),
@@ -492,6 +538,8 @@ RouteMapRenderer = function(){
 		});
 
 		map.pushRoute(PublishedTrips.findOne({}), false);
+
+		/*
 
 		mapAffix.initIn('map-affix-canvas', {
 			zoom: 7,
@@ -539,7 +587,7 @@ RouteMapRenderer = function(){
 					mapAffix.getGoogleMap().setZoom(10);
 				}*
 			});
-			*/
+			*
 		}
 
 		/*
@@ -551,7 +599,7 @@ RouteMapRenderer = function(){
 		*/
 	};
 
-	Template.ShowTrip.helpers({
+	Template.RouteBody.helpers({
 		'points': function(){
 			var points = PublishedTrips.findOne({}).points;
 			
@@ -581,6 +629,12 @@ RouteMapRenderer = function(){
 			return Math.round(100 + ((Math.log10(x) - 1) / 1.5) * 100);
 		}
 	});
+
+	Template.RB_RouteDesc.helpers({
+		'parseInt': function(x){
+			return Math.round(x);
+		}
+	});
 })();
 
 (function(){
@@ -596,14 +650,6 @@ RouteMapRenderer = function(){
 					alert("powiązano książeczkę");
 			});
 		}
-	});
-
-	UI.registerHelper("valueify", function(obj){
-	    result = [];
-	    for (var key in obj){
-	        result.push({name:key,value:obj[key]});
-	    }
-	    return result;
 	});
 })();
 

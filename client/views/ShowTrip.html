@@ -1,92 +1,222 @@
 <template name="ShowTrip">
-	<div id="map-affix-container">
-		<div id="map-affix-canvas"></div>
-	</div>
-
 	{{> StaticTopBar}}
 
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<h2 style="margin: 0px">
-					{{ name }}
-				</h2>
-			</div>
-		</div>
-	</div>
+	{{> RouteHead}}
 
-	<div class="container show-trip-container">
-		<div class="row">
-			<div class="col-xs-8">
-				<div id="map-canvas"></div>
-			</div>
-			<div class="col-xs-4">
-				info
-			</div>
-		</div>
-	</div>
-	<div class="container" id="route-desc">
+	{{> RouteBody}}
+
+	{{> RouteStats}}
+
+	{{> FbComments}}
+
+	<div class="container-fluid footer">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="timeline-container">
-					<div class="timeline">
-						<div class="begin"></div>
-						{{#each points}}
-							<div class="point point-{{ type }}">
-								<div class="point-badge">
-									{{{ pointTypeHtml }}}
-								</div>
-							</div>
-							<div>
-								<div class="point-name">
-									<div>
-										{{ name }}
-									</div>
-									<div>
-										{{ desc.text }}
-									</div>
-									<div class="container-fluid" style="padding: 0px;">
-										<div class="row">
-											{{#each valueify desc.pictures}}
-												<div class="col-xs-3">
-													<div href="{{ value }}" class="fancybox-image">
-														<img src="{{ value }}" />
-													</div>
-												</div>
-											{{/each}}
-										</div>
-									</div>
-								</div>
-							</div>
-							{{#unless isEnd}}
-								<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
-									<div class="route-line">
-									</div>
-									<div class="route-button">
-									</div>
-									<div class="route-stats-container">
-										<div class="route-stats">
-											<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
-										</div>
-									</div>
-								</div>
-							{{/unless}}
-						{{/each}}
-						<div class="end"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							stopka
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="container">
+</template>
+
+<template name="RouteHead">
+	<div class="container-fluid paper">
 		<div class="row">
-			<div class="col-xs-12" style="background-color: green;">
-				statystyki
+			<div class="col-xs-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2 style="margin-top: 0px">
+								{{ name }}
+							</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="container show-trip-container">
+					<div class="row">
+						<div class="col-xs-6">
+							<div id="map-canvas"></div>
+						</div>
+						<div class="col-xs-6">
+							info
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+	</div>
+</template>
+
+<template name="RouteBody">
+	<div class="container-fluid paper">
 		<div class="row">
-			<div class="col-xs-12" style="background-color: blue;">
-				stopka
+			<div class="col-xs-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 show-timeline">
+							<table style="">
+								{{#each points}}
+									<tr>
+										<td class="route-desc">
+											{{#unless isEnd}}
+												{{> RB_RouteDesc}}
+											{{/unless}}
+										</td>
+										<td class="middle" style="">
+											<div class="point point-{{ type }}">
+												<div class="point-badge">
+													{{{ pointTypeHtml }}}
+												</div>
+											</div>
+											{{#unless isEnd}}
+												<!-- <small class="text-muted">{{ parseInt route.stats.distance }} km</small> -->
+												<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
+												</div>
+											{{/unless}}
+										</td>
+										<td class="point-desc">
+											{{> RB_PointDesc}}
+										</td>
+									</tr>
+								{{/each}}
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="RB_PointDesc">
+	<div>
+		<h4>
+			{{ name }}
+		</h4>
+	</div>
+	<div>
+		<h5>
+			{{ desc.text }}
+		</h5>
+	</div>
+	<div>
+		<div class="container-fluid picture-gallery">
+			<div class="row">
+				{{#each valueify desc.pictures}}
+					<div class="col-xs-3">
+						<div href="{{ value }}" class="fancybox-image">
+							<img src="{{ value }}" />
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="RB_RouteDesc">
+	<div>
+		<h4>
+			{{ parseInt route.stats.distance }} km
+		</h4>
+	</div>
+</template>
+
+<template name="RouteBody2">
+	<div class="container-fluid paper">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="container" id="route-desc">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="timeline-container">
+								<div class="timeline">
+									<div class="begin"></div>
+									{{#each points}}
+										<div class="point point-{{ type }}">
+											<div class="point-badge">
+												{{{ pointTypeHtml }}}
+											</div>
+										</div>
+										<div>
+											<div class="point-name">
+												<div>
+													{{ name }}
+												</div>
+												<div>
+													{{ desc.text }}
+												</div>
+												<div class="container-fluid" style="padding: 0px;">
+													<div class="row">
+														{{#each valueify desc.pictures}}
+															<div class="col-xs-3">
+																<div href="{{ value }}" class="fancybox-image">
+																	<img src="{{ value }}" />
+																</div>
+															</div>
+														{{/each}}
+													</div>
+												</div>
+											</div>
+										</div>
+										{{#unless isEnd}}
+											<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
+												<div class="route-line">
+												</div>
+												<div class="route-button">
+												</div>
+												<div class="route-stats-container">
+													<div class="route-stats">
+														<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
+													</div>
+												</div>
+											</div>
+										{{/unless}}
+									{{/each}}
+									<div class="end"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="FbComments">
+	<div class="container-fluid paper">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							komentarze
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="RouteStats">
+	<div class="container-fluid paper">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							statystyki
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

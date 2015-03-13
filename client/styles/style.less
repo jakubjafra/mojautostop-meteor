@@ -12,8 +12,113 @@ style.less
 }
 */
 
+/*
+napis: r60 g121 b167
+morze ??
+globus
+- jasny niebieski r112 g182 b228
+- ciemny niebieski r40 g81 b111
+*/
+
+@logo-text-color: rgb(60, 121, 167);
+@logo-lighter-blue-color: rgb(112, 182, 228);
+@logo-darker-blue-color: rgb(40, 81, 111);
+
+div.container-fluid.paper {
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+div.container-fluid.footer {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+div.show-timeline {
+	table {
+		width:100%;
+
+		tr {
+			td {
+				vertical-align: top;
+			}
+
+			.point-desc, .route-desc {
+				width: 46.15%;
+			}
+
+			.point-desc {
+				.picture-gallery {
+					padding: 0px;
+				}
+			}
+
+			.route-desc {
+				vertical-align: middle;
+				text-align: right;
+			}
+
+			td.middle {
+				width: 7.69%;
+
+				.point {
+					.point-badge {
+						text-align: center;
+					}
+				}
+
+				.route {
+					margin: auto;
+					width: 4px;
+					background-color: @gray-lighter;
+				}
+			}
+		}
+	}
+}
+
+nav.navbar.navbar-default {
+	background-color: white;
+	border: none;
+
+	ul {
+		& > li {
+			& > a {
+				color: @logo-darker-blue-color;
+				font-weight: 600;
+
+				&:hover {
+					color: @logo-darker-blue-color;
+					background-color: darken(@logo-lighter-blue-color, 5%);
+				}
+			}
+
+			&.disabled {
+				& > a {
+					color: lighten(@logo-darker-blue-color, 20%);
+					font-weight: 600;
+
+					&:hover {
+						color: lighten(@logo-darker-blue-color, 20%);
+					}
+				}
+			}
+		}
+	}
+
+	.navbar-brand {
+		padding: 0px;
+
+		img {
+			width: auto;
+  			height: 100%;
+		}
+	}
+}
+
 .fancybox-image {
-	cusror: pointer;
+	cursor: pointer;
 
 	img {
 		width: 100%;
@@ -27,7 +132,6 @@ header.landing-page {
 
 .navbar-top-underlay {
 	height: 51px;
-	margin-bottom: 20px;
 }
 
 .navbar-static-top {
@@ -66,6 +170,7 @@ header.landing-page {
 }
 
 #route-desc {
+	/*
 	// background-color: rgba(255, 255, 255, 0.15);
 	background: linear-gradient(
 		to bottom,
@@ -74,6 +179,7 @@ header.landing-page {
 		rgba(255, 255, 255, 0.7) 85%,
 		rgba(255, 255, 255, 1) 100%
 	);
+	*/
 
 	.begin {
 		margin-top: 50px;
@@ -111,7 +217,7 @@ header.landing-page {
 .show-trip-container {
 	#map-canvas {
 		width: 100%;
-		height: 500px;
+		height: 400px;
 
 		z-index: 0;
 	}
