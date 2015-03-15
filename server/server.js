@@ -15,7 +15,11 @@ function bindRoutesToPoints(points){
 			if(points[i + 1] != undefined)
 				nextRoutePointId = points[i + 1].id;
 
-			points[i].route = new Route(points[i].id, nextRoutePointId);
+			if(	points[i].route.beginId === points[i].id &&
+				points[i].route.endId === nextRoutePointId)
+				continue;
+			else
+				points[i].route = new Route(points[i].id, nextRoutePointId);
 		}
 	}
 }
@@ -29,11 +33,17 @@ function getCountryCodeForCoords(coords){
 
 	var ret = HTTP.get("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
 
+	console.log("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
+	console.log(ret);
+
 	return ret.data.address.country_code;
 }
 
 function getCountryCodeForName(name){
 	var ret = HTTP.get("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+
+	console.log("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+	console.log(ret);
 
 	return ret.data[0].address.country_code;
 }
@@ -81,9 +91,14 @@ Meteor.methods({
 	},
 
 	'PublishTrip': function(tripId){
+		console.log(tripId);
+
 		// 1. publikowanie = obliczanie statystyk
 		Meteor.call('GenerateStatsFor', tripId, function(error, trip){
 			// 2. usunięcie starego tripa (jeśli w ogóle jakiś był)
+			console.log(error);
+			console.log(trip);
+
 			if(trip.publish.id !== null)
 				PublishedTrips.remove(trip.publish.id);
 
@@ -143,17 +158,25 @@ Meteor.methods({
 
 			newPoints.push(currPoint);
 			if(insertAfter != null && currPoint.id == insertAfter){
-				// dodaje się przejazd między punktem N-1 a N
-				// więc trzeba czas czekania dodać do punktu N-1 a nie
-				// zostawiac go w N
-				currPoint.waitingTime = newPoint.waitingTime;
-				newPoint.waitingTime = null;
-
 				newPoints.push(newPoint);
 			}
 		}
 
 		bindRoutesToPoints(newPoints);
+
+		/*
+		for(var i = 0; i < points.length; i++){
+			var currPoint = points[i];
+
+			if(insertAfter != null && currPoint.id == insertAfter){
+				// dodaje się przejazd między punktem N-1 a N
+				// więc trzeba czas czekania dodać do punktu N-1 a nie
+				// zostawiac go w N
+				currPoint.route.waitingTime = newPoint.route.waitingTime;
+				newPoint.route.waitingTime = null;
+			}
+		}
+		*/
 
 		if(newPoints.length > points.length){
 			console.log("Added new point after #" + insertAfter + " to trip #" + tripId);
@@ -186,8 +209,10 @@ Meteor.methods({
 		newPoint.id = pointId;
 
 		var newPoints = Trips.findOne(tripId).points.map(function(curr){
-			if(curr.id == pointId)
+			if(curr.id == pointId){
+				newPoint.route = curr.route;
 				return newPoint;
+			}
 			else
 				return curr;
 		});
@@ -198,6 +223,23 @@ Meteor.methods({
 			$set: { points: newPoints }
 		});
 	},
+	'EditRoute': function(tripId, pointId, newRouteObj){
+		console.log(pointId);
+
+		var newPoints = Trips.findOne(tripId).points.map(function(curr){
+			if(curr.id == pointId)
+				curr.route = newRouteObj;
+			
+			return curr;
+		});
+
+		console.log("Replaced route desc #" + pointId + " to new version from trip #" + tripId);
+
+		Trips.update(tripId, {
+			$set: { points: newPoints }
+		});
+	},
+
 	'AddTripRouteDirections': function(tripId, pointId, directions){
 		var newPoints = Trips.findOne(tripId).points;
 

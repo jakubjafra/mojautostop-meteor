@@ -49,6 +49,14 @@
 								</div>
 								<div class="point-name">
 									{{ name }}
+									<!--
+									<span class="badge">
+										<small>
+											<span class="glyphicon glyphicon-picture"></span>
+											{{ desc.pictures.length }}
+										</small>
+									</span>
+									-->
 									<span class="edit-helpers">
 										<a class="point-action point-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-point-modal">
 											<span class="glyphicon glyphicon-pencil"></span>
@@ -71,6 +79,11 @@
 									<div class="route-stats-container">
 										<div class="route-stats">
 											<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
+											<span class="edit-helpers">
+												<a class="route-action route-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-route-modal">
+													<span class="glyphicon glyphicon-pencil"></span>
+												</a>
+											</span>
 										</div>
 									</div>
 								</div>
@@ -91,6 +104,7 @@
 
 	{{> AddPointModal}}
 	{{> EditPointModal}}
+	{{> EditRouteModal}}
 	{{> PublishModal}}
 </template>
 
@@ -189,18 +203,6 @@
 				</span>
 			</div>
 		</div>
-		{{#if atLeastOnePoint}}
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="form-group">
-						<label class="control-label divider">
-							Ile czekałeś?
-						</label>
-						<input type="text" name="point-waiting-time" class="point-waiting-time form-control">
-					</div>
-				</div>
-			</div>
-		{{/if}}
 		<div class="row">
 			<div class="col-xs-12" id="point-description">
 				{{> DescriptionContents}}
@@ -224,7 +226,7 @@
 			</label>
 			<div class="container-fluid">
 				{{#each valueify pointPictures}}
-					<div class="col-xs-3">
+					<div class="col-xs-3 fancybox-container">
 						<div href="{{ value }}" class="fancybox-image">
 							<img src="{{ value }}" />
 						</div>
@@ -238,6 +240,36 @@
 			Dodaj zdjecia
 		</label>
 		{{> upload_bootstrap multiple=true }}
+	</div>
+</template>
+
+<template name="EditRouteModal">
+	<div class="modal fade" id="edit-route-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Edytuj trasę między punktami</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="form-group">
+								<label class="control-label divider">
+									Ile czekałeś?
+								</label>
+								<input type="text" name="point-waiting-time" class="point-waiting-time form-control">
+							</div>
+						</div>
+					</div>
+					{{> DescriptionContents}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="cancel-route-editing" data-dismiss="modal">Anuluj</button>
+					<button type="button" class="btn btn-primary" id="edit-route" data-dismiss="modal">Jest ok</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 

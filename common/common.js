@@ -54,9 +54,6 @@ RoutePoint = function(name){
 	// dane o punkcie:
 	this.type = "normal";
 
-	// ile się czekało w danym punkcie
-	this.waitingTime = null;
-
 	// statystyki generowane przez serwer
 	this.stats = {
 		countryCode: ""
@@ -72,6 +69,9 @@ Route = function(beginId, endId){
 
 	// punkt końcowy
 	this.endId = endId;
+
+	// ile się czekało na początku w punkcie
+	this.waitingTime = null;
 
 	// statystki generowane przez serwer
 	this.stats = {

@@ -82,23 +82,20 @@ RouteMapRenderer = function(){
 								function processRoute(point, leg){
 									if(showPoints){
 										var dirs = leg.steps.map(function(item){
-											var start_location = new google.maps.LatLng(item.start_location);
-											var end_location = new google.maps.LatLng(item.end_location);
-
-											start_location = {
-												lat: start_location.lat(),
-												lng: start_location.lng()
-											};
-
-											end_location = {
-												lat: end_location.lat(),
-												lng: end_location.lng()
-											};
-
 											var ret = {};
+
 											ret.distance = item.distance.value;
-											ret.coordsBegin = start_location;
-											ret.coordsEnd = end_location;
+											
+											ret.coordsBegin = {
+												lat: item.start_location.lat(),
+												lng: item.start_location.lng()
+											};
+											
+											ret.coordsEnd = {
+												lat: item.end_location.lat(),
+												lng: item.end_location.lng()
+											};
+
 											return ret;
 										});
 
@@ -259,6 +256,9 @@ RouteMapRenderer = function(){
 
 			$("#edit-point-modal").find('.trip-name').val(this.name);
 		},
+		'click .route-action-edit': function(event){
+			editPointId.set(this.id);
+		},
 		'click .point-action-add': function(event){
 			insertAfterId.set(this.id);
 		},
@@ -301,6 +301,7 @@ RouteMapRenderer = function(){
 			if($('#new-point-modal').find('input[name="point-type"]:checked').length == 1)
 				routePoint.type = $('#new-point-modal').find('input[name="point-type"]:checked').val();
 
+			/*
 			if(	$('#new-point-modal').find('input[name="point-waiting-time"]').length == 1 &&
 				$('#new-point-modal').find('input[name="point-waiting-time"]').val().length > 0){
 				var inputValue = $('#new-point-modal').find('input[name="point-waiting-time"]').val();
@@ -311,6 +312,7 @@ RouteMapRenderer = function(){
 					// propably do something
 				}
 			}
+			*/
 
 			if(	$('#new-point-modal').find('.description-text').length == 1 &&
 				$('#new-point-modal').find('.description-text').val().length > 0)
@@ -411,20 +413,6 @@ RouteMapRenderer = function(){
 		});
 	};
 
-	Template.ModalPointCommonContents.events({
-		'keyup .point-waiting-time': function(event){
-			$(event.currentTarget).parent().removeClass("has-error");
-
-			if($(event.currentTarget).val().length > 0){
-				try {
-					juration.parse($(event.currentTarget).val());
-				} catch(error){
-					$(event.currentTarget).parent().addClass("has-error");
-				}
-			}
-		}
-	});
-
 	Template.ModalPointCommonContents.helpers({
 		'atLeastOnePoint': function(){
 			return Trips.findOne({}).points.length > 0;
@@ -475,7 +463,60 @@ RouteMapRenderer = function(){
 		'click #stop-publish': function(){
 			Meteor.call('UnPublishTrip', Trips.findOne({})._id);
 		}
-	})
+	});
+
+	// ~~~
+
+	Template.EditRouteModal.events({
+		'click #edit-route': function(event){
+			var point = null;
+			if((point = getPoint(editPointId.get())) === undefined)
+				return;
+
+			var route = point.route;
+
+			// pola dodatkowe:
+			if(	$('#edit-route-modal').find('input[name="point-waiting-time"]').length == 1 &&
+				$('#edit-route-modal').find('input[name="point-waiting-time"]').val().length > 0){
+				var inputValue = $('#edit-route-modal').find('input[name="point-waiting-time"]').val();
+
+				try {
+					route.waitingTime = juration.parse(inputValue);
+				} catch(error){
+					// propably do something
+				}
+			}
+
+			if(	$('#edit-route-modal').find('.description-text').length == 1 &&
+				$('#edit-route-modal').find('.description-text').val().length > 0)
+				route.desc.text = $('#edit-route-modal').find('.description-text').val();
+
+			route.desc.pictures = uploadedFiles.slice(0); // clone [ http://davidwalsh.name/javascript-clone-array ]
+
+			Meteor.call('EditRoute', this._id, point.id, route);
+
+			// ~~~
+
+			$('#edit-route-modal').find('input').val("");
+			uploadedFiles = [];
+			editPointId.set(null);
+		},
+		'click #cancel-route-editing': function(){
+			editPointId.set(null);
+			uploadedFiles = [];
+		},
+		'keyup .point-waiting-time': function(event){
+			$(event.currentTarget).parent().removeClass("has-error");
+
+			if($(event.currentTarget).val().length > 0){
+				try {
+					juration.parse($(event.currentTarget).val());
+				} catch(error){
+					$(event.currentTarget).parent().addClass("has-error");
+				}
+			}
+		}
+	});
 })();
 
 /*
