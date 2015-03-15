@@ -1,5 +1,5 @@
 *~
-.meteor/*
+.meteor/local/*
 packages/*
 *.sublime-workspace
 
