@@ -115,7 +115,7 @@
 <template name="RB_RouteDesc">
 	<div>
 		<h4>
-			{{ parseInt route.stats.distance }} km
+			{{ parseInt route.stats.distance }} km <small>(czekałem: {{ parseDuration route.waitingTime }})</small>
 		</h4>
 	</div>
 	<div>

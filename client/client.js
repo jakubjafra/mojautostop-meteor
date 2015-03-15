@@ -674,6 +674,14 @@ RouteMapRenderer = function(){
 	Template.RB_RouteDesc.helpers({
 		'parseInt': function(x){
 			return Math.round(x);
+		},
+		'parseDuration': function(value){
+			var val = Math.round(parseInt(value));
+			try {
+				return juration.stringify(val, { format: 'micro' });
+			} catch(error){
+				return 0;
+			}
 		}
 	});
 })();
