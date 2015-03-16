@@ -38,7 +38,6 @@ Trip = function(name, userId){
 	};
 };
 
-// FIXME: point.id != point._id <-- fuckup
 RoutePoint = function(name){
 	// id (w sumie nie wiem dlaczego...)
 	this.id = CryptoJS.SHA1(name + (new Date).getTime()).toString();

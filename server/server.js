@@ -209,7 +209,7 @@ Meteor.methods({
 		newPoint.id = pointId;
 
 		var newPoints = Trips.findOne(tripId).points.map(function(curr){
-			if(curr.id == pointId){
+			if(curr.id === pointId){
 				newPoint.route = curr.route;
 				return newPoint;
 			}
