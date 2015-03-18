@@ -13,29 +13,41 @@
 							{{/linkTo}}
 						</div>
 						<div class="title">
-							<span id="name-box">
+							<div id="name-box">
 								<div class="name-show">
 									{{ name }}
 									<small class="text-muted">({{ parseInt stats.distance }} km)</small>
-
-									<div class="pull-right">
-										{{#if publish.visible}}
-											<div data-toggle="tooltip" data-placement="left" title="Publiczny trip.">
-												<a class="publish btn btn-default btn-xs" data-toggle="modal" data-target="#publish-modal">
-													<span class="glyphicon glyphicon-globe"></span>
-												</a>
-											</div>
-										{{else}}
-											<div data-toggle="tooltip" data-placement="left" title="Upublicznij swoją podróż by podzielić się nią z innymi.">
-												<a class="publish btn btn-primary btn-xs" data-toggle="modal" data-target="#publish-modal">
-													<span class="glyphicon glyphicon-eye-close"></span>
-												</a>
-											</div>
-										{{/if}}
-									</div>
 								</div>
 								<input class="name-edit form-control" type="text" value="{{ name }}" style="display: none;" />
-							</span>
+							</div>
+						</div>
+						<div class="dropdown-toggle">
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu dropdown-menu-right" role="menu">
+									<li>
+										{{#if publish.visible}}
+											<a data-toggle="modal" data-target="#publish-modal" href="#">
+												<span class="glyphicon glyphicon-globe"></span>
+												Publikacja
+											</a>
+										{{else}}
+											<a data-toggle="modal" data-target="#publish-modal" href="#">
+												<span class="glyphicon glyphicon-eye-close"></span>
+												Podziel się
+											</a>
+										{{/if}}
+									</li>
+									<li class="divider"></li>
+									<li class="disabled">
+										<a>
+											Usuń
+										</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
