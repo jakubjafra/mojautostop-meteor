@@ -7,3 +7,6 @@ client/styles/bootstrap/custom.bootstrap.less
 client/styles/bootstrap/custom.bootstrap.mixins.import.less
 
 .uploads/*
+
+.meteor/release
+.meteor/versions
