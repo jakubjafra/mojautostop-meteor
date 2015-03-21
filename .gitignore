@@ -8,5 +8,5 @@ client/styles/bootstrap/custom.bootstrap.mixins.import.less
 
 .uploads/*
 
-.meteor/release
 .meteor/versions
+.meteor/release
