@@ -19,7 +19,7 @@ Trip = function(name, userId){
 	// id użytkownika-właściciela
 	this.user = userId;
 
-	// czy został upubliczniony (false | _id)
+	// czy został upubliczniony
 	this.publish = {
 		// czy jest widoczny?
 		visible: false,
@@ -36,6 +36,12 @@ Trip = function(name, userId){
 		// dlugość w km
 		distance: 0
 	};
+
+	// początek tripa (timestamp)
+	this.beginTime = 0;
+
+	// koniec tripa (timestamp)
+	this.endTime = 0;
 };
 
 RoutePoint = function(name){
@@ -103,5 +109,7 @@ Book = function(id, userId){
 
 Trips = new Mongo.Collection("trips");
 PublishedTrips = new Mongo.Collection("public_trips");
+
+RemovedTrips = new Mongo.Collection("removed_trips");
 
 Books = new Mongo.Collection("books");

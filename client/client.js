@@ -218,6 +218,12 @@ RouteMapRenderer = function(){
 
 	Template.EditTrip.helpers({
 		'points': function(){
+			// przypadek kiedy trasa istnieje ale zostaje usunięta
+			if(Trips.findOne({}) === undefined)
+				Router.go('/dashboard');
+
+			// ~~~
+
 			if(isRendered)
 				map_.pushRoute(Trips.findOne({}), true);
 
@@ -289,8 +295,10 @@ RouteMapRenderer = function(){
 
 	Template.AddPointModal.events({
 		'click #new-point': function(event){
+			var modal = $('#new-point-modal');
+
 			// pola wymagane:
-			var placeName = getValueOfTripNameSelectizeInModal($('#new-point-modal'));
+			var placeName = getValueOfTripNameSelectizeInModal(modal);
 			
 			// ~~~
 
@@ -298,16 +306,17 @@ RouteMapRenderer = function(){
 
 			// pola dodatkowe:
 
-			if($('#new-point-modal').find('input[name="point-type"]:checked').length == 1)
+			if(modal.find('input[name="point-type"]:checked').length == 1)
 				routePoint.type = $('#new-point-modal').find('input[name="point-type"]:checked').val();
 
-			if(	$('#new-point-modal').find('.description-text').length == 1 &&
-				$('#new-point-modal').find('.description-text').val().length > 0)
-				routePoint.desc.text = $('#new-point-modal').find('.description-text').val();
+			if(	modal.find('.description-text').length == 1 &&
+				modal.find('.description-text').val().length > 0)
+				routePoint.desc.text = modal.find('.description-text').val();
 
 			routePoint.desc.pictures = uploadedFiles.slice(0); // clone [ http://davidwalsh.name/javascript-clone-array ]
 
-			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), routePoint);
+			var waitingTime = getPointWaitingTime(modal);
+			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), routePoint, waitingTime);
 
 			// ~~~
 
@@ -324,6 +333,10 @@ RouteMapRenderer = function(){
 			return Trips.findOne({}).points.length > 0;
 		}
 	});
+
+	Template.AddPointModal.rendered = function(){
+		pictures.set([]);
+	};
 
 	// ~~~
 
@@ -350,9 +363,9 @@ RouteMapRenderer = function(){
 
 			routePoint.desc.pictures = routePoint.desc.pictures.concat(uploadedFiles);
 
-			console.log(routePoint);
+			var waitingTime = getPointWaitingTime(modal);
 
-			Meteor.call('EditRoutePoint', this._id, editPointId.get(), routePoint);
+			Meteor.call('EditRoutePoint', this._id, editPointId.get(), routePoint, waitingTime);
 
 			// ~~~
 
@@ -378,6 +391,8 @@ RouteMapRenderer = function(){
 
 			modal.find('.point-type-selector input').prop('checked', false);
 			modal.find('.point-type-selector input[value="'+point.type+'"]').prop( "checked", true );
+
+			setRouteWaitingTimeInModal(modal, point);
 
 			initializeSelectize(modal.find('.trip-name'), point.name);
 
@@ -448,6 +463,14 @@ RouteMapRenderer = function(){
 	Template.ModalPointCommonContents.helpers({
 		'atLeastOnePoint': function(){
 			return Trips.findOne({}).points.length > 0;
+		},
+		'isNotLastPoint': function(){
+			var points = Trips.findOne({}).points;
+			for(var i = 0; i < points.length; i++)
+				if(points[i].id === editPointId.get())
+					return !(i === (points.length - 1));
+
+			return false;
 		}
 	});
 
@@ -507,6 +530,14 @@ RouteMapRenderer = function(){
 
 	// ~~~
 
+	function setRouteWaitingTimeInModal(modal, point){
+		try {
+			modal.find('.point-waiting-time').val(juration.stringify(point.route.waitingTime, { format: 'micro' }));
+		} catch(error){
+			modal.find('.point-waiting-time').val("");
+		}
+	}
+
 	Template.EditRouteModal.rendered = function(){
 		$("#edit-route-modal").on('show.bs.modal', function(){
 			var point = null;
@@ -515,16 +546,26 @@ RouteMapRenderer = function(){
 
 			var modal = $("#edit-route-modal");
 			
-			try {
-				modal.find('.point-waiting-time').val(juration.stringify(point.route.waitingTime, { format: 'micro' }));
-			} catch(error){
-				modal.find('.point-waiting-time').val("");
-			}
+			setRouteWaitingTimeInModal(modal, point);
 
 			modal.find('.description-text').val(point.route.desc.text);
 
 			pictures.set(point.route.desc.pictures);
 		});
+	}
+
+	function getPointWaitingTime(modal){
+		// pola dodatkowe:
+		if(	$(modal).find('input[name="point-waiting-time"]').length == 1 &&
+			$(modal).find('input[name="point-waiting-time"]').val().length > 0){
+			var inputValue = $(modal).find('input[name="point-waiting-time"]').val();
+
+			try {
+				return juration.parse(inputValue);
+			} catch(error){
+				return null;
+			}
+		}
 	}
 
 	Template.EditRouteModal.events({
@@ -536,16 +577,7 @@ RouteMapRenderer = function(){
 			var route = point.route;
 
 			// pola dodatkowe:
-			if(	$('#edit-route-modal').find('input[name="point-waiting-time"]').length == 1 &&
-				$('#edit-route-modal').find('input[name="point-waiting-time"]').val().length > 0){
-				var inputValue = $('#edit-route-modal').find('input[name="point-waiting-time"]').val();
-
-				try {
-					route.waitingTime = juration.parse(inputValue);
-				} catch(error){
-					// propably do something
-				}
-			}
+			route.waitingTime = getPointWaitingTime($('#edit-route-modal'));
 
 			if(	$('#edit-route-modal').find('.description-text').length == 1 &&
 				$('#edit-route-modal').find('.description-text').val().length > 0)
@@ -565,6 +597,9 @@ RouteMapRenderer = function(){
 			editPointId.set(null);
 			uploadedFiles = [];
 		},
+	});
+
+	Template.AwaitingTimeContents.events({
 		'keyup .point-waiting-time': function(event){
 			$(event.currentTarget).parent().removeClass("has-error");
 
@@ -575,6 +610,61 @@ RouteMapRenderer = function(){
 					$(event.currentTarget).parent().addClass("has-error");
 				}
 			}
+		}
+	});
+
+	// ~~~
+
+	Template.RemoveTripModal.events({
+		'click #remove-trip-modal .remove-trip': function(){
+			Meteor.call('RemoveTrip', this._id);
+			Router.go("/dashboard");
+		}
+	});
+
+	// ~~~
+
+	Template.EditTripDataModal.rendered = function(){
+		var modal = $("#edit-trip-data-modal");
+
+		$(modal).find('.input-daterange').datepicker({
+			format: "yyyy-mm-dd",
+			language: "pl"
+		});
+
+		if(Trips.findOne({}).points.length === 0)
+			$("#edit-trip-data-modal").modal('show');
+	};
+
+	function formatDate(timestamp){
+		function addLeadingZero(number){
+			return (number < 10 ? "0" : "") + number;
+		}
+
+		var date = new Date(timestamp);
+		return date.getFullYear() + "-" + addLeadingZero(date.getMonth() + 1) + "-" + addLeadingZero(date.getDate());
+	};
+
+	Template.EditTripDataModal.helpers({
+		'beginTime': function(){
+			return formatDate(this.beginTime);
+		},
+		'endTime': function(){
+			return formatDate(this.endTime);
+		}
+	});
+
+	Template.EditTripDataModal.events({
+		'click #edit-trip-data-modal .btn-success': function(){
+			var modal = $("#edit-trip-data-modal");
+
+			var beginTime = (new Date($(modal).find('#start-time').val())).getTime();
+			var endTime = (new Date($(modal).find('#end-time').val())).getTime();
+
+			var title = modal.find('#title').val();
+
+			Meteor.call('ChangeTripDuration', this._id, beginTime, endTime);
+			Meteor.call('ChangeTripName', this._id, title);
 		}
 	});
 })();

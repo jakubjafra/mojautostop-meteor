@@ -28,6 +28,11 @@
 								</button>
 								<ul class="dropdown-menu dropdown-menu-right" role="menu">
 									<li>
+										<a data-toggle="modal" data-target="#edit-trip-data-modal" href="#">
+											Edytuj
+										</a>
+									</li>
+									<li>
 										{{#if publish.visible}}
 											<a data-toggle="modal" data-target="#publish-modal" href="#">
 												<span class="glyphicon glyphicon-globe"></span>
@@ -41,8 +46,8 @@
 										{{/if}}
 									</li>
 									<li class="divider"></li>
-									<li class="disabled">
-										<a>
+									<li>
+										<a data-toggle="modal" data-target="#remove-trip-modal" href="#">
 											Usuń
 										</a>
 									</li>
@@ -118,6 +123,8 @@
 	{{> EditPointModal}}
 	{{> EditRouteModal}}
 	{{> PublishModal}}
+	{{> RemoveTripModal}}
+	{{> EditTripDataModal}}
 </template>
 
 <template name="AddPointModal">
@@ -217,7 +224,26 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12" id="point-description">
+				{{#if atLeastOnePoint}}
+					{{#if isNotLastPoint}}
+						{{> AwaitingTimeContents}}
+					{{/if}}
+				{{/if}}
+				
 				{{> DescriptionContents}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="AwaitingTimeContents">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="form-group">
+				<label class="control-label divider">
+					Ile czekałeś?
+				</label>
+				<input type="text" name="point-waiting-time" class="point-waiting-time form-control">
 			</div>
 		</div>
 	</div>
@@ -264,16 +290,7 @@
         			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Edytuj trasę między punktami</h4>
 				</div>
 				<div class="modal-body">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="form-group">
-								<label class="control-label divider">
-									Ile czekałeś?
-								</label>
-								<input type="text" name="point-waiting-time" class="point-waiting-time form-control">
-							</div>
-						</div>
-					</div>
+					{{> AwaitingTimeContents}}
 					{{> DescriptionContents}}
 				</div>
 				<div class="modal-footer">
@@ -325,6 +342,66 @@
 							Opublikuj trasę
 						</button>
 					{{/if}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="RemoveTripModal">
+	<div class="modal fade" id="remove-trip-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">
+        				Usuń tripa
+        			</h4>
+				</div>
+				<div class="modal-body">
+					Ta operacja jest nieodwracalna!
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Anuluj</button>
+					<button class="btn btn-danger remove-trip">Usuń</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="EditTripDataModal">
+	<div class="modal fade" id="edit-trip-data-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">
+        				Podstawowe dane podróży
+        			</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>
+							Nazwa tripa
+						</label>
+						<input type="text" class="form-control" id="title" value="{{name}}" />
+					</div>
+					<div class="form-group">
+						<label for="datepicker">
+							Czas trwania
+						</label>
+						<div class="input-daterange input-group" id="datepicker">
+							<span class="input-group-addon">od</span>
+							<input type="text" class="input-sm form-control" value="{{beginTime}}" name="start" id="start-time" />
+							<span class="input-group-addon">do</span>
+							<input type="text" class="input-sm form-control" value="{{endTime}}" name="end" id="end-time" />
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal">Anuluj</button>
+					<button class="btn btn-success" data-dismiss="modal">Ok</button>
 				</div>
 			</div>
 		</div>

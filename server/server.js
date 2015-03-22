@@ -52,23 +52,23 @@ Meteor.methods({
 	'BindBook': function(bookId, bookKey){
 		bookId = parseInt(bookId);
 
-		if(algorythm.isMathing(bookId, bookKey)){
-			if(Books.findOne({bookId: bookId}) === undefined){
-				Books.insert(new Book(
-					bookId,
-					Meteor.userId()
-				));
-				
-				Meteor.users.update(Meteor.userId(), {
-					$set: {
-						'profile.isPremium': true
-					}
-				});
+		if(	algorythm.isMathing(bookId, bookKey) &&
+			Books.findOne({bookId: bookId}) === undefined){
 
-				return true;
-			} else
-				return false;
-		} else
+			Books.insert(new Book(
+				bookId,
+				Meteor.userId()
+			));
+			
+			Meteor.users.update(Meteor.userId(), {
+				$set: {
+					'profile.isPremium': true
+				}
+			});
+
+			return true;
+		}
+		else
 			return false;
 	},
 
@@ -79,6 +79,20 @@ Meteor.methods({
 			return Trips.insert(new Trip("Nienazwany trip", Meteor.userId()));
 		}
 	},
+	'RemoveTrip': function(tripId){
+		var trip = Trips.findOne(tripId);
+
+		if(trip.user !== Meteor.userId())
+			return false;
+
+		Trips.remove(trip._id);
+		if(trip.publish.id !== null)
+			PublishedTrips.remove(trip.publish.id);
+		
+		RemovedTrips.insert(trip);
+
+		return true;
+	},
 
 	// ~~~
 
@@ -88,6 +102,18 @@ Meteor.methods({
 		});
 
 		console.log("Renamed #" + tripId + " to \"" + newTripName + "\"");
+	},
+	'ChangeTripDuration': function(tripId, newBeginTime, newEndTime){
+		console.log(newBeginTime, newEndTime);
+
+		Trips.update(tripId, {
+			$set: {
+				beginTime: newBeginTime,
+				endTime: newEndTime
+			}
+		});
+
+		console.log("Changed #" + tripId + " duration.");
 	},
 
 	'PublishTrip': function(tripId){
@@ -145,7 +171,7 @@ Meteor.methods({
 
 	// ~~~
 
-	'NewRoutePoint': function(tripId, insertAfter, newPoint){
+	'NewRoutePoint': function(tripId, insertAfter, newPoint, waitingTime){
 		var points = Trips.findOne(tripId).points;
 
 		var newPoints = [];
@@ -157,14 +183,12 @@ Meteor.methods({
 			var currPoint = points[i];
 
 			newPoints.push(currPoint);
-			if(insertAfter != null && currPoint.id == insertAfter){
+			if(insertAfter != null && currPoint.id === insertAfter)
 				newPoints.push(newPoint);
-			}
 		}
 
 		bindRoutesToPoints(newPoints);
 
-		/*
 		for(var i = 0; i < points.length; i++){
 			var currPoint = points[i];
 
@@ -172,11 +196,10 @@ Meteor.methods({
 				// dodaje się przejazd między punktem N-1 a N
 				// więc trzeba czas czekania dodać do punktu N-1 a nie
 				// zostawiac go w N
-				currPoint.route.waitingTime = newPoint.route.waitingTime;
-				newPoint.route.waitingTime = null;
+				currPoint.route.waitingTime = waitingTime;
+				waitingTime = null;
 			}
 		}
-		*/
 
 		if(newPoints.length > points.length){
 			console.log("Added new point after #" + insertAfter + " to trip #" + tripId);
@@ -205,12 +228,15 @@ Meteor.methods({
 
 		console.log("Removed point #" + pointId + " from trip #" + tripId);
 	},
-	'EditRoutePoint': function(tripId, pointId, newPoint){
+	'EditRoutePoint': function(tripId, pointId, newPoint, awaitingTime){
 		newPoint.id = pointId;
 
 		var newPoints = Trips.findOne(tripId).points.map(function(curr){
 			if(curr.id === pointId){
 				newPoint.route = curr.route;
+				// awaitingTime w edycji punktu jest czas jaki spędzono czekając na stopa
+				// by dojechać do N+1
+				newPoint.route.waitingTime = awaitingTime;
 				return newPoint;
 			}
 			else
