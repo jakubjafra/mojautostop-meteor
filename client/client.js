@@ -626,7 +626,7 @@ RouteMapRenderer = function(){
 
 	Template.EditTripDataModal.rendered = function(){
 		var modal = $("#edit-trip-data-modal");
-
+		
 		$(modal).find('.input-daterange').datepicker({
 			format: "yyyy-mm-dd",
 			language: "pl"
@@ -647,10 +647,20 @@ RouteMapRenderer = function(){
 
 	Template.EditTripDataModal.helpers({
 		'beginTime': function(){
-			return formatDate(this.beginTime);
+			var beginTime = this.beginTime;
+
+			if(beginTime === 0)
+				beginTime = Date.now();
+
+			return formatDate(beginTime);
 		},
 		'endTime': function(){
-			return formatDate(this.endTime);
+			var endTime = this.endTime;
+
+			if(endTime === 0)
+				endTime = Date.now();
+
+			return formatDate(endTime);
 		}
 	});
 
