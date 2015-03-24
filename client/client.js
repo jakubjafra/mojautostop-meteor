@@ -211,9 +211,11 @@ RouteMapRenderer = function(){
 
 		$('[data-toggle="tooltip"]').tooltip();
 
+		/*
 		Uploader.finished = function(index, fileInfo, templateContext){
 			uploadedFiles.push(fileInfo.url);
 		};
+		*/
 	};
 
 	Template.EditTrip.helpers({
@@ -313,7 +315,7 @@ RouteMapRenderer = function(){
 				modal.find('.description-text').val().length > 0)
 				routePoint.desc.text = modal.find('.description-text').val();
 
-			routePoint.desc.pictures = uploadedFiles.slice(0); // clone [ http://davidwalsh.name/javascript-clone-array ]
+			routePoint.desc.pictures = pictures.get(); // clone [ http://davidwalsh.name/javascript-clone-array ]
 
 			var waitingTime = getPointWaitingTime(modal);
 			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), routePoint, waitingTime);
@@ -361,7 +363,7 @@ RouteMapRenderer = function(){
 				modal.find('.description-text').val().length > 0)
 				routePoint.desc.text = modal.find('.description-text').val();
 
-			routePoint.desc.pictures = routePoint.desc.pictures.concat(uploadedFiles);
+			routePoint.desc.pictures = pictures.get();
 
 			var waitingTime = getPointWaitingTime(modal);
 
@@ -515,7 +517,64 @@ RouteMapRenderer = function(){
 
 	Template.DescriptionContents.rendered = function(){
 		$(".fancybox-image").fancybox();
+
+		/*
+		console.log(this);
+		console.log(Template.DescriptionContents);
+		console.log(Uploader);
+		*/
+
+		/*
+		var oldAdd = Template.DescriptionContents.uploadControl.add;
+		Template.DescriptionContents.uploadControl.add = function(e, data){
+			console.log("injected!");
+			oldAdd.call(Template.DescriptionContents.uploadControl, e, data);
+		};
+		*/
 	};
+
+	// ~~~
+
+	Template.UploaderContainer.created = function(){
+		Uploader.init(this);
+	};
+
+	Template.UploaderContainer.rendered = function(){
+		Uploader.render.call(this);
+
+		var templateInstance = Template.instance();
+		Template.instance().$('input[type="file"]').change(function(e){
+			console.log(templateInstance);
+			Uploader.startUpload.call(templateInstance, e);
+		});
+
+		Uploader.finished = function(index, fileInfo, context){
+			var old = pictures.get();
+			old.push(fileInfo.url);
+			pictures.set(old);
+		};
+	};
+
+	/*
+	Template.UploaderContainer.events({
+		'click .start': function(e) {
+			Uploader.startUpload.call(Template.instance(), e);
+		},
+		'change input[type="file"]': function(e){
+			console.log(e);
+		}
+	});
+	*/
+
+	/*
+	Template.UploaderContainer.helpers({
+		'uploadCallbacks': function(){
+			return {
+				finished: 
+			};
+		}
+	});
+	*/
 
 	// ~~~
 
