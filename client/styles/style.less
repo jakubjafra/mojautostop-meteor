@@ -117,18 +117,61 @@ nav.navbar.navbar-default {
 	}
 }
 
-.fancybox-container {
-	height: 60px;
-	overflow: hidden;
-	margin: 0px;
-	padding: 2px;
+.image-files {
+	padding: 0px;
 
-	.fancybox-image {
-		cursor: pointer;
+	.image-file-cell {
+		margin: 0px;
+		padding: 2px;
 
-		img {
-			width: 100%;
-			height: auto;
+		.fancybox-container {
+			height: 60px;
+			overflow: hidden;
+
+			.fancybox-image {
+				cursor: pointer;
+
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+
+		.delete-file {
+			display: none;
+		}
+
+		&:hover {
+			.delete-file {
+				display: block;
+
+				position: absolute;
+				top: 2px;
+				right: 2px;
+
+				width: 16px;
+				height: 16px;
+
+				text-align: center;
+				line-height: 16px;
+
+				// border-radius: 9px;
+
+				// border: 1px solid @brand-primary;
+
+				background-color: rgba(0, 0, 0, 0.75);
+				color: white;
+				font-weight: bold;
+
+				cursor: pointer;
+
+				z-index: 2000;
+
+				&:hover {
+					color: @brand-warning;
+				}
+			}
 		}
 	}
 }

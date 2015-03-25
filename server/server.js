@@ -371,6 +371,32 @@ Meteor.methods({
 		trips.forEach(function(trip){
 			Meteor.call('GenerateStatsFor', trip._id);
 		});
+	},
+
+	// ~~~
+
+	'fs_removeScreen': function(tripId, pointId, imagePath){
+		var trip = Trips.findOne(tripId);
+
+		if(trip.user !== Meteor.userId())
+			return false;
+
+		console.log(UploadServer);
+
+		trip.points.forEach(function(point){
+			if(point.id === pointId){
+				var images = point.desc.pictures.concat(point.route.desc.pictures);
+				images.forEach(function(image){
+					if(image === imagePath){
+						var fileName = decodeURIComponent(imagePath.substring(imagePath.lastIndexOf('/') + 1));
+						console.log(fileName);
+						UploadServer.delete(fileName);
+					}
+				});
+			}
+		});
+
+		return true;
 	}
 });
 

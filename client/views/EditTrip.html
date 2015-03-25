@@ -262,11 +262,16 @@
 			<label>
 				Zdjęcia
 			</label>
-			<div class="container-fluid">
+			<div class="container-fluid image-files">
 				{{#each valueify pointPictures}}
-					<div class="col-xs-3 fancybox-container">
-						<div href="{{ value }}" class="fancybox-image">
-							<img src="{{ value }}" />
+					<div class="col-xs-3 image-file-cell">
+						<div class="fancybox-container">
+							<div href="{{ value }}" class="fancybox-image">
+								<img src="{{ value }}" />
+							</div>
+						</div>
+						<div class="delete-file">
+							&times;
 						</div>
 					</div>
 				{{/each}}

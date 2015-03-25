@@ -492,6 +492,21 @@ RouteMapRenderer = function(){
 
 	var pictures = new ReactiveVar([]);
 
+	Template.DescriptionContents.events({
+		'click .delete-file': function(event){
+			event.stopPropagation();
+
+			var imageTarget =  $(event.currentTarget).parent('.image-file-cell').find('.fancybox-image').attr('href');
+			Meteor.call('fs_removeScreen', Trips.findOne()._id, editPointId.get(), imageTarget, function(error, result){
+				if(result){
+					pictures.set(pictures.get().filter(function(item){
+						return (item !== imageTarget);
+					}));
+				}
+			});
+		}
+	});
+
 	Template.DescriptionContents.helpers({
 		'atLeastOnePointPicture': function(){
 			/*
