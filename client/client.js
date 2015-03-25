@@ -496,6 +496,8 @@ RouteMapRenderer = function(){
 		'click .delete-file': function(event){
 			event.stopPropagation();
 
+			console.log(editPointId.get());
+
 			var imageTarget =  $(event.currentTarget).parent('.image-file-cell').find('.fancybox-image').attr('href');
 			Meteor.call('fs_removeScreen', Trips.findOne()._id, editPointId.get(), imageTarget, function(error, result){
 				if(result){
@@ -509,43 +511,15 @@ RouteMapRenderer = function(){
 
 	Template.DescriptionContents.helpers({
 		'atLeastOnePointPicture': function(){
-			/*
-			var point;
-			if((point = getPoint(editPointId.get())) !== undefined)
-				return point.desc.pictures.length > 0;
-			else
-				return false;
-			*/
 			return pictures.get().length > 0;
 		},
 		'pointPictures': function(){
-			/*
-			var point;
-			if((point = getPoint(editPointId.get())) !== undefined)
-				return point.desc.pictures;
-			else
-				return [];
-			*/
 			return pictures.get();
 		}
 	});
 
 	Template.DescriptionContents.rendered = function(){
 		$(".fancybox-image").fancybox();
-
-		/*
-		console.log(this);
-		console.log(Template.DescriptionContents);
-		console.log(Uploader);
-		*/
-
-		/*
-		var oldAdd = Template.DescriptionContents.uploadControl.add;
-		Template.DescriptionContents.uploadControl.add = function(e, data){
-			console.log("injected!");
-			oldAdd.call(Template.DescriptionContents.uploadControl, e, data);
-		};
-		*/
 	};
 
 	// ~~~
@@ -558,8 +532,7 @@ RouteMapRenderer = function(){
 		Uploader.render.call(this);
 
 		var templateInstance = Template.instance();
-		Template.instance().$('input[type="file"]').change(function(e){
-			console.log(templateInstance);
+		templateInstance.$('input[type="file"]').change(function(e){
 			Uploader.startUpload.call(templateInstance, e);
 		});
 
@@ -569,27 +542,6 @@ RouteMapRenderer = function(){
 			pictures.set(old);
 		};
 	};
-
-	/*
-	Template.UploaderContainer.events({
-		'click .start': function(e) {
-			Uploader.startUpload.call(Template.instance(), e);
-		},
-		'change input[type="file"]': function(e){
-			console.log(e);
-		}
-	});
-	*/
-
-	/*
-	Template.UploaderContainer.helpers({
-		'uploadCallbacks': function(){
-			return {
-				finished: 
-			};
-		}
-	});
-	*/
 
 	// ~~~
 
@@ -657,19 +609,17 @@ RouteMapRenderer = function(){
 				$('#edit-route-modal').find('.description-text').val().length > 0)
 				route.desc.text = $('#edit-route-modal').find('.description-text').val();
 
-			route.desc.pictures = uploadedFiles.slice(0); // clone [ http://davidwalsh.name/javascript-clone-array ]
+			route.desc.pictures = pictures.get();
 
 			Meteor.call('EditRoute', this._id, point.id, route);
 
 			// ~~~
 
 			$('#edit-route-modal').find('input').val("");
-			uploadedFiles = [];
 			editPointId.set(null);
 		},
 		'click #cancel-route-editing': function(){
 			editPointId.set(null);
-			uploadedFiles = [];
 		},
 	});
 

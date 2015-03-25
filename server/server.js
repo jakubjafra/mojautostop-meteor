@@ -385,14 +385,17 @@ Meteor.methods({
 
 		trip.points.forEach(function(point){
 			if(point.id === pointId){
-				var images = point.desc.pictures.concat(point.route.desc.pictures);
-				images.forEach(function(image){
+				function filterImages(image){
 					if(image === imagePath){
-						var fileName = decodeURIComponent(imagePath.substring(imagePath.lastIndexOf('/') + 1));
-						console.log(fileName);
-						UploadServer.delete(fileName);
+						UploadServer.delete(decodeURIComponent(imagePath.substring(imagePath.lastIndexOf('/') + 1)));
+						return false;
 					}
-				});
+					else
+						return true;
+				}
+
+				point.desc.pictures = point.desc.pictures.filter(filterImages);
+				point.route.desc.pictures = point.desc.pictures.filter(filterImages);
 			}
 		});
 
