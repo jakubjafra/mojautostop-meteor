@@ -394,8 +394,12 @@ Meteor.methods({
 						return true;
 				}
 
-				point.desc.pictures = point.desc.pictures.filter(filterImages);
-				point.route.desc.pictures = point.desc.pictures.filter(filterImages);
+				try {
+					point.desc.pictures = point.desc.pictures.filter(filterImages);
+					point.route.desc.pictures = point.desc.pictures.filter(filterImages);
+				} catch(error){
+					// nie usunięto bo już nie istnieje
+				}
 			}
 		});
 
