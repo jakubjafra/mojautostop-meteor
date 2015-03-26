@@ -868,6 +868,52 @@ RouteMapRenderer = function(){
 			}
 		}
 	});
+
+	Template.RouteHead.helpers({
+		'parseInt': function(x){
+			return Math.round(x);
+		},
+		'distanceDivDuration': function(){
+			var duration = Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+			return Math.floor(this.stats.distance  / duration);
+		},
+		'driversCount': function(){
+			return this.points.length - 1;
+		},
+		'sumaricWaitingTime': function(){
+			var waitingTime = 0;
+
+			this.points.forEach(function(point){
+				if(point.route.waitingTime)
+					waitingTime += parseInt(point.route.waitingTime);
+			});
+
+			try {
+				return juration.stringify(Math.round(waitingTime), { format: 'micro' });
+			} catch(error){
+				return 0;
+			}
+		},
+		'co2': function(){
+			var grams = Math.floor(this.stats.distance * 130);
+			if(grams > 1000)
+				return Math.floor(grams / 1000) + " kg"
+			else
+				return grams + " g";
+		}
+	});
+
+	// ~~~
+
+	Template.RouteHead.helpers({
+		'user': function(){
+			console.log(Meteor.users.findOne(this.user));
+			return Meteor.users.findOne(this.user);
+		},
+		'duration': function(){
+			return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+		}
+	});
 })();
 
 (function(){

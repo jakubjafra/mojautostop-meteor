@@ -37,6 +37,14 @@
 							<h2 style="margin-top: 0px">
 								{{ name }}
 							</h2>
+							<small>{{ user._id }}</small>
+							<div>
+								{{ duration }} dni<br>
+								{{ parseInt stats.distance }} km, w {{ driversCount }} przejazdach<br>
+								{{ distanceDivDuration }} km / dzień<br>
+								{{ sumaricWaitingTime }} łapania stopa<br>
+								{{ co2 }} CO2 zaoszczędzone dzięki autostopowi
+							</div>
 						</div>
 					</div>
 				</div>
@@ -67,7 +75,6 @@
 												</div>
 											</div>
 											{{#unless isEnd}}
-												<!-- <small class="text-muted">{{ parseInt route.stats.distance }} km</small> -->
 												<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
 												</div>
 											{{/unless}}
@@ -98,12 +105,14 @@
 		</h5>
 	</div>
 	<div>
-		<div class="container-fluid picture-gallery">
+		<div class="container-fluid image-files">
 			<div class="row">
 				{{#each valueify desc.pictures}}
-					<div class="col-xs-3 fancybox-container">
-						<div href="{{ value }}" class="fancybox-image">
-							<img src="{{ value }}" />
+					<div class="col-xs-3 image-file-cell">
+						<div class="fancybox-container">
+							<div href="{{ value }}" class="fancybox-image">
+								<img src="{{ value }}" />
+							</div>
 						</div>
 					</div>
 				{{/each}}
@@ -124,77 +133,17 @@
 		</h5>
 	</div>
 	<div>
-		<div class="container-fluid picture-gallery">
+		<div class="container-fluid image-files">
 			<div class="row">
 				{{#each valueify route.desc.pictures}}
-					<div class="col-xs-3 fancybox-container">
-						<div href="{{ value }}" class="fancybox-image">
-							<img src="{{ value }}" />
-						</div>
-					</div>
-				{{/each}}
-			</div>
-		</div>
-	</div>
-</template>
-
-<template name="RouteBody2">
-	<div class="container-fluid paper">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="container" id="route-desc">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="timeline-container">
-								<div class="timeline">
-									<div class="begin"></div>
-									{{#each points}}
-										<div class="point point-{{ type }}">
-											<div class="point-badge">
-												{{{ pointTypeHtml }}}
-											</div>
-										</div>
-										<div>
-											<div class="point-name">
-												<div>
-													{{ name }}
-												</div>
-												<div>
-													{{ desc.text }}
-												</div>
-												<div class="container-fluid" style="padding: 0px;">
-													<div class="row">
-														{{#each valueify desc.pictures}}
-															<div class="col-xs-3">
-																<div href="{{ value }}" class="fancybox-image">
-																	<img src="{{ value }}" />
-																</div>
-															</div>
-														{{/each}}
-													</div>
-												</div>
-											</div>
-										</div>
-										{{#unless isEnd}}
-											<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
-												<div class="route-line">
-												</div>
-												<div class="route-button">
-												</div>
-												<div class="route-stats-container">
-													<div class="route-stats">
-														<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
-													</div>
-												</div>
-											</div>
-										{{/unless}}
-									{{/each}}
-									<div class="end"></div>
-								</div>
+					<div class="col-xs-3 image-file-cell">
+						<div class="fancybox-container">
+							<div href="{{ value }}" class="fancybox-image">
+								<img src="{{ value }}" />
 							</div>
 						</div>
 					</div>
-				</div>
+				{{/each}}
 			</div>
 		</div>
 	</div>
