@@ -3,6 +3,8 @@
 
 	{{> RouteHead}}
 
+	{{> RouteCommonStats}}
+
 	{{> RouteBody}}
 
 	{{> RouteStats}}
@@ -53,6 +55,55 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</template>
+
+<template name="RouteCommonStats">
+	<div class="container-fluid paper">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="container show-trip-container">
+					<div class="row" style="padding-top: 15px; padding-bottom: 15px;">
+						<div class="col-xs-2 col-xs-offset-1" style="padding: 0px;">
+							{{> PlaceKitten}}
+							<div style="display: inline-block; float: left;">
+								{{ duration }} dni
+							</div>
+						</div>
+						<div class="col-xs-2" style="padding: 0px;">
+							{{> PlaceKitten}}
+							<div style="display: inline-block; float: left;">
+								{{ parseInt stats.distance }} km
+							</div>
+						</div>
+						<div class="col-xs-2" style="padding: 0px;">
+							{{> PlaceKitten}}
+							<div style="display: inline-block; float: left;">
+								{{ distanceDivDuration }} km / dzień
+							</div>
+						</div>
+						<div class="col-xs-2" style="padding: 0px;">
+							{{> PlaceKitten}}
+							<div style="display: inline-block; float: left;">
+								{{ sumaricWaitingTime }} czekania
+							</div>
+						</div>
+						<div class="col-xs-2" style="padding: 0px;">
+							{{> PlaceKitten}}
+							<div style="display: inline-block; float: left;">
+								{{ co2 }} CO<sub>2</sub>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="PlaceKitten">
+	<div style="display: inline-block; float: left;">
+		<img src="/big_logo.png" width="100px" height="50px">
 	</div>
 </template>
 

@@ -930,6 +930,62 @@ RouteMapRenderer = function(){
 			});
 		}
 	});
+
+	Template.RouteCommonStats.helpers({
+		'duration': function(){
+			return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+		},
+		'parseInt': function(x){
+			return Math.round(x);
+		},
+		'distanceDivDuration': function(){
+			var duration = Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+			return Math.floor(this.stats.distance  / duration);
+		},
+		'driversCount': function(){
+			return this.points.length - 1;
+		},
+		'sumaricWaitingTime': function(){
+			var waitingTime = 0;
+
+			this.points.forEach(function(point){
+				if(point.route.waitingTime)
+					waitingTime += parseInt(point.route.waitingTime);
+			});
+
+			try {
+				return juration.stringify(Math.round(waitingTime), { format: 'micro' });
+			} catch(error){
+				return 0;
+			}
+		},
+		'co2': function(){
+			var grams = Math.floor(this.stats.distance * 130);
+			if(grams > 1000)
+				return Math.floor(grams / 1000) + " kg"
+			else
+				return grams + " g";
+		},
+		'countries': function(){
+			var countries = {};
+
+			this.points.forEach(function(point){
+				point.route.stats.countries.forEach(function(routeCountryStats){
+					if(countries[routeCountryStats.countryCode] === undefined)
+						countries[routeCountryStats.countryCode] = 0;
+
+					countries[routeCountryStats.countryCode] += routeCountryStats.distance;
+				});
+			});
+
+			return Object.keys(countries).map(function(country){
+				return {
+					countryName: country,
+					distance: countries[country]
+				};
+			});
+		}
+	});
 })();
 
 (function(){
