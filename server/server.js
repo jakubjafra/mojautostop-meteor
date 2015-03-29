@@ -308,6 +308,8 @@ Meteor.methods({
 
 				// ~~~
 
+				point.route.stats.countries = [];
+
 				if(countryBegin === countryEnd){
 					// prosta sprawa...
 					point.route.stats.countries.push({

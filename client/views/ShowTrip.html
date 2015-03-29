@@ -43,7 +43,10 @@
 								{{ parseInt stats.distance }} km, w {{ driversCount }} przejazdach<br>
 								{{ distanceDivDuration }} km / dzień<br>
 								{{ sumaricWaitingTime }} łapania stopa<br>
-								{{ co2 }} CO2 zaoszczędzone dzięki autostopowi
+								{{ co2 }} CO2 zaoszczędzone dzięki autostopowi<br>
+								{{#each countries}}
+									{{countryName}} - {{distance}}
+								{{/each}}
 							</div>
 						</div>
 					</div>

@@ -869,7 +869,16 @@ RouteMapRenderer = function(){
 		}
 	});
 
+	// ~~~
+
 	Template.RouteHead.helpers({
+		'user': function(){
+			console.log(Meteor.users.findOne(this.user));
+			return Meteor.users.findOne(this.user);
+		},
+		'duration': function(){
+			return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+		},
 		'parseInt': function(x){
 			return Math.round(x);
 		},
@@ -900,18 +909,25 @@ RouteMapRenderer = function(){
 				return Math.floor(grams / 1000) + " kg"
 			else
 				return grams + " g";
-		}
-	});
-
-	// ~~~
-
-	Template.RouteHead.helpers({
-		'user': function(){
-			console.log(Meteor.users.findOne(this.user));
-			return Meteor.users.findOne(this.user);
 		},
-		'duration': function(){
-			return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+		'countries': function(){
+			var countries = {};
+
+			this.points.forEach(function(point){
+				point.route.stats.countries.forEach(function(routeCountryStats){
+					if(countries[routeCountryStats.countryCode] === undefined)
+						countries[routeCountryStats.countryCode] = 0;
+
+					countries[routeCountryStats.countryCode] += routeCountryStats.distance;
+				});
+			});
+
+			return Object.keys(countries).map(function(country){
+				return {
+					countryName: country,
+					distance: countries[country]
+				};
+			});
 		}
 	});
 })();
