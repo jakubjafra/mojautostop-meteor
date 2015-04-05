@@ -11,6 +11,15 @@ Router.route('/', {
 	}
 });
 
+Router.route('/static', {
+	name: 'static',
+	template: 'StaticPage',
+
+	action: function(){
+		this.render();
+	}
+});
+
 Router.route('/dashboard', {
 	name: 'dashboard',
 	template: 'Dashboard',

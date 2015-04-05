@@ -1,0 +1,26 @@
+<template name="StaticPage">
+	{{> Article x="0" y="0" }}
+	{{> Article x="0" y="1" }}
+	{{> Article x="1" y="0" }}
+	{{> Article x="1" y="1" }}
+</template>
+
+<template name="Article">
+	<article class="pos_{{ x }}_{{ y }}" id="pos_{{ x }}_{{ y }}">
+		<!-- <span>{{ x }}, {{ y }}</span> -->
+
+		{{> ArticleAside direction="left" parent=this }}
+		{{> ArticleAside direction="right" parent=this }}
+		{{> ArticleAside direction="up" parent=this }}
+		{{> ArticleAside direction="down" parent=this }}
+	</article>
+</template>
+
+<template name="ArticleAside">
+	<aside class="{{ direction }}">
+		<a href="#pos_{{ newX }}_{{ newY }}">
+			<span class="glyphicon glyphicon-chevron-{{ direction }}">
+			</span>
+		</a>
+	</aside>
+</template>

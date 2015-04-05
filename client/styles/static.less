@@ -1,0 +1,121 @@
+/*
+
+static.less
+
+*/
+
+body {
+	// overflow: hidden;
+}
+
+.article_position(@x, @y) {
+	position: absolute;
+	top: @y * 100%;
+	left: @x * 100%;
+
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+article {
+	width: 100%;
+	height: 100%;
+
+	aside {
+		position: absolute;
+
+		text-align: center;
+		display: table;
+
+		a {
+			font-size: 30px;
+			color: white;
+			text-decoration: none;
+
+			display: table-cell;
+			vertical-align: middle;
+
+			text-shadow: 1px 1px 2px #000000;
+			transition: text-shadow 0.5s;
+
+			cursor: pointer;
+
+			&:visited {
+				color: darken(white, 5%);
+			}
+
+			&:hover {
+				color: darken(white, 5%);
+				text-shadow: 2px 2px 8px #000000;
+			}
+		}
+
+		@aside-size-vertical: 8%;
+
+		// tu mnóstwo media queries...
+		@aside-size-horizontal: @aside-size-vertical * (9 / 16);
+
+		@aside-max-color: rgba(0, 0, 0, 0.25);
+		@aside-mid-color: rgba(0, 0, 0, 0);
+		@aside-min-color: rgba(0, 0, 0, 0);
+
+		&.left {
+			left: 0px;
+			top: 0px;
+			width: @aside-size-horizontal;
+			height: 100%;
+
+			background: radial-gradient(at left, @aside-max-color, @aside-mid-color, @aside-min-color);
+		}
+
+		&.right {
+			right: 0px;
+			top: 0px;
+			width: @aside-size-horizontal;
+			height: 100%;
+
+			background: radial-gradient(at right, @aside-max-color, @aside-mid-color, @aside-min-color);
+		}
+
+		&.up {
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: @aside-size-vertical;
+
+			background: radial-gradient(at top, @aside-max-color, @aside-mid-color, @aside-min-color);
+		}
+
+		&.down {
+			left: 0px;
+			bottom: 0px;
+			width: 100%;
+			height: @aside-size-vertical;
+
+			background: radial-gradient(at bottom, @aside-max-color, @aside-mid-color, @aside-min-color);
+		}
+	}
+
+	// ~~~
+
+	&.pos_0_0 {
+		.article_position(0, 0);
+		background-image: url('pictures/1.jpg');
+	}
+
+	&.pos_1_0 {
+		.article_position(1, 0);
+		background-image: url('pictures/2.jpg');
+	}
+
+	&.pos_0_1 {
+		.article_position(0, 1);
+		background-image: url('pictures/3.jpg');
+	}
+
+	&.pos_1_1 {
+		.article_position(1, 1);
+		background-image: url('pictures/4.jpg');
+	}
+}
