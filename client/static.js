@@ -4,72 +4,63 @@ static.js
 
 */
 
-/*
-Template.ArticleAside.events({
-	'click .glyphicon': function(event){
-		switch(this.direction){
-			case "up":
-				break;
-
-			case "down":
-				break;
-
-			case "left":
-				break;
-
-			case "right":
-				break;
-		}
-	}
+var current = new ReactiveVar({
+	x: 0,
+	y: 0
 });
-*/
 
-Template.ArticleAside.events({
+function getNewXForDirection(direction){
+	switch(direction){
+		case "up":
+			return parseInt(current.get().x);
+
+		case "down":
+			return parseInt(current.get().x);
+
+		case "left":
+			return parseInt(current.get().x) - 1;
+
+		case "right":
+			return parseInt(current.get().x) + 1;
+	}
+}
+
+function getNewYForDirection(direction){
+	switch(direction){
+		case "up":
+			return parseInt(current.get().y) - 1;
+
+		case "down":
+			return parseInt(current.get().y) + 1;
+
+		case "left":
+			return parseInt(current.get().y);
+
+		case "right":
+			return parseInt(current.get().y);
+	}
+}
+
+Template.NavAside.events({
 	'click a': function(event){
 		event.preventDefault();
 
-		var hash = $(event.currentTarget).attr('href');
-		var target = $(hash);
-	      if (target.length) {
-	        $('html,body').animate({
-	          scrollTop: target.offset().top,
-	          scrollLeft: target.offset().left
-	        }, 500);
-	      }
+		var direction = $(event.currentTarget).data('direction');
 
-	    return false;
-	}
-})
+		var newX = getNewXForDirection(direction);
+		var newY = getNewYForDirection(direction);
 
-Template.ArticleAside.helpers({
-	'newX': function(){
-		switch(this.direction){
-			case "up":
-				return parseInt(this.parent.x);
+		current.set({
+			x: newX,
+			y: newY
+		});
 
-			case "down":
-				return parseInt(this.parent.x);
-
-			case "left":
-				return parseInt(this.parent.x) - 1;
-
-			case "right":
-				return parseInt(this.parent.x) + 1;
-		}
-	},
-	'newY': function(){
-		switch(this.direction){
-			case "up":
-				return parseInt(this.parent.y) - 1;
-
-			case "down":
-				return parseInt(this.parent.y) + 1;
-
-			case "left":
-				return parseInt(this.parent.y);
-
-			case "right":
-				return parseInt(this.parent.y);
+		var target = $("#pos_" + newX + "_" + newY);
+		if(target.length > 0) {
+			$('html,body').animate({
+				scrollTop: target.offset().top,
+				scrollLeft: target.offset().left
+			}, 500);
 		}
 	}
-})
+});

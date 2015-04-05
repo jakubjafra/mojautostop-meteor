@@ -1,24 +1,51 @@
 <template name="StaticPage">
-	{{> Article x="0" y="0" }}
-	{{> Article x="0" y="1" }}
-	{{> Article x="1" y="0" }}
-	{{> Article x="1" y="1" }}
-</template>
+	{{> Header}}
 
-<template name="Article">
-	<article class="pos_{{ x }}_{{ y }}" id="pos_{{ x }}_{{ y }}">
-		<!-- <span>{{ x }}, {{ y }}</span> -->
+	<article class="pos_0_0 main" id="pos_0_0">
+		{{!--
+		<div>
+			Autostopowicze przejechali już
+		</div>
 
-		{{> ArticleAside direction="left" parent=this }}
-		{{> ArticleAside direction="right" parent=this }}
-		{{> ArticleAside direction="up" parent=this }}
-		{{> ArticleAside direction="down" parent=this }}
+		<div>
+			<span>0</span>
+			<span>km</span>
+		</div>
+
+		<div>
+			A ty?
+		</div>
+		--}}
+	</article>
+
+	<article class="pos_0_1" id="pos_0_1">
+		b
+	</article>
+
+	<article class="pos_1_0" id="pos_1_0">
+		c
+	</article>
+
+	<article class="pos_1_1" id="pos_1_1">
+		d
 	</article>
 </template>
 
-<template name="ArticleAside">
+<template name="Header">
+	<header>
+		{{> NavAside direction="left" }}
+		{{> NavAside direction="right" }}
+		{{> NavAside direction="up" }}
+		{{> NavAside direction="down" }}
+		<!--
+		<img src="small_logo.png" style="width: 250px; height: auto;">
+		-->
+	</header>
+</template>
+
+<template name="NavAside">
 	<aside class="{{ direction }}">
-		<a href="#pos_{{ newX }}_{{ newY }}">
+		<a href="#" data-direction="{{ direction }}">
 			<span class="glyphicon glyphicon-chevron-{{ direction }}">
 			</span>
 		</a>
