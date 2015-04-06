@@ -48,7 +48,10 @@ Router.route('/edit-trip/:_id', {
 	template: 'EditTrip',
 
 	waitOn: function(){
-		return Meteor.subscribe('get-trip-data', this.params._id);
+		return [
+			Meteor.subscribe('official-races'),
+			Meteor.subscribe('get-trip-data', this.params._id)
+		];
 	},
 	data: function(){
 		return Trips.findOne({ _id: this.params._id });

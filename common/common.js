@@ -19,6 +19,12 @@ Trip = function(name, userId){
 	// id użytkownika-właściciela
 	this.user = userId;
 
+	// parowanie (lista sparowanych użytkowników)
+	this.comrades = {
+		// user: null,
+		race: null
+	};
+
 	// czy został upubliczniony
 	this.publish = {
 		// czy jest widoczny?
@@ -103,6 +109,17 @@ Book = function(id, userId){
 
 	// identyfikator użytkownika
 	this.userId = userId;
+};
+
+// ~~~
+
+UserProfile = function(){
+	this.isPremium = false;
+
+	this.isRace = false;
+
+	this.firstName = "";
+	this.lastName = "";
 };
 
 // ~~~

@@ -648,6 +648,8 @@ RouteMapRenderer = function(){
 
 	// ~~~
 
+	var isRaceTrip = new ReactiveVar(false);
+
 	Template.EditTripDataModal.rendered = function(){
 		var modal = $("#edit-trip-data-modal");
 		
@@ -658,6 +660,10 @@ RouteMapRenderer = function(){
 
 		if(Trips.findOne({}).points.length === 0)
 			$("#edit-trip-data-modal").modal('show');
+
+		$(modal).find("#race-trip").change(function(){
+			isRaceTrip.set($(this).is(':checked'));
+		});
 	};
 
 	function formatDate(timestamp){
@@ -685,6 +691,12 @@ RouteMapRenderer = function(){
 				endTime = Date.now();
 
 			return formatDate(endTime);
+		},
+		'isNotRaceTrip': function(){
+			return !isRaceTrip.get();
+		},
+		'officialAutostopRaces': function(){
+			return Meteor.users.find({ 'profile.isRace': true });
 		}
 	});
 
@@ -697,8 +709,15 @@ RouteMapRenderer = function(){
 
 			var title = modal.find('#title').val();
 
+			var isRaceTrip = modal.find("#race-trip").is(':checked');
+
+			var raceBinded = null;
+			if(isRaceTrip)
+				raceBinded = modal.find('#bind-race-trip').val();
+
 			Meteor.call('ChangeTripDuration', this._id, beginTime, endTime);
 			Meteor.call('ChangeTripName', this._id, title);
+			Meteor.call('BindRaceToTrip', this._id, raceBinded);
 		}
 	});
 })();
@@ -727,7 +746,18 @@ RouteMapRenderer = function(){
 
 	Template.Dashboard.helpers({
 		'mineTrips': function(){
-			return Trips.find({ user: Meteor.userId() });
+			return Trips.find();
+		},
+		'isTrullyMineTrip': function(){
+			return (this.user === Meteor.userId());
+		},
+		'comradeTripData': function(){
+			return {
+				_id: this.publish.id
+			};
+		},
+		'canAddTrip': function(){
+			return !Meteor.user().profile.isRace;
 		}
 	})
 })();

@@ -39,7 +39,13 @@
 							<h2 style="margin-top: 0px">
 								{{ name }}
 							</h2>
-							<small>{{ user._id }}</small>
+							<div>
+								<small>{{ user }}</small>
+								<br>
+								{{#if comrades.race}}
+									<small>Sparowany z {{comrades.race}}</small>
+								{{/if}}
+							</div>
 							<div>
 								{{ duration }} dni<br>
 								{{ parseInt stats.distance }} km, w {{ driversCount }} przejazdach<br>

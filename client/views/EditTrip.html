@@ -417,6 +417,26 @@
 							<input type="text" class="input-sm form-control" value="{{endTime}}" name="end" id="end-time" />
 						</div>
 					</div>
+					<div class="form-group">
+						<div>
+							<input type="checkbox" id="race-trip">
+							<label for="race-trip">
+								Jechałem z autostopracem!
+							</label>
+						</div>
+						<div>
+							<select class="form-control" id="bind-race-trip">
+								<option value="">
+									Nie jechałem z autostopracem.
+								</option>
+								{{#each officialAutostopRaces}}
+									<option value="{{ _id }}">
+										{{ profile.firstName }}
+									</option>
+								{{/each}}
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-default" data-dismiss="modal">Anuluj</button>

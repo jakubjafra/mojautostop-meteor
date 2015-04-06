@@ -48,6 +48,11 @@ function getCountryCodeForName(name){
 	return ret.data[0].address.country_code;
 }
 
+Accounts.onCreateUser(function(options, user){
+	user.profile = new UserProfile();
+	return user;
+});
+
 Meteor.methods({
 	'BindBook': function(bookId, bookKey){
 		bookId = parseInt(bookId);
@@ -114,6 +119,13 @@ Meteor.methods({
 		});
 
 		console.log("Changed #" + tripId + " duration.");
+	},
+	'BindRaceToTrip': function(tripId, bindedRace){
+		Trips.update(tripId, {
+			$set: {
+				'comrades.race': bindedRace
+			}
+		});
 	},
 
 	'PublishTrip': function(tripId){
@@ -377,6 +389,18 @@ Meteor.methods({
 
 	// ~~~
 
+	'MakeRace': function(userId, raceName){
+		Meteor.users.update(userId, {
+			$set: {
+				'profile.isRace': true,
+				'profile.isPremium': true,
+				'profile.firstName': raceName
+			}
+		});
+	},
+
+	// ~~~
+
 	'fs_removeScreen': function(tripId, pointId, imagePath){
 		var trip = Trips.findOne(tripId);
 
@@ -420,7 +444,12 @@ Meteor.startup(function(){
 
 	Meteor.publish("mine-trips", function(){
 		if(this.userId !== null)
-			return Trips.find({ user: this.userId });
+			return Trips.find({
+				$or: [
+					{ user: this.userId },
+					{$and: [{'comrades.race': this.userId}, {'publish.visible': true}]}
+				]
+			});
 	});
 
 	Meteor.publish("book-user-data", function(bookId){
@@ -430,6 +459,10 @@ Meteor.startup(function(){
 		if(book !== undefined){
 			return PublishedTrips.find({ user: book.userId });
 		}
+	});
+
+	Meteor.publish("official-races", function(){
+		return Meteor.users.find({ 'profile.isRace': true });
 	});
 
 	// ~~~

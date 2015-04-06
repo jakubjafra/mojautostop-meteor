@@ -8,19 +8,28 @@
 					{{#each mineTrips}}
 						<div class="col-xs-3 trip">
 							<div>
-								{{#linkTo route='edit-trip'}}
-									{{ name }}
-								{{/linkTo}}
+								{{#if isTrullyMineTrip}}
+									{{#linkTo route='edit-trip'}}
+										{{ name }}
+									{{/linkTo}}
+								{{else}}
+									{{#linkTo route='show-trip' data=comradeTripData}}
+										{{ name }}
+									{{/linkTo}}
+									comrade trip!
+								{{/if}}
 							</div>
 						</div>
 					{{/each}}
-					<div class="col-xs-3 trip">
-						<div class="trip-add-new">
-							<a href="#" id="trip-add-new">
-								<span class="glyphicon glyphicon-plus"></span>
-							</a>
+					{{#if canAddTrip}}
+						<div class="col-xs-3 trip">
+							<div class="trip-add-new">
+								<a href="#" id="trip-add-new">
+									<span class="glyphicon glyphicon-plus"></span>
+								</a>
+							</div>
 						</div>
-					</div>
+					{{/if}}
 				</div>
 			</div>
 			<div class="col-xs-4">
