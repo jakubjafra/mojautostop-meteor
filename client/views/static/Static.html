@@ -1,13 +1,21 @@
 <template name="StaticPage">
 	<div id="static">
-		<nav>
-			<div class="navbar">
-				<div class="container">
-					<div class="row">
-						<div class="navbar-brand">
-							<img src="small_logo.png" />
-						</div>
+		<nav class="navbar">
+			<div class="container">
+				<div class="row">
+					<div class="navbar-brand">
+						<img src="small_logo.png" />
 					</div>
+
+					{{!--
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="#">
+								<span class="glyphicon glyphicon-log-in"></span>
+							</a>
+						</li>
+					</ul>
+					--}}
 				</div>
 			</div>
 		</nav>
@@ -26,7 +34,7 @@
 				</button>
 			</div>
 
-			{{> NavAsideDown}}
+			{{> NavAsideDown target="#section1"}}
 		</header>
 
 		{{!--
@@ -37,17 +45,17 @@
 		<figure class="fig1">
 		</figure>
 
-		<section>
+		<section id="section1">
 			b
-			{{> NavAsideDown noBkg="true"}}
+			{{> NavAsideDown target="#section2" noBkg="true"}}
 		</section>
 
 		<figure class="fig3">
 		</figure>
 
-		<section>
+		<section id="section2">
 			c
-			{{> NavAsideDown noBkg="true"}}
+			{{> NavAsideDown target="#footer" noBkg="true"}}
 		</section>
 
 		<figure class="fig5">
@@ -62,17 +70,16 @@
 						Obecnie system jest w fazie beta testów. Aby nie przegapić startu, zapisz się do naszego newslettera. Pod koniec kwietnia powiadomimy Cię gdy wszystko będzie dopięte na ostatni guzik.
 					</small>
 				</h1>
-				<form>
-					<div class="input-group">
-						<input type="email" class="form-control" placeholder="twój@email.pl" />
+				<div class="newsletter-form">
+					<div class="input-group input-group-lg">
+						<input type="email" id="newsletter-email" class="form-control" placeholder="twój@email.pl" />
 						<div class="input-group-btn">
-							<button class="btn btn-primary">
-								<span class="glyphicon glyphicon-plus">
-								</span>
+							<button class="btn btn-primary" id="newsletter-submit" disabled="disabled">
+								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</article>
 
 			<figure>
@@ -80,7 +87,7 @@
 			</figure>
 		</section>
 
-		<footer>
+		<footer class="scrollTarget" id="footer">
 			<nav>
 				<div class="navbar">
 					<div class="container">
@@ -99,18 +106,17 @@
 <template name="NavAsideDown">
 	{{#if noBkg}}
 		<aside class="no-background">
-			{{> __NavAsideDownContent}}
+			<a>
+				<span class="glyphicon glyphicon-chevron-down" data-scroll-target="{{ target }}">
+				</span>
+			</a>
 		</aside>
 	{{else}}
 		<aside>
-			{{> __NavAsideDownContent}}
+			<a>
+				<span class="glyphicon glyphicon-chevron-down" data-scroll-target="{{ target }}">
+				</span>
+			</a>
 		</aside>
 	{{/if}}
-</template>
-
-<template name="__NavAsideDownContent">
-	<a>
-		<span class="glyphicon glyphicon-chevron-down">
-		</span>
-	</a>
 </template>

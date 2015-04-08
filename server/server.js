@@ -53,7 +53,22 @@ Accounts.onCreateUser(function(options, user){
 	return user;
 });
 
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+
 Meteor.methods({
+	'RegisterToNewsletter': function(email){
+		if(!validateEmail(email))
+			return false;
+		
+		Newsletter.insert(new NewsletterApplication(email));
+		return true;
+	},
+
+	// ~~~
+
 	'BindBook': function(bookId, bookKey){
 		bookId = parseInt(bookId);
 

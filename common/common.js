@@ -124,9 +124,17 @@ UserProfile = function(){
 
 // ~~~
 
+NewsletterApplication = function(email){
+	this.email = email;
+};
+
+// ~~~
+
 Trips = new Mongo.Collection("trips");
 PublishedTrips = new Mongo.Collection("public_trips");
 
 RemovedTrips = new Mongo.Collection("removed_trips");
 
 Books = new Mongo.Collection("books");
+
+Newsletter = new Mongo.Collection("newsletter");

@@ -6,6 +6,8 @@ static.less
 
 @import "varibles.less";
 
+@divider-height: 10px;
+
 #static {
 	position: absolute;
 	top: 0;
@@ -13,7 +15,7 @@ static.less
 	width: 100%;
 	height: 100%;
 
-	background: url("pictures/bkg2.jpg") no-repeat center center fixed;
+	background: url("pictures/bkg2_light.jpg") no-repeat center center fixed;
 	// background-size: 100%;
 	background-size: cover;
 
@@ -25,6 +27,7 @@ static.less
 
 	section {
 		padding: 20px;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
 
 		article, figure {
 			padding-left: 10px;
@@ -46,30 +49,99 @@ static.less
 		font-family: georgia, Arial, serif;
 	}
 
-	& > nav {
+	& > nav.navbar {
 		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 70px;
 
-		background-color: rgba(255, 255, 255, 0.65);
-		z-index: 100;
+		background-color: rgba(255, 255, 255, 0.75);
+		z-index: 666;
 
-		display: table;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
 
-		.navbar {
-			vertical-align: middle;
-			display: table-cell;
+		border: none;
+		border-radius: 0;
 
-			margin: 0px;
+		margin: 0px;
 
-			.navbar-brand {
-				padding: 0px;
+		.navbar-brand {
+			padding-top: 0px;
+			padding-bottom: 0px;
 
-				img {
-					height: 100%;
-					width: auto;
+			height: 70px;
+
+			img {
+				height: 100%;
+				width: auto;
+			}
+		}
+
+		ul {
+			li {
+				a {
+					font-family: georgia, Arial, serif;
+					line-height: 36px;
+					// text-shadow: 0px 0px 1px #000000;
+					font-size: 20px;
+
+					background-color: transparent;
+
+					border-bottom: 4px solid transparent;
+
+					text-transform: uppercase;
+
+					&:hover {
+						background-color: transparent;
+
+						border-bottom: 4px solid blue;
+					}
+
+					&:nth-child(5) {
+						color: lighten(@bar-red, 10%);
+
+						&:hover {
+							color: @bar-red;
+							border-color: @bar-red;
+						}
+					}
+
+					&:nth-child(4) {
+						color: lighten(@bar-yellow, 10%);
+
+						&:hover {
+							color: @bar-yellow;
+							border-color: @bar-yellow;
+						}
+					}
+
+					&:nth-child(3) {
+						color: lighten(@bar-green, 10%);
+
+						&:hover {
+							color: @bar-green;
+							border-color: @bar-green;
+						}
+					}
+
+					&:nth-child(2) {
+						color: lighten(@bar-cyan, 10%);
+
+						&:hover {
+							color: @bar-cyan;
+							border-color: @bar-cyan;
+						}
+					}
+
+					&:nth-child(1) {
+						color: lighten(@bar-navy, 10%);
+
+						&:hover {
+							color: @bar-navy;
+							border-color: @bar-navy;
+						}
+					}
 				}
 			}
 		}
@@ -98,7 +170,7 @@ static.less
 
 		button.buy-book {
 			margin: 20px 0;
-			background-color: lighten(@logo-text-color, 5%);
+			background-color: @bar-red;
 			border: none;
 			padding: 15px 30px;
 			border-radius: 30px;
@@ -109,7 +181,7 @@ static.less
 			box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 
 			&:hover {
-				background-color: lighten(@logo-text-color, 8%);
+				background-color: lighten(@bar-red, 2%);
 			}
 		}
 	}
@@ -207,12 +279,12 @@ static.less
 		height: 300px;
 
 		article {
-			form {
+			div.newsletter-form {
 				margin-top: 20px;
 
 				div.input-group {
-					width: 50%;
-					left: 25%;
+					width: 70%;
+					left: 15%;
 				}
 			}
 		}
@@ -226,11 +298,10 @@ static.less
 	}
 
 	footer {
-		@divider-height: 10px;
-
 		height: auto;
+		z-index: 100;
 
-		background-image: url("http://s3.amazonaws.com/lyah/bg.png");
+		background-image: url("/bar.png");
 		background-repeat: repeat-x;
 		background-size: 100px @divider-height;
 
