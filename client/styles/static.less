@@ -6,140 +6,184 @@ static.less
 
 @import "varibles.less";
 
-html, body {
-    height: 100%;
-}
-
-header, article, footer, figure {
-	position: relative;
-	width: 100%;
-	height: 100%;
-}
-
-body {
-	background: url("pictures/bkg2.jpg") no-repeat center center fixed;
-	// background-size: 100%;
-	background-size: cover;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-family: georgia, Arial, serif;
-}
-
-nav {
-	position: fixed;
+#static {
+	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 70px;
+	height: 100%;
 
-	background-color: rgba(255, 255, 255, 0.65);
-	z-index: 100;
+	background: url("pictures/bkg2.jpg") no-repeat center center fixed;
+	// background-size: 100%;
+	background-size: cover;
 
-	display: table;
+	header, article, footer, figure {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
 
-	.navbar {
-		vertical-align: middle;
-		display: table-cell;
+	h1, h2, h3, h4, h5, h6 {
+		font-family: georgia, Arial, serif;
+	}
 
-		margin: 0px;
+	nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 70px;
 
-		.navbar-brand {
-			padding: 0px;
+		background-color: rgba(255, 255, 255, 0.65);
+		z-index: 100;
 
-			img {
-				height: 100%;
-				width: auto;
+		display: table;
+
+		.navbar {
+			vertical-align: middle;
+			display: table-cell;
+
+			margin: 0px;
+
+			.navbar-brand {
+				padding: 0px;
+
+				img {
+					height: 100%;
+					width: auto;
+				}
 			}
 		}
 	}
-}
 
-header {
-	display: table;
+	header {
+		display: table;
 
-	color: white;
-	text-shadow: 1px 1px 3px #000000;
+		color: white;
+		text-shadow: 1px 1px 3px #000000;
 
-	div {
-		vertical-align: middle;
-		display: table-cell;
-		text-align: center;
-	}
+		div {
+			vertical-align: middle;
+			display: table-cell;
+			text-align: center;
+		}
 
-	h1 {
-		font-weight: bold;
-		font-size: 60px;
-	}
+		h1 {
+			font-weight: bold;
+			font-size: 60px;
+		}
 
-	h3 {
-		font-size: 25px;
-	}
+		h3 {
+			font-size: 25px;
+		}
 
-	button {
-		margin: 20px 0;
-		background-color: lighten(@logo-text-color, 5%);
-		border: none;
-		padding: 15px 30px;
-		border-radius: 30px;
-		text-transform: uppercase;
-		font-size: 20px;
-		font-weight: bold;
-		font-family: georgia, Arial, serif;
-		box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+		button.buy-book {
+			margin: 20px 0;
+			background-color: lighten(@logo-text-color, 5%);
+			border: none;
+			padding: 15px 30px;
+			border-radius: 30px;
+			text-transform: uppercase;
+			font-size: 20px;
+			font-weight: bold;
+			font-family: georgia, Arial, serif;
+			box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 
-		&:hover {
-			background-color: lighten(@logo-text-color, 8%);
+			&:hover {
+				background-color: lighten(@logo-text-color, 8%);
+			}
 		}
 	}
-}
 
-div.divider {
-	position: absolute;
-	left: 0;
-	top: 100%;
+	div.divider {
+		position: absolute;
+		left: 0;
+		top: 100%;
 
-	margin-top: -150px;
+		margin-top: -150px;
 
-	width: 100%;
-	height: 300px;
+		width: 100%;
+		height: 300px;
 
-	background-size: cover;
-	background-position: left;
-	background-image: url("pictures/background.png");
+		background-size: cover;
+		background-position: left;
+		background-image: url("pictures/background.png");
 
-	z-index: 80;
-}
-
-article {
-	height: 80%;
-	background-color: white;
-}
-
-footer {
-	height: 50%;
-
-	background-color: white;
-}
-
-figure {
-	background-size: cover;
-	background-position: center;
-
-	&.fig1 {
-		background-image: url("pictures/1.jpg");
+		z-index: 80;
 	}
 
-	&.fig3 {
-		background-image: url("pictures/3.jpg");
+	article {
+		height: 80%;
+		background-color: white;
 	}
-}
 
-/*
-position: fixed;
+	footer {
+		height: 50%;
+
+		background-color: white;
+	}
+
+	figure {
+		background-size: cover;
+		background-position: center;
+
+		&.fig1 {
+			background-image: url("pictures/1.jpg");
+		}
+
+		&.fig3 {
+			background-image: url("pictures/3.jpg");
+		}
+	}
+
+	aside {
+		position: fixed;
+
+		text-align: center;
+		display: table;
+
+		z-index: 200;
+
+		a {
+			font-size: 30px;
+			color: white;
+			text-decoration: none;
+
+			display: table-cell;
+			vertical-align: middle;
+
+			text-shadow: 1px 1px 2px #000000;
+			transition: text-shadow 0.5s;
+
+			cursor: pointer;
+
+			&:hover {
+				text-shadow: 2px 2px 8px #000000;
+			}
+
+			&:hover, &:focus, &:visited {
+				color: darken(white, 5%);
+			}
+		}
+
+		@aside-max-color: rgba(0, 0, 0, 0.25);
+		@aside-mid-color: rgba(0, 0, 0, 0);
+		@aside-min-color: rgba(0, 0, 0, 0);
+
+		bottom: 0px;
+		left: 0px;
+		width: 50px;
+		height: 100%;
+
+		background: radial-gradient(at bottom, @aside-max-color, @aside-mid-color, @aside-min-color);
+	}
+
+	/*
+	position: fixed;
 	z-index: 100;
 
 	background-image: url("http://s3.amazonaws.com/lyah/bg.png");
 	background-repeat: repeat-x;
 	background-size: 100px 20px;
 	*/
+}
