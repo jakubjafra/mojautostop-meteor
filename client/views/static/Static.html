@@ -26,7 +26,7 @@
 				</button>
 			</div>
 
-			{{> NavAside}}
+			{{> NavAsideDown}}
 		</header>
 
 		{{!--
@@ -37,30 +37,80 @@
 		<figure class="fig1">
 		</figure>
 
-		<article>
+		<section>
 			b
-		</article>
+			{{> NavAsideDown noBkg="true"}}
+		</section>
 
 		<figure class="fig3">
 		</figure>
 
-		<!--
-		<article>
+		<section>
 			c
-		</article>
-		-->
+			{{> NavAsideDown noBkg="true"}}
+		</section>
+
+		<figure class="fig5">
+		</figure>
 		
+		<section class="newsletter">
+			<article>
+				<h1>
+					Zainteresowany?
+					<br>
+					<small>
+						Obecnie system jest w fazie beta testów. Aby nie przegapić startu, zapisz się do naszego newslettera. Pod koniec kwietnia powiadomimy Cię gdy wszystko będzie dopięte na ostatni guzik.
+					</small>
+				</h1>
+				<form>
+					<div class="input-group">
+						<input type="email" class="form-control" placeholder="twój@email.pl" />
+						<div class="input-group-btn">
+							<button class="btn btn-primary">
+								<span class="glyphicon glyphicon-plus">
+								</span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</article>
+
+			<figure>
+				<img src="drawings/ubezpieczenie4.png" />
+			</figure>
+		</section>
+
 		<footer>
-			d
+			<nav>
+				<div class="navbar">
+					<div class="container">
+						<div class="row">
+							<p class="navbar-text">
+								Copyright &copy; Dreamhunters 2015
+							</p>
+						</div>
+					</div>
+				</div>
+			</nav>
 		</footer>
 	</div>
 </template>
 
-<template name="NavAside">
-	<aside>
-		<a>
-			<span class="glyphicon glyphicon-chevron-bottom">
-			</span>
-		</a>
-	</aside>
+<template name="NavAsideDown">
+	{{#if noBkg}}
+		<aside class="no-background">
+			{{> __NavAsideDownContent}}
+		</aside>
+	{{else}}
+		<aside>
+			{{> __NavAsideDownContent}}
+		</aside>
+	{{/if}}
+</template>
+
+<template name="__NavAsideDownContent">
+	<a>
+		<span class="glyphicon glyphicon-chevron-down">
+		</span>
+	</a>
 </template>

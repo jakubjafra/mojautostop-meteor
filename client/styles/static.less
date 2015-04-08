@@ -17,17 +17,36 @@ static.less
 	// background-size: 100%;
 	background-size: cover;
 
-	header, article, footer, figure {
+	header, section, footer, figure {
 		position: relative;
 		width: 100%;
 		height: 100%;
+	}
+
+	section {
+		padding: 20px;
+
+		article, figure {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			float: left;
+
+			height: 100%;
+			width: 50%;
+			text-align: center;
+		}
+
+		h1 small {
+			font-size: 50%;
+		}
 	}
 
 	h1, h2, h3, h4, h5, h6 {
 		font-family: georgia, Arial, serif;
 	}
 
-	nav {
+	& > nav {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -112,14 +131,8 @@ static.less
 		z-index: 80;
 	}
 
-	article {
+	section {
 		height: 80%;
-		background-color: white;
-	}
-
-	footer {
-		height: 50%;
-
 		background-color: white;
 	}
 
@@ -134,10 +147,19 @@ static.less
 		&.fig3 {
 			background-image: url("pictures/3.jpg");
 		}
+
+		&.fig5 {
+			background-image: url("pictures/5.jpg");
+		}
 	}
 
 	aside {
-		position: fixed;
+		position: absolute;
+
+		bottom: 0px;
+		left: 0px;
+		width: 100%;
+		height: 50px;
 
 		text-align: center;
 		display: table;
@@ -146,23 +168,27 @@ static.less
 
 		a {
 			font-size: 30px;
-			color: white;
 			text-decoration: none;
 
 			display: table-cell;
 			vertical-align: middle;
 
-			text-shadow: 1px 1px 2px #000000;
-			transition: text-shadow 0.5s;
+			span {
+				cursor: pointer;
+				padding: 10px;
 
-			cursor: pointer;
-
-			&:hover {
-				text-shadow: 2px 2px 8px #000000;
-			}
-
-			&:hover, &:focus, &:visited {
+				text-shadow: 1px 1px 2px #000000;
 				color: darken(white, 5%);
+
+				transition: text-shadow 0.5s, color 0.5s;
+
+				&:hover {
+					text-shadow: 2px 2px 8px #000000;
+				}
+
+				&:hover, &:focus, &:visited {
+					color: white;
+				}
 			}
 		}
 
@@ -170,12 +196,53 @@ static.less
 		@aside-mid-color: rgba(0, 0, 0, 0);
 		@aside-min-color: rgba(0, 0, 0, 0);
 
-		bottom: 0px;
-		left: 0px;
-		width: 50px;
-		height: 100%;
-
 		background: radial-gradient(at bottom, @aside-max-color, @aside-mid-color, @aside-min-color);
+
+		&.no-background {
+			background: none;
+		}
+	}
+
+	section.newsletter {
+		height: 300px;
+
+		article {
+			form {
+				margin-top: 20px;
+
+				div.input-group {
+					width: 50%;
+					left: 25%;
+				}
+			}
+		}
+
+		figure {
+			img {
+				width: 50%;
+				height: auto;
+			}
+		}
+	}
+
+	footer {
+		@divider-height: 10px;
+
+		height: auto;
+
+		background-image: url("http://s3.amazonaws.com/lyah/bg.png");
+		background-repeat: repeat-x;
+		background-size: 100px @divider-height;
+
+		nav {
+			padding-top: @divider-height;
+
+			.navbar {
+				background-color: darken(white, 3%);
+				margin: 0;
+				border: none;
+			}
+		}
 	}
 
 	/*
