@@ -20,6 +20,16 @@ Router.route('/static', {
 	}
 });
 
+Router.route('/history', {
+	name: 'history',
+	template: 'HistoryPage',
+
+	action: function(){
+		this.render();
+	}
+});
+
+
 Router.route('/dashboard', {
 	name: 'dashboard',
 	template: 'Dashboard',
