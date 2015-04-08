@@ -4,15 +4,6 @@ Router.plugin('dataNotFound', {
 
 Router.route('/', {
 	name: 'index',
-	template: 'LandingPage',
-
-	action: function(){
-		this.render();
-	}
-});
-
-Router.route('/static', {
-	name: 'static',
 	template: 'StaticPage',
 
 	action: function(){
@@ -20,83 +11,95 @@ Router.route('/static', {
 	}
 });
 
-Router.route('/history', {
-	name: 'history',
-	template: 'HistoryPage',
+if(Meteor.absoluteUrl() === "localhost"){
+	Router.route('/login', {
+		name: 'login',
+		template: 'LandingPage',
 
-	action: function(){
-		this.render();
-	}
-});
+		action: function(){
+			this.render();
+		}
+	});
 
 
-Router.route('/dashboard', {
-	name: 'dashboard',
-	template: 'Dashboard',
+	Router.route('/history', {
+		name: 'history',
+		template: 'HistoryPage',
 
-	data: function(){
-		return Meteor.subscribe('mine-trips');
-	},
-	action: function(){
-		this.render();
-	}
-});
+		action: function(){
+			this.render();
+		}
+	});
 
-Router.route('/buy-book', {
-	name: 'buy-book',
-	template: 'BuyBook',
 
-	waitOn: function(){
-	},
-	action: function(){
-		this.render();
-	}
-});
+	Router.route('/dashboard', {
+		name: 'dashboard',
+		template: 'Dashboard',
 
-Router.route('/edit-trip/:_id', {
-	name: 'edit-trip',
-	template: 'EditTrip',
+		data: function(){
+			return Meteor.subscribe('mine-trips');
+		},
+		action: function(){
+			this.render();
+		}
+	});
 
-	waitOn: function(){
-		return [
-			Meteor.subscribe('official-races'),
-			Meteor.subscribe('get-trip-data', this.params._id)
-		];
-	},
-	data: function(){
-		return Trips.findOne({ _id: this.params._id });
-	},
-	action: function(){
-		this.render();
-	}
-});
+	Router.route('/buy-book', {
+		name: 'buy-book',
+		template: 'BuyBook',
 
-Router.route('/show/:_id', {
-	name: 'show-trip',
-	template: 'ShowTrip',
+		waitOn: function(){
+		},
+		action: function(){
+			this.render();
+		}
+	});
 
-	waitOn: function(){
-		return Meteor.subscribe('get-published-trip-data', this.params._id);
-	},
-	data: function(){
-		return PublishedTrips.findOne({ _id: this.params._id });
-	},
-	action: function(){
-		this.render();
-	}
-});
+	Router.route('/edit-trip/:_id', {
+		name: 'edit-trip',
+		template: 'EditTrip',
 
-Router.route('/book/:id', {
-	name: 'book-owner-published-trips',
-	template: 'Profile',
+		waitOn: function(){
+			return [
+				Meteor.subscribe('official-races'),
+				Meteor.subscribe('get-trip-data', this.params._id)
+			];
+		},
+		data: function(){
+			return Trips.findOne({ _id: this.params._id });
+		},
+		action: function(){
+			this.render();
+		}
+	});
 
-	waitOn: function(){
-		return Meteor.subscribe('book-user-data', this.params.id);
-	},
-	data: function(){
-		return PublishedTrips.find({});
-	},
-	action: function(){
-		this.render();
-	}
-});
+	Router.route('/show/:_id', {
+		name: 'show-trip',
+		template: 'ShowTrip',
+
+		waitOn: function(){
+			return Meteor.subscribe('get-published-trip-data', this.params._id);
+		},
+		data: function(){
+			return PublishedTrips.findOne({ _id: this.params._id });
+		},
+		action: function(){
+			this.render();
+		}
+	});
+
+	Router.route('/book/:id', {
+		name: 'book-owner-published-trips',
+		template: 'Profile',
+
+		waitOn: function(){
+			return Meteor.subscribe('book-user-data', this.params.id);
+		},
+		data: function(){
+			return PublishedTrips.find({});
+		},
+		action: function(){
+			this.render();
+		}
+	});
+}
