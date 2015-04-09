@@ -39,13 +39,23 @@ Template.StaticPage.events({
 		}
 	}
 	*/
-})
+});
+
+function scrollPageByElement(element){
+	var scrollTarget = $(element);
+	$("html, body").animate({
+		scrollTop: (scrollTarget.offset().top - (($(window).height() / 2) - $("nav.navbar").height() - ($(scrollTarget).height() / 2)))
+	}, 500);
+}
 
 Template.NavAsideDown.events({
 	'click span': function(event){
-		var scrollTarget = $($(event.currentTarget).data('scrollTarget'));
-		$("html, body").animate({
-			scrollTop: (scrollTarget.offset().top - 100)
-		}, 500);
+		scrollPageByElement($(event.currentTarget).data('scrollTarget'));
+	}
+});
+
+Template.StaticPage.events({
+	'click header a': function(event){
+		scrollPageByElement($(event.currentTarget).data('scrollTarget'));
 	}
 });

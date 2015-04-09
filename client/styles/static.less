@@ -26,7 +26,7 @@ static.less
 	}
 
 	section {
-		padding: 20px;
+		padding: 40px;
 		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
 
 		article, figure {
@@ -38,6 +38,12 @@ static.less
 			height: 100%;
 			width: 50%;
 			text-align: center;
+
+			display: table;
+			h1 {
+				display: table-cell;
+				vertical-align: middle;
+			}
 		}
 
 		h1 small {
@@ -168,7 +174,7 @@ static.less
 			font-size: 25px;
 		}
 
-		button.buy-book {
+		a.buy-book {
 			margin: 20px 0;
 			background-color: @bar-red;
 			border: none;
@@ -209,6 +215,8 @@ static.less
 	}
 
 	figure {
+		height: 80%;
+
 		background-size: cover;
 		background-position: center;
 
@@ -216,8 +224,16 @@ static.less
 			background-image: url("pictures/1.jpg");
 		}
 
+		&.fig2 {
+			background-image: url("pictures/2.jpg");
+		}
+
 		&.fig3 {
 			background-image: url("pictures/3.jpg");
+		}
+
+		&.fig4 {
+			background-image: url("pictures/4.jpg");
 		}
 
 		&.fig5 {
@@ -275,10 +291,29 @@ static.less
 		}
 	}
 
-	section.newsletter {
+	section {
 		height: 300px;
 
 		article {
+			// ...
+		}
+
+		figure {
+			img {
+				width: auto;
+				height: 100%;
+			}
+		}
+	}
+
+	section.newsletter {
+		article {
+			display: block;
+
+			h1 {
+				display: block;
+			}
+
 			div.newsletter-form {
 				margin-top: 20px;
 
@@ -286,13 +321,6 @@ static.less
 					width: 70%;
 					left: 15%;
 				}
-			}
-		}
-
-		figure {
-			img {
-				width: 50%;
-				height: auto;
 			}
 		}
 	}
