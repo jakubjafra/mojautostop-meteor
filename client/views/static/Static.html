@@ -16,6 +16,12 @@
 						</li>
 					</ul>
 					--}}
+
+					{{#if isProduction}}
+						<ul class="nav navbar-nav navbar-right login-buttons">
+							{{> loginButtons}}
+						</ul>
+					{{/if}}
 				</div>
 			</div>
 		</nav>
@@ -54,7 +60,6 @@
 					<br>
 					<small>
 						Poznaj innowacyjny sposób dzielenia się wspomnieniami z podróży autostopowych.
-						Podziel się swoją podróżą, pozostań w kontakcie z ciekawymi ludźmi jakich spotkałeś.
 						Zapomnij o blogowaniu i dołącz do nas!
 					</small>
 				</h1>
@@ -161,7 +166,7 @@
 			</figure>
 		</section>
 
-		<footer class="scrollTarget" id="footer">
+		<footer id="footer">
 			<nav>
 				<div class="navbar">
 					<div class="container">

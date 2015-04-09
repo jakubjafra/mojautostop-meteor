@@ -62,7 +62,7 @@ static.less
 		width: 100%;
 		height: 70px;
 
-		background-color: rgba(255, 255, 255, 0.75);
+		background-color: white; // rgba(255, 255, 255, 0.75);
 		z-index: 666;
 
 		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
@@ -85,12 +85,12 @@ static.less
 		}
 
 		ul {
-			li {
-				a {
+			& > li {
+				& > a {
 					font-family: georgia, Arial, serif;
 					line-height: 36px;
 					// text-shadow: 0px 0px 1px #000000;
-					font-size: 20px;
+					font-size: 18px;
 
 					background-color: transparent;
 
@@ -98,52 +98,56 @@ static.less
 
 					text-transform: uppercase;
 
-					&:hover {
-						background-color: transparent;
-
+					&:hover, &:hover {
+						background-color: darken(white, 2%);
 						border-bottom: 4px solid blue;
 					}
 
 					&:nth-child(5) {
-						color: lighten(@bar-red, 10%);
+						color: lighten(@bar-red, 20%);
+						border-color: lighten(@bar-red, 20%);
 
-						&:hover {
+						&:hover, &:active {
 							color: @bar-red;
 							border-color: @bar-red;
 						}
 					}
 
 					&:nth-child(4) {
-						color: lighten(@bar-yellow, 10%);
+						color: lighten(@bar-yellow, 20%);
+						border-color: lighten(@bar-yellow, 20%);
 
-						&:hover {
+						&:hover, &:active {
 							color: @bar-yellow;
 							border-color: @bar-yellow;
 						}
 					}
 
 					&:nth-child(3) {
-						color: lighten(@bar-green, 10%);
+						color: lighten(@bar-green, 20%);
+						border-color: lighten(@bar-green, 20%);
 
-						&:hover {
+						&:hover, &:active {
 							color: @bar-green;
 							border-color: @bar-green;
 						}
 					}
 
 					&:nth-child(2) {
-						color: lighten(@bar-cyan, 10%);
+						color: lighten(@bar-cyan, 20%);
+						border-color: lighten(@bar-cyan, 20%);
 
-						&:hover {
+						&:hover, &:active {
 							color: @bar-cyan;
 							border-color: @bar-cyan;
 						}
 					}
 
 					&:nth-child(1) {
-						color: lighten(@bar-navy, 10%);
+						color: lighten(@bar-navy, 20%);
+						border-color: lighten(@bar-navy, 20%);
 
-						&:hover {
+						&:hover, &:active {
 							color: @bar-navy;
 							border-color: @bar-navy;
 						}
@@ -151,6 +155,31 @@ static.less
 				}
 			}
 		}
+
+		.login-buttons {
+			& > li {
+				& > a {
+					line-height: 36px;
+					font-size: 16px;
+				}
+
+				&.open {
+					& > a {
+						background-color: darken(white, 2%);
+					}
+				}
+			}
+
+			#login-dropdown-list {
+				div.dropdown-menu {
+					border: none;
+					background-color: white; //rgba(255, 255, 255, 0.75);
+					box-shadow: none;
+				}
+			}
+		}
+
+		
 	}
 
 	header {

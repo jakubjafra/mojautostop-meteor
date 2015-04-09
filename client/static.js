@@ -1,3 +1,4 @@
+/*
 Template.StaticPage.onRendered(function(){
 	// change opacity on scroll down
 	$(window).scroll(function(event){
@@ -6,6 +7,7 @@ Template.StaticPage.onRendered(function(){
 		$("nav.navbar").css("background-color", "rgba(255, 255, 255, " + step + ")");
 	});
 });
+*/
 
 /*
 function validateEmail(email) {
@@ -13,6 +15,12 @@ function validateEmail(email) {
     return re.test(email);
 }
 */
+
+Template.StaticPage.helpers({
+	'isProduction': function(){
+		return __isProd();
+	}
+});
 
 Template.StaticPage.events({
 	'click #newsletter-submit': function(event){

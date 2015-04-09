@@ -11,7 +11,7 @@ Router.route('/', {
 	}
 });
 
-if(Meteor.absoluteUrl() === "localhost"){
+if(__isDev()){
 	Router.route('/login', {
 		name: 'login',
 		template: 'LandingPage',
