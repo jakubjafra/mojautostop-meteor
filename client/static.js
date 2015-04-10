@@ -17,8 +17,8 @@ function validateEmail(email) {
 */
 
 Template.StaticPage.helpers({
-	'isProduction': function(){
-		return __isProd();
+	'isDev': function(){
+		return __isDev();
 	}
 });
 

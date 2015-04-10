@@ -1,7 +1,7 @@
-__isProd = function(){
+__isDev = function(){
 	return Meteor.absoluteUrl() === "http://localhost:3000/";
 }
 
-__isDev = function(){
-	return !__isProd();
+__isProd = function(){
+	return !__isDev();
 }
