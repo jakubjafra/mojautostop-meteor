@@ -4,12 +4,6 @@ client.js
 
 */
 
-if(__isProduction){
-	Accounts.config({
-		forbidClientAccountCreation: true
-	});
-}
-
 (function(){
 	UI.registerHelper("valueify", function(obj){
 	    result = [];
