@@ -1,30 +1,6 @@
 <template name="StaticPage">
 	<div id="static">
-		<nav class="navbar">
-			<div class="container">
-				<div class="row">
-					<div class="navbar-brand">
-						<img src="small_logo.png" />
-					</div>
-
-					{{!--
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<a href="#">
-								<span class="glyphicon glyphicon-log-in"></span>
-							</a>
-						</li>
-					</ul>
-					--}}
-
-					{{#if isDev}}
-						<ul class="nav navbar-nav navbar-right login-buttons">
-							{{> loginButtons}}
-						</ul>
-					{{/if}}
-				</div>
-			</div>
-		</nav>
+		{{> NavbarMenu}}
 
 		<header>
 			<div>

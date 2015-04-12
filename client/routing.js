@@ -12,25 +12,7 @@ Router.route('/', {
 });
 
 if(__isDev()){
-	Router.route('/login', {
-		name: 'login',
-		template: 'LandingPage',
-
-		action: function(){
-			this.render();
-		}
-	});
-
-
-	Router.route('/history', {
-		name: 'history',
-		template: 'HistoryPage',
-
-		action: function(){
-			this.render();
-		}
-	});
-
+	// Strony prywatne (dostępne po zalogowaniu):
 
 	Router.route('/dashboard', {
 		name: 'dashboard',
@@ -38,17 +20,6 @@ if(__isDev()){
 
 		data: function(){
 			return Meteor.subscribe('mine-trips');
-		},
-		action: function(){
-			this.render();
-		}
-	});
-
-	Router.route('/buy-book', {
-		name: 'buy-book',
-		template: 'BuyBook',
-
-		waitOn: function(){
 		},
 		action: function(){
 			this.render();
@@ -72,6 +43,8 @@ if(__isDev()){
 			this.render();
 		}
 	});
+
+	// Strony publiczne:
 
 	Router.route('/show/:_id', {
 		name: 'show-trip',
@@ -102,4 +75,26 @@ if(__isDev()){
 			this.render();
 		}
 	});
+
+	Router.route('/buy-book', {
+		name: 'buy-book',
+		template: 'BuyBook',
+
+		waitOn: function(){
+		},
+		action: function(){
+			this.render();
+		}
+	});
 }
+
+/*
+	Router.route('/history', {
+		name: 'history',
+		template: 'HistoryPage',
+
+		action: function(){
+			this.render();
+		}
+	});
+*/

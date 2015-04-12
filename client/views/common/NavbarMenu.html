@@ -1,0 +1,43 @@
+<template name="NavbarMenu">
+	<nav class="navbar" id="navbar-menu">
+		<div class="container">
+			<div class="row">
+				<div class="navbar-brand">
+					{{#linkTo route='index'}}
+						<img src="small_logo.png" />
+					{{/linkTo}}
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						{{#linkTo route='dashboard' class='text-uppercase'}}
+							moje trasy
+						{{/linkTo}}
+					</li>
+
+					<li>
+						<a href="#">
+							wskazówki
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							list
+						</a>
+					</li>
+
+					<li>
+						<a href="#">
+							ubezpieczenie
+						</a>
+					</li>
+
+					{{#if isDev}}
+						{{> loginButtons}}
+					{{/if}}
+				</ul>
+			</div>
+		</div>
+	</nav>
+</template>

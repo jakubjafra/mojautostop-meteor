@@ -14,6 +14,10 @@ client.js
 	});
 })();
 
+Accounts.onLogin(function(){
+	Router.go("dashboard");
+});
+
 RouteMapRenderer = function(){
 	// zmienne:
 	var map = null;
