@@ -39,7 +39,7 @@ RouteMapRenderer = function(){
 
 			directionsDisplays = [];
 		},
-		pushRoute: function(trip, showPoints){
+		pushRoute: function(trip, showPoints, processPoints){
 			directionsDisplays.forEach(function(display){
 				display.setMap(null);
 			});
@@ -64,9 +64,9 @@ RouteMapRenderer = function(){
 									function getMarkerNameForPoint(point_){
 										return {
 											url: '/' + point_.type + '_marker.png',
-											size: new google.maps.Size(32, 32),
+											size: new google.maps.Size(32, 41),
 											origin: new google.maps.Point(0, 0),
-											anchor: new google.maps.Point(16, 16)
+											anchor: new google.maps.Point(16, 41)
 										};
 									}
 
@@ -86,7 +86,7 @@ RouteMapRenderer = function(){
 								}
 
 								function processRoute(point, leg){
-									if(showPoints){
+									if(processPoints){
 										var dirs = leg.steps.map(function(item){
 											var ret = {};
 
@@ -210,7 +210,7 @@ RouteMapRenderer = function(){
 			// disableDefaultUI: true
 		});
 
-		map_.pushRoute(Trips.findOne({}), true);
+		map_.pushRoute(Trips.findOne({}), true, true);
 
 		isRendered = true;
 		// makeRoute();
@@ -245,16 +245,7 @@ RouteMapRenderer = function(){
 			});
 		},
 		'pointTypeHtml': function(){
-			switch(this.type){
-				case "through":
-					return '<span class="badge badge-normal-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
-
-				case "sleep":
-					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
-
-				case "adventure":
-					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
-			}
+			return '<img src="/'+this.type+'_marker.png">';
 		},
 		'parseInt': function(x){
 			return Math.round(x);
@@ -941,7 +932,7 @@ RouteMapRenderer = function(){
 			disableDefaultUI: false
 		});
 
-		map.pushRoute(PublishedTrips.findOne({}), false);
+		map.pushRoute(PublishedTrips.findOne({}), true, false);
 
 		/*
 
@@ -1015,16 +1006,7 @@ RouteMapRenderer = function(){
 			});
 		},
 		'pointTypeHtml': function(){
-			switch(this.type){
-				case "through":
-					return '<span class="badge badge-normal-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
-
-				case "sleep":
-					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
-
-				case "adventure":
-					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
-			}
+			return '<img src="/'+this.type+'_marker.png">';
 		},
 		'parseInt': function(x){
 			return Math.round(x);
