@@ -40,4 +40,113 @@
 			</div>
 		</div>
 	</nav>
+
+	{{> ProfileEdit}}
+</template>
+
+<template name="ProfileEdit">
+	<div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title">
+        				<span class="glyphicon glyphicon-user"></span>
+        				Edytuj profil
+    				</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-xs-6">
+								{{> UploaderContainer customProfilePhotoContent=true }}
+							</div>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label for="profile-fisrtname">
+										Imię
+									</label>
+									<input value="{{ currentUser.profile.firstName }}" type="text" id="profile-fisrtname" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="profile-lastname">
+										Nazwisko
+									</label>
+									<input value="{{ currentUser.profile.lastName }}" type="text" id="profile-lastname" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="profile-nick">
+										Nick
+									</label>
+									<input value="{{ currentUser.profile.specialNick }}" type="text" id="profile-nick" class="form-control" />
+								</div>
+								<div class="form-group">
+									<label for="profile-url">
+										Link do bloga, Facebooka etc.
+									</label>
+									<input value="{{ currentUser.profile.specialLink }}" type="text" id="profile-url" class="form-control" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="edit-profile" data-dismiss="modal">
+						Jest ok
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="_loginButtonsLoggedOutDropdown_CUSTOM">
+	<li id="login-dropdown-list" class="dropdown">
+		<a class="dropdown-toggle">
+			{{i18n 'loginButtonsLoggedOutDropdown.signIn'}}
+			<b class="caret"></b>
+		</a>
+		<div class="dropdown-menu">
+			{{> _loginButtonsLoggedOutAllServices}}
+		</div>
+	</li>
+</template>
+
+<template name="_loginButtonsLoggedInDropdown_CUSTOM">
+	<li id="login-dropdown-list" class="dropdown">
+		<a class="dropdown-toggle" data-toggle="dropdown">
+			<img src="{{ currentUser.profile.photo }}" class="avatar img-circle" />
+			&nbsp;
+			{{#if useEmail}}
+				{{displayName}}
+			{{else}}
+				{{ currentUser.profile.firstName }} {{ currentUser.profile.lastName }}
+			{{/if}}
+			&nbsp;
+			<b class="caret"></b>
+		</a>
+		<div class="dropdown-menu">
+			{{#if inMessageOnlyFlow}}
+				{{> _loginButtonsMessages}}
+			{{else}}
+				{{#if inChangePasswordFlow}}
+					{{> _loginButtonsChangePassword}}
+				{{else}}
+					{{> _loginButtonsLoggedInDropdownActions}}
+				{{/if}}
+			{{/if}}
+		</div>
+	</li>
+</template>
+
+<template name="_loginButtonsAdditionalLoggedInDropdownActions">
+	<a class="btn btn-default btn-block" data-toggle="modal" data-target="#edit-profile-modal">
+		Edytuj profil
+	</a>
+
+	{{#linkTo route='buy-book' class='btn btn-default btn-block'}}
+		Książeczka
+	{{/linkTo}}
+
+	<hr>
 </template>

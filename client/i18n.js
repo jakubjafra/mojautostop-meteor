@@ -92,4 +92,3 @@ i18n.map("pl-custom", {
 });
 
 accountsUIBootstrap3.setLanguage('pl-custom');
-Template._loginButtonsLoggedOutDropdown_CUSTOM.replaces("_loginButtonsLoggedOutDropdown");

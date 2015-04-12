@@ -114,12 +114,24 @@ Book = function(id, userId){
 // ~~~
 
 UserProfile = function(){
+	// czy zakupił książeczkę
 	this.isPremium = false;
 
+	// specjalna flaga oznaczająca wyścig autostopowy
 	this.isRace = false;
 
+	// imię i nazwisko
 	this.firstName = "";
 	this.lastName = "";
+
+	// np. nazwa bloga, podróznika, nick
+	this.specialNick = "";
+	
+	// link do bloga, facebooka etc.
+	this.specialUrl = "";
+
+	// zdjęcie profilowe
+	this.photo = "/default_profile_photo.jpg";
 };
 
 // ~~~

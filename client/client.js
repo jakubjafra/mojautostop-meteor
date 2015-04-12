@@ -628,24 +628,18 @@ RouteMapRenderer = function(){
 
 	// ~~~
 
-	Template.UploaderContainer.created = function(){
-		Uploader.init(this);
-	};
+	var wasBinded = false;
 
-	Template.UploaderContainer.rendered = function(){
-		Uploader.render.call(this);
-
-		var templateInstance = Template.instance();
-		templateInstance.$('input[type="file"]').change(function(e){
-			Uploader.startUpload.call(templateInstance, e);
-		});
-
-		Uploader.finished = function(index, fileInfo, context){
-			var old = pictures.get();
-			old.push(fileInfo.url);
-			pictures.set(old);
-		};
-	};
+	Template.DescriptionContents.onCreated(function(){
+		if(!wasBinded){
+			wasBinded = true;
+			addUploaderEndPoint(function(url){
+				var pics = pictures.get();
+				pics.push(url);
+				pictures.set(pics);
+			});
+		}
+	})
 
 	// ~~~
 

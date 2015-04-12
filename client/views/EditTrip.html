@@ -296,7 +296,6 @@
 		</label>
 		<br>
 		<textarea class="description-text form-control">
-			DUPA?
 		</textarea>
 	</div>
 	{{#if atLeastOnePointPicture}}
@@ -328,20 +327,6 @@
 			{{> UploaderContainer}}
 		</div>
 	{{/if}}
-</template>
-
-<template name="UploaderContainer">
-	<div class="file-upload-underlay">
-		<form method="POST" enctype="multipart/form-data" class="file-upload">
-	        <div class="fileUpload btn btn-default">
-			    <span>
-			    	Dodaj zdjęcie
-			    </span>
-			    <input type="file" class="jqUploadclass" data-form-data='{{ submitData }}' />
-			</div>
-	    </form>
-	</div>
-	
 </template>
 
 <template name="PublishModal">

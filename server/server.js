@@ -69,6 +69,30 @@ Meteor.methods({
 
 	// ~~~
 
+	'ChangeProfileData': function(firstName, lastName, specialNick, specialUrl){
+		Meteor.users.update(Meteor.userId(), {
+			$set: {
+				'profile.firstName': firstName,
+				'profile.lastName': lastName,
+				'profile.specialNick': specialNick,
+				'profile.specialUrl': specialUrl
+			}
+		});
+
+		console.log("Edited #" + Meteor.userId() + " user profile.");
+	},
+	'ChangeProfilePicture': function(url){
+		Meteor.users.update(Meteor.userId(), {
+			$set: {
+				'profile.photo': url
+			}
+		});
+
+		console.log("Changed #" + Meteor.userId() + " profile picture.");
+	},
+
+	// ~~~
+
 	'BindBook': function(bookId, bookKey){
 		bookId = parseInt(bookId);
 
