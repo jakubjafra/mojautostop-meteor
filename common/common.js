@@ -98,7 +98,7 @@ Route = function(beginId, endId){
 	this.gmap_directions = [];
 
 	// opis punktu
-	this.desc = new Description();
+	// this.desc = new Description();
 };
 
 // ~~~

@@ -96,11 +96,13 @@
 									<div class="route-stats-container">
 										<div class="route-stats">
 											<small class="text-muted">{{ parseInt route.stats.distance }} km</small>
+											{{!--
 											<span class="edit-helpers">
 												<a class="route-action route-action-edit btn btn-default btn-xs" data-toggle="modal" data-target="#edit-route-modal">
 													<span class="glyphicon glyphicon-pencil"></span>
 												</a>
 											</span>
+											--}}
 										</div>
 									</div>
 								</div>
@@ -121,7 +123,7 @@
 
 	{{> AddPointModal}}
 	{{> EditPointModal}}
-	{{> EditRouteModal}}
+	{{!-- {{> EditRouteModal}} --}}
 	{{> PublishModal}}
 	{{> RemoveTripModal}}
 	{{> EditTripDataModal}}
@@ -183,7 +185,7 @@
 </template>
 
 <template name="ModalPointCommonContents">
-	<div class="container-fluid">
+	<div class="container-fluid modal-point-common-contents">
 		<div class="row">
 			<div class="col-xs-12">
 				<label class="divider">
@@ -197,37 +199,57 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<label class="divider">
-				Typ punktu
+				<label for="point-type">
+					Typ punktu
+					&nbsp;
+					<span class="important">*</span>
 				</label>
+				<div class="btn-group btn-group-justified" id="point-type">
+					<a class="btn btn-default point-type-option" data-type="through">
+						<img src="/drawings/checkpoint2.png">
+						<br>
+						<small>
+							Tylko przejazdem
+						</small>
+					</a>
+					<a class="btn btn-default point-type-option" data-type="sleep">
+						<img src="/drawings/checkpoint3.png">
+						<br>
+						<small>
+							Tu nocowałem
+						</small>
+					</a>
+					<a class="btn btn-default point-type-option" data-type="adventure">
+						<img src="/drawings/checkpoint1.png">
+						<br>
+						<small>
+							Przygoda!
+						</small>
+					</a>
+				</div>
 			</div>
-		</div>
-		<div class="row point-type-selector">
+		{{!--
 			<div class="col-xs-4">
-				<input type="radio" name="point-type" value="normal" checked><br>
 				<span class="badge badge-normal">
 					<span class="glyphicon glyphicon-map-marker"></span>
 				</span>
 			</div>
 			<div class="col-xs-4">
-				<input type="radio" name="point-type" value="tent"><br>
 				<span class="badge badge-tent">
 					<span class="glyphicon glyphicon-flag"></span>
 				</span>
 			</div>
 			<div class="col-xs-4">
-				<input type="radio" name="point-type" value="house"><br>
 				<span class="badge badge-house">
 					<span class="glyphicon glyphicon-home"></span>
 				</span>
 			</div>
+		--}}
 		</div>
 		<div class="row">
 			<div class="col-xs-12" id="point-description">
-				{{#if atLeastOnePoint}}
-					{{#if isNotLastPoint}}
-						{{> AwaitingTimeContents}}
-					{{/if}}
+				{{#if showAwaitingTimeContents}}
+					{{> AwaitingTimeContents}}
 				{{/if}}
 				
 				{{> DescriptionContents}}
@@ -237,30 +259,50 @@
 </template>
 
 <template name="AwaitingTimeContents">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="form-group">
-				<label class="control-label divider">
-					Ile czekałeś?
-				</label>
-				<input type="text" name="point-waiting-time" class="point-waiting-time form-control">
-			</div>
+	<div class="form-group">
+		<label class="control-label divider">
+			Ile czekałeś?
+		</label>
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-default choose-awaiting-time-option">
+					5m
+				</button>
+				<button type="button" class="btn btn-default choose-awaiting-time-option">
+					15m
+				</button>
+				<button type="button" class="btn btn-default choose-awaiting-time-option">
+					45m
+				</button>
+				<button type="button" class="btn btn-default choose-awaiting-time-option">
+					1h
+				</button>
+				<button type="button" class="btn btn-default choose-awaiting-time-option">
+					2h
+				</button>
+				<button type="button" class="btn btn-default choose-awaiting-time-option">
+					4h
+				</button>
+			</span>
+			<input type="text" value="{{awaitingTime}}" name="point-waiting-time" class="point-waiting-time form-control" placeholder="Czas oczekiwania">
 		</div>
 	</div>
 </template>
 
 <template name="DescriptionContents">
-	<div class="form-group">
-		<label>
-			Opis
+	<div class="control-label form-group">
+		<label class="divider">
+			Opis {{#if isMaxDescCharactersNum}}({{descCharacterCount}} / {{maxDescCharactersNum}}){{/if}}
 		</label>
 		<br>
-		<textarea class="description-text form-control"></textarea>
+		<textarea class="description-text form-control">
+			DUPA?
+		</textarea>
 	</div>
 	{{#if atLeastOnePointPicture}}
 		<div class="form-group">
 			<label>
-				Zdjęcia
+				Zdjęcia ({{pointPicturesCount}} / {{maxPicturesNum}})
 			</label>
 			<div class="container-fluid image-files">
 				{{#each valueify pointPictures}}
@@ -278,12 +320,14 @@
 			</div>
 		</div>
 	{{/if}}
-	<div class="form-group">
-		<label>
-			Dodaj zdjecia
-		</label>
-		{{> UploaderContainer}}
-	</div>
+	{{#if canAddMorePictures}}
+		<div class="form-group">
+			<label>
+				Dodaj zdjecia
+			</label>
+			{{> UploaderContainer}}
+		</div>
+	{{/if}}
 </template>
 
 <template name="UploaderContainer">
@@ -298,27 +342,6 @@
 	    </form>
 	</div>
 	
-</template>
-
-<template name="EditRouteModal">
-	<div class="modal fade" id="edit-route-modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Edytuj trasę między punktami</h4>
-				</div>
-				<div class="modal-body">
-					{{> AwaitingTimeContents}}
-					{{> DescriptionContents}}
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="cancel-route-editing" data-dismiss="modal">Anuluj</button>
-					<button type="button" class="btn btn-primary" id="edit-route" data-dismiss="modal">Jest ok</button>
-				</div>
-			</div>
-		</div>
-	</div>
 </template>
 
 <template name="PublishModal">
@@ -418,24 +441,19 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<div>
-							<input type="checkbox" id="race-trip">
-							<label for="race-trip">
-								Jechałem z autostopracem!
-							</label>
-						</div>
-						<div>
-							<select class="form-control" id="bind-race-trip">
-								<option value="">
-									Nie jechałem z autostopracem.
+						<label for="bind-race-trip">
+							Brałeś udział w zawodach autostopowych?
+						</label>
+						<select class="form-control" id="bind-race-trip">
+							<option value="">
+								Nie jechałem z żadnym autostopracem.
+							</option>
+							{{#each officialAutostopRaces}}
+								<option value="{{ _id }}">
+									{{ profile.firstName }}
 								</option>
-								{{#each officialAutostopRaces}}
-									<option value="{{ _id }}">
-										{{ profile.firstName }}
-									</option>
-								{{/each}}
-							</select>
-						</div>
+							{{/each}}
+						</select>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -445,4 +463,27 @@
 			</div>
 		</div>
 	</div>
+</template>
+
+<template name="EditRouteModal">
+	{{!--
+	<div class="modal fade" id="edit-route-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        			<h4 class="modal-title"><span class="glyphicon glyphicon-map-marker"></span> Edytuj trasę między punktami</h4>
+				</div>
+				<div class="modal-body">
+					{{> AwaitingTimeContents}}
+					{{> DescriptionContents}}
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="cancel-route-editing" data-dismiss="modal">Anuluj</button>
+					<button type="button" class="btn btn-primary" id="edit-route" data-dismiss="modal">Jest ok</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	--}}
 </template>

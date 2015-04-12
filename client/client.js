@@ -14,9 +14,11 @@ client.js
 	});
 })();
 
+/*
 Accounts.onLogin(function(){
 	Router.go("dashboard");
 });
+*/
 
 RouteMapRenderer = function(){
 	// zmienne:
@@ -244,13 +246,13 @@ RouteMapRenderer = function(){
 		},
 		'pointTypeHtml': function(){
 			switch(this.type){
-				case "normal":
+				case "through":
 					return '<span class="badge badge-normal-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
 
-				case "tent":
+				case "sleep":
 					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
 
-				case "house":
+				case "adventure":
 					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
 			}
 		},
@@ -312,8 +314,7 @@ RouteMapRenderer = function(){
 
 			// pola dodatkowe:
 
-			if(modal.find('input[name="point-type"]:checked').length == 1)
-				routePoint.type = $('#new-point-modal').find('input[name="point-type"]:checked').val();
+			routePoint.type = pointType.get();
 
 			if(	modal.find('.description-text').length == 1 &&
 				modal.find('.description-text').val().length > 0)
@@ -323,11 +324,6 @@ RouteMapRenderer = function(){
 
 			var waitingTime = getPointWaitingTime(modal);
 			Meteor.call('NewRoutePoint', this._id, insertAfterId.get(), routePoint, waitingTime);
-
-			// ~~~
-
-			$('#new-point-modal').find('.trip-name').val("");
-			uploadedFiles = [];
 		}
 	});
 
@@ -340,9 +336,19 @@ RouteMapRenderer = function(){
 		}
 	});
 
-	Template.AddPointModal.rendered = function(){
-		pictures.set([]);
-	};
+	Template.AddPointModal.onRendered(function(){
+		
+
+		$("#new-point-modal").on('show.bs.modal', function(){
+			var modal = $('#new-point-modal');
+
+			pictures.set([]);
+			pointType.set("through");
+			$(modal).find('.trip-name').val("");
+			uploadedFiles = [];
+		});
+		
+	});
 
 	// ~~~
 
@@ -360,8 +366,7 @@ RouteMapRenderer = function(){
 
 			// pola dodatkowe:
 
-			if(modal.find('input[name="point-type"]:checked').length == 1)
-				routePoint.type = modal.find('input[name="point-type"]:checked').val();
+			routePoint.type = pointType.get();
 
 			if(	modal.find('.description-text').length == 1 &&
 				modal.find('.description-text').val().length > 0)
@@ -385,7 +390,7 @@ RouteMapRenderer = function(){
 		}
 	});
 
-	Template.EditPointModal.rendered = function(){
+	Template.EditPointModal.onRendered(function(){
 		$("#edit-point-modal").on('show.bs.modal', function(){
 			var point = null;
 			if((point = getPoint(editPointId.get())) === undefined)
@@ -394,9 +399,9 @@ RouteMapRenderer = function(){
 			var modal = $("#edit-point-modal");
 
 			modal.find('.description-text').val(point.desc.text);
+			descChars.set(point.desc.text);
 
-			modal.find('.point-type-selector input').prop('checked', false);
-			modal.find('.point-type-selector input[value="'+point.type+'"]').prop( "checked", true );
+			pointType.set(point.type);
 
 			setRouteWaitingTimeInModal(modal, point);
 
@@ -404,9 +409,11 @@ RouteMapRenderer = function(){
 
 			pictures.set(point.desc.pictures);
 		});
-	};
+	});
 
 	// ~~~
+
+	var pointType = new ReactiveVar("");
 
 	function initializeSelectize(element, preApplyValue){
 		var service = new google.maps.places.AutocompleteService();
@@ -462,21 +469,47 @@ RouteMapRenderer = function(){
 		return selectized[selectized.length - 1].value;
 	}
 
-	Template.ModalPointCommonContents.rendered = function(){
-		initializeSelectize(".trip-name");
-	};
-
 	Template.ModalPointCommonContents.helpers({
 		'atLeastOnePoint': function(){
 			return Trips.findOne({}).points.length > 0;
 		},
-		'isNotLastPoint': function(){
+		'showAwaitingTimeContents': function(){
 			var points = Trips.findOne({}).points;
-			for(var i = 0; i < points.length; i++)
-				if(points[i].id === editPointId.get())
-					return !(i === (points.length - 1));
 
-			return false;
+			if(points.length > 0){
+				if(points[0].id === editPointId.get())
+					return false;
+				else
+					return true;
+			}
+			else
+				return false;
+		}
+	});
+
+	Template.ModalPointCommonContents.onRendered(function(){
+		initializeSelectize(".trip-name");
+
+		Tracker.autorun(function(){
+			var parent = $(".modal").find("#point-type");
+			if(parent.length > 0){
+				parent.find('.point-type-option').removeClass("active");
+				parent.find('[data-type="' + pointType.get() + '"]').addClass("active");
+			}
+		});
+
+		/*
+		$(".modal .modal-point-common-contents").toArray().forEach(function(item){
+			$(item).closest(".modal").on('show.bs.modal', function(){
+				console.log("modal pcc opened!");
+			});
+		});
+		*/
+	});
+
+	Template.ModalPointCommonContents.events({
+		'click .point-type-option': function(event){
+			pointType.set($(event.currentTarget).data("type"));
 		}
 	});
 
@@ -513,18 +546,94 @@ RouteMapRenderer = function(){
 		}
 	});
 
+	function getMaxPictures() {
+		switch(pointType.get()){
+			case "through":
+				return 2;
+
+			case "sleep":
+				return 4;
+
+			case "adventure":
+				return 100;
+		}
+	}
+
+	function getMaxDescCharacters() {
+		switch(pointType.get()){
+			case "through":
+				return 160;
+
+			case "sleep":
+				return 320;
+
+			case "adventure":
+				return Infinity;
+		}
+	}
+
+	var descChars = new ReactiveVar("");
+
 	Template.DescriptionContents.helpers({
 		'atLeastOnePointPicture': function(){
 			return pictures.get().length > 0;
 		},
 		'pointPictures': function(){
 			return pictures.get();
+		},
+		'pointPicturesCount': function(){
+			return pictures.get().length;
+		},
+		'maxPicturesNum': function(){
+			return getMaxPictures();
+		},
+		'descCharacterCount': function(){
+			return descChars.get().length;
+		},
+		'maxDescCharactersNum': function(){
+			return getMaxDescCharacters();
+		},
+		'isMaxDescCharactersNum': function(){
+			return getMaxDescCharacters() !== Infinity;
+		},
+		'canAddMorePictures': function(){
+			return pictures.get().length < getMaxPictures();
 		}
 	});
 
-	Template.DescriptionContents.rendered = function(){
+	function observeInputChange(element, callback) {
+		$(element).each(function() {
+				var elem = $(this);
+
+				// Save current value of element
+				elem.data('oldVal', elem.val());
+
+				// Look for changes in the value
+				elem.bind("propertychange change click keyup input paste", function(event){
+				// If value has changed...
+				if (elem.data('oldVal') != elem.val()) {
+					// Updated stored value
+					var oldVal = elem.data('oldVal');
+					elem.data('oldVal', elem.val());
+
+					// Do action
+					callback(event, elem.val(), oldVal);
+				}
+			});
+		});
+	}
+
+	Template.DescriptionContents.onRendered(function(){
 		$(".fancybox-image").fancybox();
-	};
+
+		observeInputChange(".description-text", function(event, newValue, oldValue){
+			if(newValue.length > getMaxDescCharacters()){
+				newValue = oldValue;
+				$(".description-text").val(newValue);
+			}
+			descChars.set(newValue);
+		});
+	});
 
 	// ~~~
 
@@ -562,11 +671,32 @@ RouteMapRenderer = function(){
 
 	function setRouteWaitingTimeInModal(modal, point){
 		try {
-			modal.find('.point-waiting-time').val(juration.stringify(point.route.waitingTime, { format: 'micro' }));
+			var string = juration.stringify(point.route.waitingTime, { format: 'micro' });
+			// modal.find('.point-waiting-time').val(string);
+			awaitingTime.set(string);
 		} catch(error){
-			modal.find('.point-waiting-time').val("");
+			awaitingTime.set("");
 		}
 	}
+
+	function getPointWaitingTime(modal){
+		// pola dodatkowe:
+		if(	$(modal).find('input[name="point-waiting-time"]').length == 1 &&
+			$(modal).find('input[name="point-waiting-time"]').val().length > 0){
+			var inputValue = $(modal).find('input[name="point-waiting-time"]').val();
+
+			try {
+				return juration.parse(inputValue);
+			} catch(error){
+				return null;
+			}
+		}
+	}
+
+	// ~~~
+
+/*
+	
 
 	Template.EditRouteModal.rendered = function(){
 		$("#edit-route-modal").on('show.bs.modal', function(){
@@ -582,20 +712,6 @@ RouteMapRenderer = function(){
 
 			pictures.set(point.route.desc.pictures);
 		});
-	}
-
-	function getPointWaitingTime(modal){
-		// pola dodatkowe:
-		if(	$(modal).find('input[name="point-waiting-time"]').length == 1 &&
-			$(modal).find('input[name="point-waiting-time"]').val().length > 0){
-			var inputValue = $(modal).find('input[name="point-waiting-time"]').val();
-
-			try {
-				return juration.parse(inputValue);
-			} catch(error){
-				return null;
-			}
-		}
 	}
 
 	Template.EditRouteModal.events({
@@ -626,18 +742,50 @@ RouteMapRenderer = function(){
 			editPointId.set(null);
 		},
 	});
+	*/
+
+	var awaitingTime = new ReactiveVar("");
+
+	function onInputPointWaitingTimeChanged(control){
+		$(control).parent().removeClass("has-error");
+
+		if($(control).val().length > 0){
+			try {
+				juration.parse($(control).val());
+			} catch(error){
+				$(control).parent().addClass("has-error");
+			}
+		}
+	}
+
+	Template.AwaitingTimeContents.onRendered(function(){
+		Tracker.autorun(function(){
+			var awaitingTimeStr = awaitingTime.get();
+			$('.point-waiting-time').val(awaitingTimeStr);
+			onInputPointWaitingTimeChanged($('.point-waiting-time'));
+
+			$(".choose-awaiting-time-option").removeClass("active");
+			$(".choose-awaiting-time-option").toArray().forEach(function(item){
+				if($(item).html().replace(/\s+/g, "") === awaitingTimeStr)
+					$(item).addClass("active");
+			});
+		});
+	});
+
+	Template.AwaitingTimeContents.helpers({
+		'awaitingTime': function(){
+			return awaitingTime.get();
+		}
+	});
 
 	Template.AwaitingTimeContents.events({
 		'keyup .point-waiting-time': function(event){
-			$(event.currentTarget).parent().removeClass("has-error");
-
-			if($(event.currentTarget).val().length > 0){
-				try {
-					juration.parse($(event.currentTarget).val());
-				} catch(error){
-					$(event.currentTarget).parent().addClass("has-error");
-				}
-			}
+			awaitingTime.set($(event.currentTarget).val());
+			// onInputPointWaitingTimeChanged($(event.currentTarget));
+		},
+		'click .choose-awaiting-time-option': function(event){
+			var awaitingTimeStr = $(event.currentTarget).html().replace(/\s+/g, "");
+			awaitingTime.set(awaitingTimeStr);
 		}
 	});
 
@@ -652,8 +800,6 @@ RouteMapRenderer = function(){
 
 	// ~~~
 
-	var isRaceTrip = new ReactiveVar(false);
-
 	Template.EditTripDataModal.rendered = function(){
 		var modal = $("#edit-trip-data-modal");
 		
@@ -662,12 +808,15 @@ RouteMapRenderer = function(){
 			language: "pl"
 		});
 
-		if(Trips.findOne({}).points.length === 0)
-			$("#edit-trip-data-modal").modal('show');
-
-		$(modal).find("#race-trip").change(function(){
-			isRaceTrip.set($(this).is(':checked'));
+		$(modal).on('show.bs.modal', function(){
+			var trip = Trips.findOne();
+			$(modal).find("#bind-race-trip").val(trip.comrades.race !== null ? trip.comrades.race : "");
 		});
+
+		// ~~~
+
+		if(Trips.findOne({}).points.length === 0)
+			$(modal).modal('show');
 	};
 
 	function formatDate(timestamp){
@@ -696,9 +845,6 @@ RouteMapRenderer = function(){
 
 			return formatDate(endTime);
 		},
-		'isNotRaceTrip': function(){
-			return !isRaceTrip.get();
-		},
 		'officialAutostopRaces': function(){
 			return Meteor.users.find({ 'profile.isRace': true });
 		}
@@ -713,11 +859,9 @@ RouteMapRenderer = function(){
 
 			var title = modal.find('#title').val();
 
-			var isRaceTrip = modal.find("#race-trip").is(':checked');
-
-			var raceBinded = null;
-			if(isRaceTrip)
-				raceBinded = modal.find('#bind-race-trip').val();
+			var raceBinded = modal.find('#bind-race-trip').val();
+			if(raceBinded.length === 0)
+				raceBinded = null;
 
 			Meteor.call('ChangeTripDuration', this._id, beginTime, endTime);
 			Meteor.call('ChangeTripName', this._id, title);
@@ -761,6 +905,7 @@ RouteMapRenderer = function(){
 			};
 		},
 		'canAddTrip': function(){
+			console.log(Meteor.user());
 			return !Meteor.user().profile.isRace;
 		}
 	})
@@ -871,13 +1016,13 @@ RouteMapRenderer = function(){
 		},
 		'pointTypeHtml': function(){
 			switch(this.type){
-				case "normal":
+				case "through":
 					return '<span class="badge badge-normal-iconic"><span class="glyphicon glyphicon-map-marker"></span></span>';
 
-				case "tent":
+				case "sleep":
 					return '<span class="badge badge-tent-iconic"><span class="glyphicon glyphicon-flag"></span></span>';
 
-				case "house":
+				case "adventure":
 					return '<span class="badge badge-house-iconic"><span class="glyphicon glyphicon-home"></span></span>';
 			}
 		},

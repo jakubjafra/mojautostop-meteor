@@ -20,6 +20,21 @@ globus
 - ciemny niebieski r40 g81 b111
 */
 
+#point-type {
+	a {
+		img {
+			width: 30px;
+			height: auto;
+		}
+
+		text-align: center;
+
+		&.active-point-type {
+			color: red;
+		}
+	}
+}
+
 div.container-fluid.paper {
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
 	padding-top: 10px;
@@ -603,22 +618,22 @@ div.container-fluid.edit-trip-container {
 	}
 }
 
-.badge-normal {
+.badge-through {
 	.badge-custom-common;
 	background-color: @color-green;
 }
 
-.badge-tent {
+.badge-adventure {
 	.badge-custom-common;
 	background-color: @color-red;
 }
 
-.badge-house {
+.badge-sleep {
 	.badge-custom-common;
 	background-color: @color-lightblue;
 }
 
-.badge-normal-iconic {
+.badge-through-iconic {
 	.badge-custom-common;
 	background-color: @color-green;
 	&:hover {
@@ -626,7 +641,7 @@ div.container-fluid.edit-trip-container {
 	}
 }
 
-.badge-tent-iconic {
+.badge-adventure-iconic {
 	.badge-custom-common;
 	background-color: @color-red;
 	&:hover {
@@ -634,7 +649,7 @@ div.container-fluid.edit-trip-container {
 	}
 }
 
-.badge-house-iconic {
+.badge-sleep-iconic {
 	.badge-custom-common;
 	background-color: @color-lightblue;
 	&:hover {

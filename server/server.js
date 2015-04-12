@@ -124,8 +124,6 @@ Meteor.methods({
 		console.log("Renamed #" + tripId + " to \"" + newTripName + "\"");
 	},
 	'ChangeTripDuration': function(tripId, newBeginTime, newEndTime){
-		console.log(newBeginTime, newEndTime);
-
 		Trips.update(tripId, {
 			$set: {
 				beginTime: newBeginTime,
@@ -141,6 +139,8 @@ Meteor.methods({
 				'comrades.race': bindedRace
 			}
 		});
+
+		console.log("Binded #" + tripId + " to " + bindedRace + ".");
 	},
 
 	'PublishTrip': function(tripId){
