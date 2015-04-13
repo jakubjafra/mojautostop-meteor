@@ -9,6 +9,7 @@
 				</div>
 
 				<ul class="nav navbar-nav navbar-right">
+					{{#if isDev}}
 					<li>
 						{{#linkTo route='dashboard' class='text-uppercase'}}
 							moje trasy
@@ -33,7 +34,7 @@
 						</a>
 					</li>
 
-					{{#if isDev}}
+					
 						{{> loginButtons}}
 					{{/if}}
 				</ul>
