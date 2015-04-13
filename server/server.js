@@ -33,8 +33,8 @@ function getCountryCodeForCoords(coords){
 
 	var ret = HTTP.get("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
 
-	console.log("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
-	console.log(ret);
+	// console.log("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
+	// console.log(ret);
 
 	return ret.data.address.country_code;
 }
@@ -42,8 +42,8 @@ function getCountryCodeForCoords(coords){
 function getCountryCodeForName(name){
 	var ret = HTTP.get("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
 
-	console.log("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
-	console.log(ret);
+	// console.log("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+	// console.log(ret);
 
 	return ret.data[0].address.country_code;
 }
@@ -168,13 +168,13 @@ Meteor.methods({
 	},
 
 	'PublishTrip': function(tripId){
-		console.log(tripId);
+		console.log("Pubslishing trip #" + tripId);
 
 		// 1. publikowanie = obliczanie statystyk
 		Meteor.call('GenerateStatsFor', tripId, function(error, trip){
 			// 2. usunięcie starego tripa (jeśli w ogóle jakiś był)
-			console.log(error);
-			console.log(trip);
+			if(error !== undefined)
+				console.log(error);
 
 			if(trip.publish.id !== null)
 				PublishedTrips.remove(trip.publish.id);
