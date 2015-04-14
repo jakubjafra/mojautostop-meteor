@@ -27,13 +27,14 @@
 							<h2 style="margin-top: 0px">
 								{{ name }}
 							</h2>
-							<div>
-								<small>{{ user }}</small>
-								<br>
-								{{#if comrades.race}}
-									<small>Sparowany z {{comrades.race}}</small>
-								{{/if}}
-							</div>
+
+							{{>PrintProfile dataSource=user }}
+
+							{{#if comrades.race}}
+								{{>PrintProfile dataSource=comrades.race }}
+							{{/if}}
+
+							{{!--
 							<div>
 								{{ duration }} dni<br>
 								{{ parseInt stats.distance }} km, w {{ driversCount }} przejazdach<br>
@@ -44,10 +45,29 @@
 									{{countryName}} - {{distance}}
 								{{/each}}
 							</div>
+							--}}
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</template>
+
+<template name="PrintProfile">
+	<div class="print-profile">
+		<img src="{{ source.profile.photo }}" class="avatar-big img-circle" style="display: inline-block;" />
+		<div style="display: inline-block;">
+			<a>
+				{{#if showUserName}}
+					{{ source.profile.firstName }} {{ source.profile.lastName }}
+				{{else}}
+					{{ source.profile.specialNick }}
+					<small>
+						<a href="{{ source.profile.specialUrl }}">Strona autora</a>
+					</small>
+				{{/if}}
+			</a>
 		</div>
 	</div>
 </template>
@@ -57,38 +77,40 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="container show-trip-container">
-					<div class="row" style="padding-top: 15px; padding-bottom: 15px;">
-						<div class="col-xs-2 col-xs-offset-1" style="padding: 0px;">
-							{{> PlaceKitten}}
-							<div style="display: inline-block; float: left;">
+					<table style="margin-top: 20px; margin-bottom: 20px; width: 100%;">
+						<tr>
+							<td style="text-align: right; width:100px;">
+								{{> PlaceKitten}}
+							</td>
+							<td style="text-align: left; width:100px;">
 								{{ duration }} dni
-							</div>
-						</div>
-						<div class="col-xs-2" style="padding: 0px;">
-							{{> PlaceKitten}}
-							<div style="display: inline-block; float: left;">
+							</td>
+							<td style="text-align: right; width:100px;">
+								{{> PlaceKitten}}
+							</td>
+							<td style="text-align: left; width:100px;">
 								{{ parseInt stats.distance }} km
-							</div>
-						</div>
-						<div class="col-xs-2" style="padding: 0px;">
-							{{> PlaceKitten}}
-							<div style="display: inline-block; float: left;">
+							</td>
+							<td style="text-align: right; width:100px;">
+								{{> PlaceKitten}}
+							</td>
+							<td style="text-align: left; width:100px;">
 								{{ distanceDivDuration }} km / dzień
-							</div>
-						</div>
-						<div class="col-xs-2" style="padding: 0px;">
-							{{> PlaceKitten}}
-							<div style="display: inline-block; float: left;">
+							</td>
+							<td style="text-align: right; width:100px;">
+								{{> PlaceKitten}}
+							</td>
+							<td style="text-align: left; width:100px;">
 								{{ sumaricWaitingTime }} czekania
-							</div>
-						</div>
-						<div class="col-xs-2" style="padding: 0px;">
-							{{> PlaceKitten}}
-							<div style="display: inline-block; float: left;">
+							</td>
+							<td style="text-align: right; width:100px;">
+								{{> PlaceKitten}}
+							</td>
+							<td style="text-align: left; width:100px;">
 								{{ co2 }} CO<sub>2</sub>
-							</div>
-						</div>
-					</div>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -96,9 +118,7 @@
 </template>
 
 <template name="PlaceKitten">
-	<div style="display: inline-block; float: left;">
-		<img src="/big_logo.png" width="100px" height="50px">
-	</div>
+	<img src="/big_logo.png" width="100px" height="50px">
 </template>
 
 <template name="RouteBody">

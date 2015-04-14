@@ -4,9 +4,14 @@ server.js
 
 */
 
+Fiber = Npm.require("fibers");
+Future = Npm.require("fibers/future");
+
 var CONFIG = {
-	NEW_ID_ON_PUBLISH: true
+	NEW_ID_ON_PUBLISH: false
 };
+
+WAIT_TIME_FOR_GEOCODE_REQUESTS = 1500;
 
 function bindRoutesToPoints(points){
 	if(points.length >= 2){
@@ -25,27 +30,97 @@ function bindRoutesToPoints(points){
 }
 
 function getCountryCodeForCoords(coords){
-	var lat = coords.lat;
-	var lon = coords.lng;
+	var fut = new Future();
 
-	if(typeof lat !== "number" || typeof lon !== "number")
-		return "";
+	Meteor.setTimeout(function(){
+		try {
+			var lat = coords.lat;
+			var lon = coords.lng;
 
-	var ret = HTTP.get("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
+			if(typeof lat !== "number" || typeof lon !== "number")
+				fut['return']("");
 
-	// console.log("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
-	// console.log(ret);
+			console.log("getCountryCodeForCoords -> timeout ended. firing HTTP!");
 
-	return ret.data.address.country_code;
+			var ret = HTTP.get("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
+
+			// console.log("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
+			console.log('getCountryCodeForCoords');
+			console.log(ret.data);
+
+			if(ret.data === null || ret.data === undefined || ret.data === [] || ret.data.length === 0 || ret.data.address === undefined){
+				// użyj geocodera googlowskiego durniu!
+				fut['return'](null);
+			} else {
+				fut['return'](ret.data.address.country_code);
+			}
+		} catch(error){
+			console.log(error);
+			return getCountryCodeForCoords(coords);
+		}
+	}, WAIT_TIME_FOR_GEOCODE_REQUESTS);
+	
+	return fut.wait();
+	
 }
 
 function getCountryCodeForName(name){
-	var ret = HTTP.get("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+	var fut = new Future();
 
-	// console.log("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
-	// console.log(ret);
+	Meteor.setTimeout(function(){
+		try {
+			console.log("getCountryCodeForName -> timeout ended. firing HTTP!");
 
-	return ret.data[0].address.country_code;
+			var ret = HTTP.get("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+
+			// console.log("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
+
+			console.log('getCountryCodeForName');
+			console.log(ret.data);
+
+			if(ret.data !== undefined && ret.data.length > 0)
+				fut['return'](ret.data[0].address.country_code);
+			else {
+				// użyj geocodera googlowskiego durniu!
+				console.log("_ NOMINATIM GEOCODER FAILED. USING GOOGLES' ONE.")
+
+				var params = 	"https://maps.googleapis.com/maps/api/geocode/json" + 
+								"?key=AIzaSyAYuekduAHjKRimMJpVQ7s99ukZF94kzY8" +
+								"&address=" + name;
+
+				var gret = HTTP.get(params);
+
+				gret = gret.data;
+
+				if(gret.status !== "OK"){
+					console.log("_ _ _ GOOGLE GEOCODER ERROR");
+					console.log(params);
+					console.log(gret.status);
+					console.log(gret.error_message);
+
+					fut['return'](null);
+				}
+
+				var countryCode = null;
+
+				gret.results[0].address_components.forEach(function(component){
+					for(var i = 0; i < component.types.length; i++){
+						if(component.types[i] === "country" || component.types[i] === "political"){
+							countryCode = component.short_name;
+							break;
+						}
+					}
+				});
+
+				fut['return'](countryCode);
+			}
+		} catch(error){
+			console.log(error);
+			return getCountryCodeForName(name);
+		}
+	}, WAIT_TIME_FOR_GEOCODE_REQUESTS);
+	
+	return fut.wait();
 }
 
 Accounts.onCreateUser(function(options, user){
@@ -168,45 +243,98 @@ Meteor.methods({
 	},
 
 	'PublishTrip': function(tripId){
-		console.log("Pubslishing trip #" + tripId);
+		function processTrip(tripId){
+			// 1. publikowanie = obliczanie statystyk
+			Meteor.call('GenerateStatsFor', tripId, function(error, trip){
+				// 2. usunięcie starego tripa (jeśli w ogóle jakiś był)
+				if(error !== undefined)
+					console.log(error);
 
-		// 1. publikowanie = obliczanie statystyk
-		Meteor.call('GenerateStatsFor', tripId, function(error, trip){
-			// 2. usunięcie starego tripa (jeśli w ogóle jakiś był)
-			if(error !== undefined)
-				console.log(error);
+				if(trip === undefined){
+					Trips.update(tripId, {
+						$set: {
+							'publish.isProcessing': true
+						}
+					});
 
-			if(trip.publish.id !== null)
-				PublishedTrips.remove(trip.publish.id);
+					return;
+				}
 
-			// 3. publikowanie = escapowanie danych
-			trip._id = trip.publish.id;
-			if(trip.publish.id === null || CONFIG.NEW_ID_ON_PUBLISH)
-				delete trip._id;
+				console.log(trip);
 
-			/*
-			trip.points = trip.points.map(function(point){
-				delete point.route.gmap_directions;
-				return point;
+				if(trip.publish.id !== null)
+					PublishedTrips.remove(trip.publish.id);
+
+				// 3. publikowanie = escapowanie danych
+				trip._id = trip.publish.id;
+				if(trip.publish.id === null || CONFIG.NEW_ID_ON_PUBLISH)
+					delete trip._id;
+
+				/*
+				trip.points = trip.points.map(function(point){
+					delete point.route.gmap_directions;
+					return point;
+				});
+				*/
+
+				// publish jest teraz w "drugą stronę"
+				trip.publish.visible = true;
+				trip.publish.id = tripId;
+
+				// 3. publikowanie = kopiowanie escapeniętych danych
+				var publishTripId = PublishedTrips.insert(trip);
+
+				// ~~~
+
+				Trips.update(tripId, {
+					$set: {
+						'publish.visible': true,
+						'publish.id': publishTripId,
+						'publish.isProcessing': false
+					}
+				});
+
+				console.log("Publish procedure finished for #" + trip._id);
 			});
-			*/
+		}
 
-			// publish jest teraz w "drugą stronę"
-			trip.publish.visible = true;
-			trip.publish.id = tripId;
+		console.log("Publishing trip #" + tripId + " ...");
 
-			// 3. publikowanie = kopiowanie escapeniętych danych
-			var publishTripId = PublishedTrips.insert(trip);
+		Trips.update(tripId, {
+			$set: {
+				'publish.isProcessing': true
+			}
+		});
 
-			// ~~~
+		var maybeTrip = Trips.findOne(tripId);
 
-			Trips.update(tripId, {
-				$set: {
-					'publish.visible': true,
-					'publish.id': publishTripId
+		if(maybeTrip.points.length < 2){
+			return {
+				freeze: false,
+				message: "Dodaj co najmniej 2 punkty"
+			};
+		}
+
+		if(maybeTrip.points[0].route.gmap_directions.length === 0){
+			console.log("_ Waiting for gmap_directions.");
+
+			// Zaczynamy zabawę w czekanie...
+			Trips.find({
+				_id: tripId
+			}).observe({
+				changed: function(newDoc, oldDoc){
+					Meteor.call('PublishTrip', tripId);
 				}
 			});
-		});
+
+			return {
+				status: NO_GMAP_POINTS,
+				message: "Serwer przetwarza twoje żądanie. Czekaj cierpliwie."
+			};
+		}
+
+		console.log("_ All requiments met. Generating stats...")
+		processTrip(tripId);
 	},
 	'UnPublishTrip': function(tripId){
 		var trip = Trips.findOne(tripId);
@@ -301,8 +429,6 @@ Meteor.methods({
 		});
 	},
 	'EditRoute': function(tripId, pointId, newRouteObj){
-		console.log(pointId);
-
 		var newPoints = Trips.findOne(tripId).points.map(function(curr){
 			if(curr.id == pointId)
 				curr.route = newRouteObj;
@@ -310,11 +436,11 @@ Meteor.methods({
 			return curr;
 		});
 
-		console.log("Replaced route desc #" + pointId + " to new version from trip #" + tripId);
-
 		Trips.update(tripId, {
 			$set: { points: newPoints }
 		});
+
+		console.log("Replaced route desc #" + pointId + " to new version from trip #" + tripId);
 	},
 
 	'AddTripRouteDirections': function(tripId, pointId, directions){
@@ -330,6 +456,8 @@ Meteor.methods({
 		Trips.update(tripId, {
 			$set: { points: newPoints }
 		});
+
+		console.log('Updated gmap_directions for trip #' + tripId);
 	},
 
 	// ~~~
@@ -339,6 +467,8 @@ Meteor.methods({
 
 		trip.points = trip.points.map(function(point){
 			if(point.route.endId !== null && point.route.gmap_directions.length > 0){
+				console.log('_ _ Fully processing this point.', point.name);
+
 				var begin = point.route.gmap_directions[0].coordsBegin;
 				var end = point.route.gmap_directions[point.route.gmap_directions.length - 1].coordsEnd;
 
@@ -401,7 +531,19 @@ Meteor.methods({
 				}
 			} else {
 				// ostatni punkt na trasie:
+				console.log("_ _ Searching end point countryCode.", point.name);
+
 				point.stats.countryCode = getCountryCodeForName(point.name);
+
+				if(point.stats.countryCode === null) {
+					// A tu użyj poprzedniej lokacji państwa jeśli już naprawdę
+					// jesteśmy w takiej dupie.
+					console.log("_ _ _ geocoding returned null, szklana pułapka.");
+
+					var lastPoint = trip.points[trip.points.length - 1];
+					var lastPointCountries = lastPoint.route.stats.countries;
+					point.stats.countryCode = lastPointCountries[lastPointCountries - 1].countryCode;
+				}
 			}
 
 			return point;
@@ -412,6 +554,8 @@ Meteor.methods({
 		}, 0);
 
 		Trips.update(trip._id, trip);
+
+		console.log("Successful stats generation for #" + trip._id);
 
 		return trip;
 	},
@@ -478,7 +622,23 @@ Meteor.startup(function(){
 	});
 
 	Meteor.publish("get-published-trip-data", function(publishTripId){
-		return PublishedTrips.find({ _id: publishTripId, 'publish.visible': true });
+		var publishedTrip = PublishedTrips.findOne({ _id: publishTripId, 'publish.visible': true });
+
+		if(publishedTrip === undefined) {
+			return [
+				PublishedTrips.find({ _id: publishTripId, 'publish.visible': true })
+			];
+		} else {
+			return [
+				PublishedTrips.find({ _id: publishTripId, 'publish.visible': true }),
+				Meteor.users.find({
+					$or: [
+						{ _id: publishedTrip.user },
+						{ _id: publishedTrip.comrades.race }
+					]
+				})
+			];
+		}
 	});
 
 	Meteor.publish("mine-trips", function(){

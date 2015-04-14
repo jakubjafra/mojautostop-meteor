@@ -342,32 +342,42 @@
 				<div class="modal-body" style="text-align: justify;">
 					Publikacja tripa pozwala podzielić się swoją podróżą z innymi. Po publikacji zostanie wygenerowany <strong>publiczny link</strong> do trasy oraz wygenerowane zostaną <strong>szczegółowe statystyki</strong> wyprawy. Kiedy wprowadzisz zmiany do raz opublikowanej trasy wejdą one w życie dopiero po ponownej publikacji.
 				
-					{{#if publish.visible}}
-						<hr>
-						<div class="form-group">
-							<label>
-								Publiczny link do trasy
-							</label>
-							<div class="input-group">
-								<input type="text" class="form-control" disabled="disabled" value="{{urlFor route='show-trip' _id=publish.id}}">
-								<span class="input-group-addon">
-									{{#linkTo route='show-trip' _id=publish.id target="_blank"}}
-										<b>
-											#
-										</b>
-									{{/linkTo}}
-								</span>
-							</div>
-						</div>
-						<br>
-						<button class="btn btn-danger" id="stop-publish">
-							Przestań publikować trasę
-						</button>
+					{{#if canPublishNumOfPoints}}
+						{{#if publish.isProcessing}}
+							<hr>
+							Przetwarzanie...
+						{{else}}
+							{{#if publish.visible}}
+								<hr>
+								<div class="form-group">
+									<label>
+										Publiczny link do trasy
+									</label>
+									<div class="input-group">
+										<input type="text" class="form-control" disabled="disabled" value="{{urlFor route='show-trip' _id=publish.id}}">
+										<span class="input-group-addon">
+											{{#linkTo route='show-trip' _id=publish.id target="_blank"}}
+												<b>
+													#
+												</b>
+											{{/linkTo}}
+										</span>
+									</div>
+								</div>
+								<br>
+								<button class="btn btn-danger" id="stop-publish">
+									Przestań publikować trasę
+								</button>
+							{{else}}
+								<hr>
+								<button class="btn btn-success" id="do-publish">
+									Opublikuj trasę
+								</button>
+							{{/if}}
+						{{/if}}
 					{{else}}
 						<hr>
-						<button class="btn btn-success" id="do-publish">
-							Opublikuj trasę
-						</button>
+						Dodaj co najmniej 2 punkty do swojej trasy.
 					{{/if}}
 				</div>
 			</div>

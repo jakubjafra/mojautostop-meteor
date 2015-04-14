@@ -4,6 +4,8 @@ common.js
 
 */
 
+NO_GMAP_POINTS = 1;
+
 Description = function(){
 	// opis
 	this.text = "";
@@ -31,7 +33,10 @@ Trip = function(name, userId){
 		visible: false,
 
 		// id PublishTrip
-		id: null
+		id: null,
+
+		// czy jest przetwarzany
+		isProcessing: false
 	};
 
 	// punkty na trasie

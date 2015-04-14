@@ -5,190 +5,6 @@ client.js
 */
 
 (function(){
-	UI.registerHelper("valueify", function(obj){
-	    result = [];
-	    for (var key in obj){
-	        result.push({name:key,value:obj[key]});
-	    }
-	    return result;
-	});
-})();
-
-/*
-Accounts.onLogin(function(){
-	Router.go("dashboard");
-});
-*/
-
-RouteMapRenderer = function(){
-	// zmienne:
-	var map = null;
-	var directionsDisplays = [];
-
-	return {
-		getGoogleMap: function(){
-			return map;
-		},
-		initIn: function(mapContainerId, options){
-			// inicjalizacja samej mapy:
-
-			map = new google.maps.Map(
-				document.getElementById(mapContainerId),
-				options
-			);
-
-			directionsDisplays = [];
-		},
-		pushRoute: function(trip, showPoints, processPoints){
-			directionsDisplays.forEach(function(display){
-				display.setMap(null);
-			});
-
-			directionsDisplays = [];
-
-			if(trip.points.length >= 2){
-				var points = trip.points;
-				var k = 0;
-
-				var directionsService = new google.maps.DirectionsService();
-				function makeRequest(directionDisplay, requestObject){
-					return function(){
-						directionsService.route(requestObject, function(response, status){
-							if(status == google.maps.DirectionsStatus.OK){
-								directionDisplay.setDirections(response);
-
-								function addPoint(leg_loc, point){
-									if(!showPoints)
-										return;
-
-									function getMarkerNameForPoint(point_){
-										return {
-											url: '/' + point_.type + '_marker.png',
-											size: new google.maps.Size(32, 41),
-											origin: new google.maps.Point(0, 0),
-											anchor: new google.maps.Point(16, 41)
-										};
-									}
-
-									var point__ = new google.maps.Marker({
-										position: leg_loc,
-										title: "test",
-										icon: getMarkerNameForPoint(point)
-									});
-
-									point__.setMap(map);
-									directionsDisplays.push(point__);
-
-									google.maps.event.addListener(point__, 'click', function() {
-										editPointId.set(this.id);
-										$("#edit-point-modal").modal('show');
-									});
-								}
-
-								function processRoute(point, leg){
-									if(processPoints){
-										var dirs = leg.steps.map(function(item){
-											var ret = {};
-
-											ret.distance = item.distance.value;
-											
-											ret.coordsBegin = {
-												lat: item.start_location.lat(),
-												lng: item.start_location.lng()
-											};
-											
-											ret.coordsEnd = {
-												lat: item.end_location.lat(),
-												lng: item.end_location.lng()
-											};
-
-											return ret;
-										});
-
-										Meteor.call('AddTripRouteDirections', trip._id, point.id, dirs);
-									}
-								}
-
-								function processLeg(leg, point){
-									addPoint(leg.end_location, point);
-								}
-
-								for(var i = 0; i < response.routes[0].legs.length; i++, k++){
-									var point = points[k];
-
-									if(i == 0){
-										addPoint(response.routes[0].legs[i].start_location, point);
-										
-										k++;
-										point = points[k];
-									}
-
-									processLeg(response.routes[0].legs[i], point);
-									processRoute(points[k - 1], response.routes[0].legs[i]);
-								}
-							}
-						});
-					}
-				}
-
-				var maxPointsAtRequest = 10;
-
-				var requests = [];
-
-				for(var i = 0; i < points.length; i++){
-					var pointsOffset = Math.floor(i / maxPointsAtRequest);
-					var offsetPos = (i % maxPointsAtRequest);
-
-					var isOrigin = (offsetPos == 0);
-					var isDestination = (offsetPos == 9 || i == (points.length - 1));
-
-					if(isOrigin){
-						requests[pointsOffset] = {};
-						requests[pointsOffset].travelMode = google.maps.TravelMode.DRIVING;
-						requests[pointsOffset].waypoints = [];
-
-						if(i == 0){
-							requests[pointsOffset].origin = points[i].name;
-						} else{
-							requests[pointsOffset].origin = points[i-1].name;
-
-							if(!isDestination){
-								requests[pointsOffset].waypoints.push({
-									location: points[i].name,
-									stopover: true
-								});
-							} else{
-								requests[pointsOffset].destination = points[i].name;
-							}
-						}
-					} else if(isDestination){
-						requests[pointsOffset].destination = points[i].name;
-					} else {
-						requests[pointsOffset].waypoints.push({
-							location: points[i].name,
-							stopover: true
-						});
-					}
-				}
-
-				for(var i = 0; i < requests.length; i++){
-					var display = new google.maps.DirectionsRenderer({
-						markerOptions: {
-							visible: false
-						}
-					});
-
-					directionsDisplays.push(display);
-
-					display.setMap(map);
-					Meteor.setTimeout(makeRequest(display, requests[i]), i * 500);
-				}
-			}
-		}
-	};
-};
-
-(function(){
 	var routeId = undefined;
 
 	var map_ = new RouteMapRenderer();
@@ -200,7 +16,7 @@ RouteMapRenderer = function(){
 
 	var uploadedFiles = [];
 
-	Template.EditTrip.rendered = function(){
+	Template.EditTrip.onRendered(function(){
 		routeId = this._id;
 
 		map_.initIn('map-canvas', {
@@ -222,7 +38,7 @@ RouteMapRenderer = function(){
 			uploadedFiles.push(fileInfo.url);
 		};
 		*/
-	};
+	});
 
 	Template.EditTrip.helpers({
 		'points': function(){
@@ -643,9 +459,22 @@ RouteMapRenderer = function(){
 
 	// ~~~
 
+	Template.PublishModal.helpers({
+		'canPublishNumOfPoints': function(){
+			return Trips.findOne({}).points.length >= 2;
+		}
+	});
+
 	Template.PublishModal.events({
 		'click #do-publish': function(){
-			Meteor.call('PublishTrip', Trips.findOne({})._id);
+			Meteor.call('PublishTrip', Trips.findOne({})._id, function(error, result){
+				if(result !== undefined){
+					if(result.status === NO_GMAP_POINTS)
+						map_.pushRoute(Trips.findOne({}), true, true);
+					
+					alert(result.message);
+				}
+			});
 		},
 		'click #stop-publish': function(){
 			Meteor.call('UnPublishTrip', Trips.findOne({})._id);
@@ -879,7 +708,7 @@ RouteMapRenderer = function(){
 
 	Template.Dashboard.helpers({
 		'mineTrips': function(){
-			return Trips.find();
+			return Trips.find({}, {_id: 1});
 		},
 		'isTrullyMineTrip': function(){
 			return (this.user === Meteor.userId());
@@ -894,253 +723,6 @@ RouteMapRenderer = function(){
 			return !Meteor.user().profile.isRace;
 		}
 	})
-})();
-
-(function(){
-	var map = new RouteMapRenderer();
-	var mapAffix = new RouteMapRenderer();
-
-	var routeDirectionsPixelStep = 0;
-	var routeDirections = [];
-
-	function hoverAffixMapOn(latLng){
-		mapAffix.getGoogleMap().panTo(latLng);
-	}
-
-	Template.RouteBody.rendered = function(){
-		$(".fancybox-image").fancybox();
-
-		/*
-		$(".fancybox-image").click(function(){
-			return false;
-		});
-		*/
-
-		// ~~~
-
-		
-		map.initIn('map-canvas', {
-			zoom: 7,
-			center: new google.maps.LatLng(52.40637, 16.92517),
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			disableDefaultUI: false
-		});
-
-		map.pushRoute(PublishedTrips.findOne({}), true, false);
-
-		/*
-
-		mapAffix.initIn('map-affix-canvas', {
-			zoom: 7,
-			center: new google.maps.LatLng(52.40637, 16.92517),
-			mapTypeId: google.maps.MapTypeId.ROADMAP,
-			disableDefaultUI: true
-		});
-
-		mapAffix.pushRoute(PublishedTrips.findOne({}), false);
-
-		var trip = PublishedTrips.findOne({});
-		for(var i = 0; i < trip.points.length; i++){
-			for(var j = 0; j < trip.points[i].route.gmap_directions.length; j++){
-				var latLng = trip.points[i].route.gmap_directions[j].coordsBegin;
-				routeDirections.push(new google.maps.LatLng(latLng));
-			}
-		}
-
-		routeDirectionsPixelStep = ($("#route-desc").height() - $(window).height()) / routeDirections.length;
-
-		console.log(routeDirectionsPixelStep);
-
-		if(routeDirectionsPixelStep > 0){
-			/*
-			$("#map-affix-container").affix({
-				offset: {
-	    			top: $("#route-desc").offset().top,
-	    			left: 0,
-	    			bottom: $("#route-desc").offset().bottom
-	    		}
-			});
-
-			
-			$(window).scroll(function(event){
-				var scrollStatus = $(document).scrollTop() - $("#route-desc").offset().top;
-
-				var stepStatus = Math.floor((scrollStatus / routeDirectionsPixelStep));
-
-				if(stepStatus > 0){
-					hoverAffixMapOn(routeDirections[stepStatus]);
-					mapAffix.getGoogleMap().setZoom(10);
-				}
-				/*else {
-					hoverAffixMapOn(routeDirections[0]);
-					mapAffix.getGoogleMap().setZoom(10);
-				}*
-			});
-			*
-		}
-
-		/*
-		google.maps.event.addListener(mapAffix.getGoogleMap(), 'idle', function(){
-			// mapAffix.getGoogleMap().setCenter();
-			mapAffix.getGoogleMap().setZoom(10);
-			hoverAffixMapOn(routeDirections[0]);
-		});
-		*/
-	};
-
-	Template.RouteBody.helpers({
-		'points': function(){
-			var points = PublishedTrips.findOne({}).points;
-			
-			var i = 0;
-			return points.map(function(item){
-				item.index = (i++);
-				item.isEnd = (i === points.length);
-				return item;
-			});
-		},
-		'pointTypeHtml': function(){
-			return '<img src="/'+this.type+'_marker.png">';
-		},
-		'parseInt': function(x){
-			return Math.round(x);
-		},
-		'logLength': function(x){
-			return Math.round(100 + ((Math.log10(x) - 1) / 1.5) * 100);
-		}
-	});
-
-	Template.RB_RouteDesc.helpers({
-		'parseInt': function(x){
-			return Math.round(x);
-		},
-		'parseDuration': function(value){
-			var val = Math.round(parseInt(value));
-			try {
-				return juration.stringify(val, { format: 'micro' });
-			} catch(error){
-				return 0;
-			}
-		}
-	});
-
-	// ~~~
-
-	Template.RouteHead.helpers({
-		'user': function(){
-			console.log(Meteor.users.findOne(this.user));
-			return Meteor.users.findOne(this.user);
-		},
-		'duration': function(){
-			return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
-		},
-		'parseInt': function(x){
-			return Math.round(x);
-		},
-		'distanceDivDuration': function(){
-			var duration = Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
-			return Math.floor(this.stats.distance  / duration);
-		},
-		'driversCount': function(){
-			return this.points.length - 1;
-		},
-		'sumaricWaitingTime': function(){
-			var waitingTime = 0;
-
-			this.points.forEach(function(point){
-				if(point.route.waitingTime)
-					waitingTime += parseInt(point.route.waitingTime);
-			});
-
-			try {
-				return juration.stringify(Math.round(waitingTime), { format: 'micro' });
-			} catch(error){
-				return 0;
-			}
-		},
-		'co2': function(){
-			var grams = Math.floor(this.stats.distance * 130);
-			if(grams > 1000)
-				return Math.floor(grams / 1000) + " kg"
-			else
-				return grams + " g";
-		},
-		'countries': function(){
-			var countries = {};
-
-			this.points.forEach(function(point){
-				point.route.stats.countries.forEach(function(routeCountryStats){
-					if(countries[routeCountryStats.countryCode] === undefined)
-						countries[routeCountryStats.countryCode] = 0;
-
-					countries[routeCountryStats.countryCode] += routeCountryStats.distance;
-				});
-			});
-
-			return Object.keys(countries).map(function(country){
-				return {
-					countryName: country,
-					distance: countries[country]
-				};
-			});
-		}
-	});
-
-	Template.RouteCommonStats.helpers({
-		'duration': function(){
-			return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
-		},
-		'parseInt': function(x){
-			return Math.round(x);
-		},
-		'distanceDivDuration': function(){
-			var duration = Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
-			return Math.floor(this.stats.distance  / duration);
-		},
-		'driversCount': function(){
-			return this.points.length - 1;
-		},
-		'sumaricWaitingTime': function(){
-			var waitingTime = 0;
-
-			this.points.forEach(function(point){
-				if(point.route.waitingTime)
-					waitingTime += parseInt(point.route.waitingTime);
-			});
-
-			try {
-				return juration.stringify(Math.round(waitingTime), { format: 'micro' });
-			} catch(error){
-				return 0;
-			}
-		},
-		'co2': function(){
-			var grams = Math.floor(this.stats.distance * 130);
-			if(grams > 1000)
-				return Math.floor(grams / 1000) + " kg"
-			else
-				return grams + " g";
-		},
-		'countries': function(){
-			var countries = {};
-
-			this.points.forEach(function(point){
-				point.route.stats.countries.forEach(function(routeCountryStats){
-					if(countries[routeCountryStats.countryCode] === undefined)
-						countries[routeCountryStats.countryCode] = 0;
-
-					countries[routeCountryStats.countryCode] += routeCountryStats.distance;
-				});
-			});
-
-			return Object.keys(countries).map(function(country){
-				return {
-					countryName: country,
-					distance: countries[country]
-				};
-			});
-		}
-	});
 })();
 
 (function(){

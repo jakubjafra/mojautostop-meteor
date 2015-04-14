@@ -51,7 +51,7 @@ if(__isDev()){
 		template: 'ShowTrip',
 
 		waitOn: function(){
-			return Meteor.subscribe('get-published-trip-data', this.params._id);
+			return Meteor.subscribe('get-published-trip-data', this.params._id);;
 		},
 		data: function(){
 			return PublishedTrips.findOne({ _id: this.params._id });
