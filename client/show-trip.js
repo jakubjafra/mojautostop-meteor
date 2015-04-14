@@ -187,12 +187,32 @@ Template.RouteHead.helpers({
 	}
 });
 
+function getDurationForTrip(trip){
+	return Math.ceil((trip.endTime - trip.beginTime) / (24 * 60 * 60 * 1000));
+}
+
+function getWaitingTimeForTrip(trip){
+	return trip.points.reduce(function(prev, curr){
+		if(curr.route.waitingTime === null)
+			return prev;
+		else
+			return prev + parseInt(curr.route.waitingTime);
+	}, 0);
+}
+
 Template.RouteCommonStats.helpers({
+	'showDuration': function(){
+		console.log("duration", getDurationForTrip(this));
+		return getDurationForTrip(this) > 0;
+	},
 	'duration': function(){
-		return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
+		return getDurationForTrip(this);
 	},
 	'parseInt': function(x){
 		return Math.round(x);
+	},
+	'showDistanceDivDuration': function(){
+		return getDurationForTrip(this) > 0;
 	},
 	'distanceDivDuration': function(){
 		var duration = Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
@@ -201,16 +221,12 @@ Template.RouteCommonStats.helpers({
 	'driversCount': function(){
 		return this.points.length - 1;
 	},
+	'showSummaricWaitingTime': function(){
+		return getWaitingTimeForTrip(this) > 0;
+	},
 	'sumaricWaitingTime': function(){
-		var waitingTime = 0;
-
-		this.points.forEach(function(point){
-			if(point.route.waitingTime)
-				waitingTime += parseInt(point.route.waitingTime);
-		});
-
 		try {
-			return juration.stringify(Math.round(waitingTime), { format: 'micro' });
+			return juration.stringify(Math.round(getWaitingTimeForTrip(this)), { format: 'micro' });
 		} catch(error){
 			return 0;
 		}

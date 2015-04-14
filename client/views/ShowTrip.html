@@ -79,30 +79,36 @@
 				<div class="container show-trip-container">
 					<table style="margin-top: 20px; margin-bottom: 20px; width: 100%;">
 						<tr>
-							<td style="text-align: right; width:100px;">
-								{{> PlaceKitten}}
-							</td>
-							<td style="text-align: left; width:100px;">
-								{{ duration }} dni
-							</td>
+							{{#if showDuration}}
+								<td style="text-align: right; width:100px;">
+									{{> PlaceKitten}}
+								</td>
+								<td style="text-align: left; width:100px;">
+									{{ duration }} dni
+								</td>
+							{{/if}}
 							<td style="text-align: right; width:100px;">
 								{{> PlaceKitten}}
 							</td>
 							<td style="text-align: left; width:100px;">
 								{{ parseInt stats.distance }} km
 							</td>
-							<td style="text-align: right; width:100px;">
-								{{> PlaceKitten}}
-							</td>
-							<td style="text-align: left; width:100px;">
-								{{ distanceDivDuration }} km / dzień
-							</td>
-							<td style="text-align: right; width:100px;">
-								{{> PlaceKitten}}
-							</td>
-							<td style="text-align: left; width:100px;">
-								{{ sumaricWaitingTime }} czekania
-							</td>
+							{{#if showDistanceDivDuration }}
+								<td style="text-align: right; width:100px;">
+									{{> PlaceKitten}}
+								</td>
+								<td style="text-align: left; width:100px;">
+									{{ distanceDivDuration }} km / dzień
+								</td>
+							{{/if}}
+							{{#if showSummaricWaitingTime}}
+								<td style="text-align: right; width:100px;">
+									{{> PlaceKitten}}
+								</td>
+								<td style="text-align: left; width:100px;">
+									{{ sumaricWaitingTime }} czekania
+								</td>
+							{{/if}}
 							<td style="text-align: right; width:100px;">
 								{{> PlaceKitten}}
 							</td>
