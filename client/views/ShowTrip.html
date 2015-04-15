@@ -1,57 +1,43 @@
 <template name="ShowTrip">
-	{{> StaticTopBar}}
+	<div id="show-trip">
+		{{> RouteHead}}
 
-	{{> RouteHead}}
+		{{> RouteBody}}
 
-	{{> RouteCommonStats}}
+		{{> RouteStats}}
 
-	{{> RouteBody}}
+		{{> FbComments}}
 
-	{{> RouteStats}}
-
-	{{> FbComments}}
-
-	{{> Footer}}
+		{{> Footer}}
+	</div>
 </template>
 
 <template name="RouteHead">
-	<div class="container-fluid paper">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="container show-trip-container">
+	<header>
+		<section class="top-menu">
+			{{> StaticTopBar}}
+		</section>
+
+		<section class="map">
+			<div id="map-container"></div>
+		</section>
+
+		<section class="stats">
+			<div>
+				<div class="container title-container">
 					<div class="row">
-						<div class="col-xs-6">
-							<div id="map-canvas"></div>
-						</div>
-						<div class="col-xs-6">
-							<h2 style="margin-top: 0px">
+						<div class="col-xs-12">
+							<h1>
 								{{ name }}
-							</h2>
-
-							{{>PrintProfile dataSource=user }}
-
-							{{#if comrades.race}}
-								{{>PrintProfile dataSource=comrades.race }}
-							{{/if}}
-
-							{{!--
-							<div>
-								{{ duration }} dni<br>
-								{{ parseInt stats.distance }} km, w {{ driversCount }} przejazdach<br>
-								{{ distanceDivDuration }} km / dzień<br>
-								{{ sumaricWaitingTime }} łapania stopa<br>
-								{{ co2 }} CO2 zaoszczędzone dzięki autostopowi<br>
-								{{#each countries}}
-									{{countryName}} - {{distance}}
-								{{/each}}
-							</div>
-							--}}
+							</h1>
 						</div>
 					</div>
 				</div>
+
+				{{> RouteCommonStats}}
 			</div>
-		</div>
-	</div>
+		</section>
+	</header>
 </template>
 
 <template name="PrintProfile">
@@ -73,53 +59,47 @@
 </template>
 
 <template name="RouteCommonStats">
-	<div class="container-fluid paper">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="container show-trip-container">
-					<table style="margin-top: 20px; margin-bottom: 20px; width: 100%;">
-						<tr>
-							{{#if showDuration}}
-								<td style="text-align: right; width:100px;">
-									{{> PlaceKitten}}
-								</td>
-								<td style="text-align: left; width:100px;">
-									{{ duration }} dni
-								</td>
-							{{/if}}
-							<td style="text-align: right; width:100px;">
-								{{> PlaceKitten}}
-							</td>
-							<td style="text-align: left; width:100px;">
-								{{ parseInt stats.distance }} km
-							</td>
-							{{#if showDistanceDivDuration }}
-								<td style="text-align: right; width:100px;">
-									{{> PlaceKitten}}
-								</td>
-								<td style="text-align: left; width:100px;">
-									{{ distanceDivDuration }} km / dzień
-								</td>
-							{{/if}}
-							{{#if showSummaricWaitingTime}}
-								<td style="text-align: right; width:100px;">
-									{{> PlaceKitten}}
-								</td>
-								<td style="text-align: left; width:100px;">
-									{{ sumaricWaitingTime }} czekania
-								</td>
-							{{/if}}
-							<td style="text-align: right; width:100px;">
-								{{> PlaceKitten}}
-							</td>
-							<td style="text-align: left; width:100px;">
-								{{ co2 }} CO<sub>2</sub>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
+	<div class="container stats-container">
+		<table style="width: 100%;">
+			<tr>
+				{{#if showDuration}}
+					<td style="text-align: right; width:100px;">
+						{{> PlaceKitten}}
+					</td>
+					<td style="text-align: left; width:100px;">
+						{{ duration }} dni
+					</td>
+				{{/if}}
+				<td style="text-align: right; width:100px;">
+					{{> PlaceKitten}}
+				</td>
+				<td style="text-align: left; width:100px;">
+					{{ parseInt stats.distance }} km
+				</td>
+				{{#if showDistanceDivDuration }}
+					<td style="text-align: right; width:100px;">
+						{{> PlaceKitten}}
+					</td>
+					<td style="text-align: left; width:100px;">
+						{{ distanceDivDuration }} km / dzień
+					</td>
+				{{/if}}
+				{{#if showSummaricWaitingTime}}
+					<td style="text-align: right; width:100px;">
+						{{> PlaceKitten}}
+					</td>
+					<td style="text-align: left; width:100px;">
+						{{ sumaricWaitingTime }} czekania
+					</td>
+				{{/if}}
+				<td style="text-align: right; width:100px;">
+					{{> PlaceKitten}}
+				</td>
+				<td style="text-align: left; width:100px;">
+					{{ co2 }} CO<sub>2</sub>
+				</td>
+			</tr>
+		</table>
 	</div>
 </template>
 
@@ -128,43 +108,39 @@
 </template>
 
 <template name="RouteBody">
-	<div class="container-fluid paper">
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12 show-timeline">
-							<table style="">
-								{{#each points}}
-									<tr>
-										<td class="route-desc">
-											{{#unless isEnd}}
-												{{> RB_RouteDesc}}
-											{{/unless}}
-										</td>
-										<td class="middle" style="">
-											<div class="point point-{{ type }}">
-												<div class="point-badge">
-													{{{ pointTypeHtml }}}
-												</div>
-											</div>
-											{{#unless isEnd}}
-												<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
-												</div>
-											{{/unless}}
-										</td>
-										<td class="point-desc">
-											{{> RB_PointDesc}}
-										</td>
-									</tr>
-								{{/each}}
-							</table>
-						</div>
-					</div>
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 show-timeline">
+					<table style="">
+						{{#each points}}
+							<tr>
+								<td class="route-desc">
+									{{#unless isEnd}}
+										{{> RB_RouteDesc}}
+									{{/unless}}
+								</td>
+								<td class="middle" style="">
+									<div class="point point-{{ type }}">
+										<div class="point-badge">
+											{{{ pointTypeHtml }}}
+										</div>
+									</div>
+									{{#unless isEnd}}
+										<div class="route" style="min-height: {{ logLength route.stats.distance }}px;">
+										</div>
+									{{/unless}}
+								</td>
+								<td class="point-desc">
+									{{> RB_PointDesc}}
+								</td>
+							</tr>
+						{{/each}}
+					</table>
 				</div>
 			</div>
 		</div>
-	</div>
+	</article>
 </template>
 
 <template name="RB_PointDesc">
@@ -224,23 +200,17 @@
 </template>
 
 <template name="FbComments">
-	<div class="container-fluid paper">
+	<section class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12">
-							komentarze
-						</div>
-					</div>
-				</div>
+				komentarze
 			</div>
 		</div>
-	</div>
+	</section>
 </template>
 
 <template name="RouteStats">
-	<div class="container-fluid paper">
+	<section class="container-fluid gray-bkg">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="container">
@@ -252,5 +222,5 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</section>
 </template>

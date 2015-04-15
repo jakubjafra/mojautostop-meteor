@@ -20,11 +20,21 @@ Template.RouteBody.rendered = function(){
 	// ~~~
 
 	
-	map.initIn('map-canvas', {
+	map.initIn('map-container', {
 		zoom: 7,
 		center: new google.maps.LatLng(52.40637, 16.92517),
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
-		disableDefaultUI: false
+		disableDefaultUI: false,
+		scrollwheel: false,
+		zoomControl: true,
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.LEFT_BOTTOM
+		},
+		mapTypeControl: false,
+		panControl: true,
+		panControlOptions: {
+			position: google.maps.ControlPosition.LEFT_BOTTOM
+		}
 	});
 
 	map.pushRoute(PublishedTrips.findOne({}), true, false);
