@@ -65,40 +65,39 @@ div.container-fluid.footer {
 }
 
 div.show-timeline {
-	table {
-		width:100%;
+	.route-desc {
+		display: table;
 
-		tr {
-			td {
-				vertical-align: top;
+		& > div {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: right;
+		}
+	}
+
+	.middle {
+		display: table;
+
+		.point {
+			display: table-row;
+
+			.point-badge {
+				text-align: center;
 			}
+		}
 
-			.point-desc, .route-desc {
-				width: 46.15%;
-			}
+		.route {
+			display: table-row;
 
-			.point-desc {
-			}
-
-			.route-desc {
-				vertical-align: middle;
-				text-align: right;
-			}
-
-			td.middle {
-				width: 7.69%;
-
-				.point {
-					.point-badge {
-						text-align: center;
-					}
-				}
-
-				.route {
-					margin: auto;
-					width: 4px;
-					background-color: @gray-lighter;
-				}
+			& > div {
+				position: absolute;
+				height: 100%;
+				width: 4px;
+				top: 0px;
+				left: 50%;
+				background-color: @gray-lighter;
+				margin-left: -2px;
+				z-index: -1;
 			}
 		}
 	}

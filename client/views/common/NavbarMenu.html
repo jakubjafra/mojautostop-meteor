@@ -9,32 +9,33 @@
 				</div>
 
 				<ul class="nav navbar-nav navbar-right">
-					{{#if isDev}}
-					<li>
-						{{#linkTo route='dashboard' class='text-uppercase'}}
-							moje trasy
-						{{/linkTo}}
-					</li>
+					{{#if currentUser}}
+						<li>
+							{{#linkTo route='dashboard' class='text-uppercase'}}
+								moje trasy
+							{{/linkTo}}
+						</li>
 
-					<li>
-						<a href="#">
-							wskazówki
-						</a>
-					</li>
+						<li>
+							<a href="#">
+								wskazówki
+							</a>
+						</li>
 
-					<li>
-						<a href="#">
-							list
-						</a>
-					</li>
+						<li>
+							<a href="#">
+								list
+							</a>
+						</li>
 
-					<li>
-						<a href="#">
-							ubezpieczenie
-						</a>
-					</li>
-
+						<li>
+							<a href="#">
+								ubezpieczenie
+							</a>
+						</li>
+					{{/if}}
 					
+					{{#if isDev}}
 						{{> loginButtons}}
 					{{/if}}
 				</ul>

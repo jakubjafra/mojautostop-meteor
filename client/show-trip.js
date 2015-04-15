@@ -275,5 +275,11 @@ Template.PrintProfile.helpers({
 	},
 	'showUserName': function(){
 		return Meteor.users.findOne(this.dataSource).profile.specialNick.length > 0;
+	},
+	'sourceLink': function(){
+		var user = Meteor.users.findOne(this.dataSource);
+
+		if(user.profile.isPremium)
+			return {id: user.profile.premiumBookId};
 	}
 });

@@ -181,7 +181,8 @@ Meteor.methods({
 			
 			Meteor.users.update(Meteor.userId(), {
 				$set: {
-					'profile.isPremium': true
+					'profile.isPremium': true,
+					'profile.premiumBookId': bookId
 				}
 			});
 

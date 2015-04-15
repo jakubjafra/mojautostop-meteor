@@ -122,6 +122,9 @@ UserProfile = function(){
 	// czy zakupił książeczkę
 	this.isPremium = false;
 
+	// link do profilu
+	this.premiumBookId = null;
+
 	// specjalna flaga oznaczająca wyścig autostopowy
 	this.isRace = false;
 
