@@ -26,7 +26,8 @@ client.js
 			// disableDefaultUI: true
 		});
 
-		map_.pushRoute(Trips.findOne({}), true, true);
+		// (*, true, true) => tylko publikacja wysyła trasę na serwer - optymalizacja
+		map_.pushRoute(Trips.findOne({}), true, false);
 
 		isRendered = true;
 		// makeRoute();
@@ -471,7 +472,7 @@ client.js
 				if(result !== undefined){
 					if(result.status === NO_GMAP_POINTS)
 						map_.pushRoute(Trips.findOne({}), true, true);
-					
+
 					alert(result.message);
 				}
 			});

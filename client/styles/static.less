@@ -58,8 +58,9 @@ static.less
 
 		color: white;
 		text-shadow: 1px 1px 3px #000000;
+		background: rgba(0, 0, 0, 0.2);
 
-		div {
+		& > div {
 			vertical-align: middle;
 			display: table-cell;
 			text-align: center;
@@ -72,6 +73,18 @@ static.less
 
 		h3 {
 			font-size: 25px;
+
+			&.newsletter-text {
+				& > span {
+					display: block;
+					margin-bottom: 10px;
+				}
+
+				& > div.newsletter-form {
+					display: inline-block;
+					width: 400px;
+				}
+			}
 		}
 	}
 
