@@ -16,28 +16,28 @@
 							{{/linkTo}}
 						</li>
 
-						<li>
-							<a href="#">
-								wskazówki
-							</a>
-						</li>
+						{{#if isDev}}
+							<li>
+								<a href="#">
+									wskazówki
+								</a>
+							</li>
 
-						<li>
-							<a href="#">
-								list
-							</a>
-						</li>
+							<li>
+								<a href="#">
+									list
+								</a>
+							</li>
 
-						<li>
-							<a href="#">
-								ubezpieczenie
-							</a>
-						</li>
+							<li>
+								<a href="#">
+									ubezpieczenie
+								</a>
+							</li>
+						{{/if}}
 					{{/if}}
 					
-					{{#if isDev}}
-						{{> loginButtons}}
-					{{/if}}
+					{{> loginButtons}}
 				</ul>
 			</div>
 		</div>

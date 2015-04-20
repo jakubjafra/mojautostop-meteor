@@ -245,26 +245,54 @@ header.landing-page {
 	height: 150px;
 
 	margin-top: 15px;
+	display: table;
 
 	& > div {
 		width: 100%;
-		height: 100%;
+		display: table-row;
 
 		background-color: @gray-lighter;
 
-		&.trip-add-new {
-			a {
-				display: block;
+		&.title {
+			text-align: center;
+			overflow: hidden;
+			height: 40%;
 
-				line-height: 150px;
+			& > a {
+				display: table-cell;
 				vertical-align: middle;
+				width: 100%;
 				text-align: center;
+			}
+		}
 
-				font-size: 50px;
+		&.brand {
+			color: white;
+			font-size: 30px;
+			background-color: @bar-red;
 
-				span {
-					left: 4px;
-				}
+			& > span {
+				display: table-cell;
+				vertical-align: middle;
+				width: 100%;
+				text-align: center;
+				font-weight: bold;
+			}
+		}
+	}
+
+	& > div.trip-add-new {
+		a {
+			display: block;
+
+			line-height: 150px;
+			vertical-align: middle;
+			text-align: center;
+
+			font-size: 50px;
+
+			span {
+				left: 4px;
 			}
 		}
 	}
@@ -368,6 +396,20 @@ div.container-fluid.edit-trip-container {
 			box-shadow: -5px 0px 10px 0px rgba(0, 0, 0, 0.2);
 
 			display: table;
+
+			.helper-footer {
+				height: 30px;
+
+				background-color: white;
+				display:table-row;
+
+				line-height: 30px;
+				text-align: center;
+
+				a {
+					font-weight: bold;
+				}
+			}
 
 			.option-header {
 				height: 50px;

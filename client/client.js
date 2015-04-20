@@ -39,6 +39,10 @@ client.js
 			uploadedFiles.push(fileInfo.url);
 		};
 		*/
+
+	    try {
+	        FB.XFBML.parse();
+	    }catch(e) {}
 	});
 
 	Template.EditTrip.helpers({
@@ -145,8 +149,6 @@ client.js
 	});
 
 	Template.AddPointModal.onRendered(function(){
-		
-
 		$("#new-point-modal").on('show.bs.modal', function(){
 			var modal = $('#new-point-modal');
 
@@ -154,6 +156,8 @@ client.js
 			pointType.set("through");
 			$(modal).find('.trip-name').val("");
 			uploadedFiles = [];
+			$(modal).find('.point-waiting-time').val("");
+			$(modal).find('.description-text').val("");
 		});
 		
 	});
@@ -469,6 +473,8 @@ client.js
 	Template.PublishModal.events({
 		'click #do-publish': function(){
 			Meteor.call('PublishTrip', Trips.findOne({})._id, function(error, result){
+				console.log(error, result);
+
 				if(result !== undefined){
 					if(result.status === NO_GMAP_POINTS)
 						map_.pushRoute(Trips.findOne({}), true, true);
@@ -479,6 +485,18 @@ client.js
 		},
 		'click #stop-publish': function(){
 			Meteor.call('UnPublishTrip', Trips.findOne({})._id);
+		},
+		'click #reload-publish': function(){
+			Meteor.call('UnPublishTrip', Trips.findOne({})._id, function(){
+				Meteor.call('PublishTrip', Trips.findOne({})._id, function(error, result){
+					if(result !== undefined){
+						if(result.status === NO_GMAP_POINTS)
+							map_.pushRoute(Trips.findOne({}), true, true);
+
+						alert(result.message);
+					}
+				});
+			});
 		}
 	});
 
@@ -708,6 +726,9 @@ client.js
 	});
 
 	Template.Dashboard.helpers({
+		'parseInt': function(x){
+			return Math.round(x);
+		},
 		'mineTrips': function(){
 			return Trips.find({}, {_id: 1});
 		},

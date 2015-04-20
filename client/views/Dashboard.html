@@ -7,7 +7,12 @@
 				<div class="container-fluid">
 					{{#each mineTrips}}
 						<div class="col-xs-3 trip">
-							<div>
+							<div class="brand">
+								<span>
+									{{ parseInt stats.distance }}&nbsp;<small>km</small>
+								</span>
+							</div>
+							<div class="title">
 								{{#if isTrullyMineTrip}}
 									{{#linkTo route='edit-trip'}}
 										{{ name }}
@@ -16,7 +21,6 @@
 									{{#linkTo route='show-trip' data=comradeTripData}}
 										{{ name }}
 									{{/linkTo}}
-									comrade trip!
 								{{/if}}
 							</div>
 						</div>

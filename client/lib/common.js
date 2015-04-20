@@ -7,3 +7,12 @@
 	    return result;
 	});
 })();
+
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '1421996818107296',
+		status     : true,
+		xfbml      : true,
+		version    : 'v2.3'
+	});
+};

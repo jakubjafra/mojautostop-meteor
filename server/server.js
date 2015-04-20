@@ -40,13 +40,13 @@ function getCountryCodeForCoords(coords){
 			if(typeof lat !== "number" || typeof lon !== "number")
 				fut['return']("");
 
-			console.log("getCountryCodeForCoords -> timeout ended. firing HTTP!");
+			// console.log("getCountryCodeForCoords -> timeout ended. firing HTTP!");
 
 			var ret = HTTP.get("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
 
 			// console.log("http://nominatim.openstreetmap.org/reverse?format=json&zoom=0&lat=" + lat + "&lon=" + lon);
-			console.log('getCountryCodeForCoords');
-			console.log(ret.data);
+			// console.log('getCountryCodeForCoords');
+			// console.log(ret.data);
 
 			if(ret.data === null || ret.data === undefined || ret.data === [] || ret.data.length === 0 || ret.data.address === undefined){
 				// użyj geocodera googlowskiego durniu!
@@ -69,14 +69,14 @@ function getCountryCodeForName(name){
 
 	Meteor.setTimeout(function(){
 		try {
-			console.log("getCountryCodeForName -> timeout ended. firing HTTP!");
+			// console.log("getCountryCodeForName -> timeout ended. firing HTTP!");
 
 			var ret = HTTP.get("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
 
 			// console.log("http://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" + name);
 
-			console.log('getCountryCodeForName');
-			console.log(ret.data);
+			// console.log('getCountryCodeForName');
+			// console.log(ret.data);
 
 			if(ret.data !== undefined && ret.data.length > 0)
 				fut['return'](ret.data[0].address.country_code);

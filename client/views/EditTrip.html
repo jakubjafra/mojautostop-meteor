@@ -117,6 +117,16 @@
 						</button>
 					</div>
 				</div>
+				<div class="helper-footer">
+					{{#if publish.visible}}
+						Gdy wprowadzisz zmiany,
+						<a href="#" data-toggle="modal" data-target="#publish-modal">zaktualizuj upublicznioną</a>
+						trasę.
+					{{else}}
+						Podziel się swoją podróżą!
+						<a href="#" data-toggle="modal" data-target="#publish-modal">Opublikuj ją teraz.</a>
+					{{/if}}
+				</div>
 			</div>
 		</div>
 	</div>
@@ -366,6 +376,9 @@
 								<br>
 								<button class="btn btn-danger" id="stop-publish">
 									Przestań publikować trasę
+								</button>
+								<button class="btn btn-danger" id="reload-publish">
+									Zaktualizuj trasę
 								</button>
 							{{else}}
 								<hr>
