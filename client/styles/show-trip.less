@@ -57,6 +57,12 @@ show-trip.less
 							table {
 								margin-top: 6px;
 								margin-bottom: 20px;
+
+								tr {
+									img {
+										margin: 0px 5px;
+									}
+								}
 							}
 						}
 					}
@@ -133,6 +139,10 @@ show-trip.less
 				color: black;
 				padding: 0px 7px 0px 5px;
 				font-family: georgia;
+
+				&:empty {
+					padding: 0px;
+				}
 			}
 		}
 	}

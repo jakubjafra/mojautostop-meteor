@@ -1,3 +1,38 @@
 <template name="Profile">
-	Profil
+	<div id="profile">
+		{{> StaticTopBar}}
+
+		<div class="container-fluid profile-show">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="profile">
+						{{> PrintProfileBody source=userProfileData}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid stats-show">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-8">
+								<div class="container-fluid">
+									{{#each mineTrips}}
+										{{> PrintTrip data=this}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-xs-4">
+								{{> UserStats dbData=mineTrips }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{> Footer}}
 </template>

@@ -13,6 +13,8 @@ var CONFIG = {
 
 WAIT_TIME_FOR_GEOCODE_REQUESTS = 1500;
 
+var observedTrips = {};
+
 function bindRoutesToPoints(points){
 	if(points.length >= 2){
 		for(var i = 0; i < points.length; i++){
@@ -244,6 +246,8 @@ Meteor.methods({
 	},
 
 	'PublishTrip': function(tripId){
+		console.log("PublishTrip method called on #" + tripId);
+
 		function processTrip(tripId){
 			// 1. publikowanie = obliczanie statystyk
 			Meteor.call('GenerateStatsFor', tripId, function(error, trip){
@@ -299,8 +303,6 @@ Meteor.methods({
 			});
 		}
 
-		console.log("Publishing trip #" + tripId + " ...");
-
 		Trips.update(tripId, {
 			$set: {
 				'publish.isProcessing': true
@@ -317,13 +319,13 @@ Meteor.methods({
 		}
 
 		if(maybeTrip.points[0].route.gmap_directions.length === 0){
-			console.log("_ Waiting for gmap_directions.");
+			console.log("Waiting for gmap_directions for trip #" + tripId + " ...");
 
 			// Zaczynamy zabawę w czekanie...
-			Trips.find({
+			observedTrips[tripId] = Trips.find({
 				_id: tripId
 			}).observe({
-				changed: function(newDoc, oldDoc){
+				changed: function(newDoc, oldDoc){				
 					Meteor.call('PublishTrip', tripId);
 				}
 			});
@@ -333,9 +335,14 @@ Meteor.methods({
 				message: "Serwer przetwarza twoje żądanie. Czekaj cierpliwie."
 			};
 		}
+		else {
+			console.log("Publishing trip #" + tripId + " ...");
 
-		console.log("_ All requiments met. Generating stats...")
-		processTrip(tripId);
+			if(observedTrips[tripId] !== undefined)
+				observedTrips[tripId].stop();
+
+			processTrip(tripId);
+		}
 	},
 	'UnPublishTrip': function(tripId){
 		var trip = Trips.findOne(tripId);
@@ -652,14 +659,31 @@ Meteor.startup(function(){
 			});
 	});
 
-	Meteor.publish("book-user-data", function(bookId){
+	Meteor.publish("book-user-trips", function(bookId){
 		bookId = parseInt(bookId);
 		var book = Books.findOne({bookId: bookId});
 
 		if(book !== undefined){
-			return PublishedTrips.find({ user: book.userId });
+			return [
+				Books.find({ bookId: bookId }),
+				PublishedTrips.find({
+					$or: [
+						{ user: book.userId },
+						{$and: [{'comrades.race': book.userId}, {'publish.visible': true}]}
+					]
+				})
+			];
 		}
 	});
+
+	// Meteor.publish("book-user-profile", function(bookId){
+	// 	bookId = parseInt(bookId);
+	// 	var book = Books.findOne({bookId: bookId});
+
+	// 	if(book !== undefined){
+	// 		return Meteor.users.find(book.userId);
+	// 	}
+	// });
 
 	Meteor.publish("official-races", function(){
 		return Meteor.users.find({ 'profile.isRace': true });

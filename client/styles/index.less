@@ -268,8 +268,9 @@ header.landing-page {
 
 		&.brand {
 			color: white;
-			font-size: 30px;
+			font-size: 28px;
 			background-color: @bar-red;
+			font-family: @header-font;
 
 			& > span {
 				display: table-cell;
@@ -740,5 +741,90 @@ div.container-fluid.edit-trip-container {
 		left: 50%;
 		margin-top: -185px;
 		margin-left: -300px;
+	}
+}
+
+.user-stats {
+	padding-top: 15px;
+
+	h2, h4 {
+		text-align: center;
+		margin: 0px;
+		padding: 0px;
+		font-family: @header-font;
+		padding-bottom: 5px;
+	}
+
+	h2 {
+		font-size: 24px;
+
+		span {
+			font-size: 14px;
+		}
+	}
+
+	.col-xs-6, .col-xs-4 {
+		height: 100px;
+		display: table;
+
+		div {
+			text-align: center;
+			vertical-align: middle;
+			display: table-cell;
+
+			img {
+				width: 70px;
+				height: auto;
+			}
+
+			div.value {
+				text-align: center;
+				font-size: 18px;
+				font-family: @header-font;
+				display: block;
+				width: 100%;
+
+				// small {
+				// 	color: @gray-light;
+				// }
+			}
+		}
+	}
+}
+
+#profile {
+	min-height: 100%;
+
+	.profile-show {
+		height: 200px;
+		background-color: @common-gray-bkg-color;
+
+		div.col-xs-12 {
+			height: 200px;
+			display: table;
+
+			div.profile {
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+
+				img {
+					width: 80px;
+					height: 80px;
+					border-radius: 80px;
+				}
+
+				span {
+					font-family: @header-font;
+					font-size: 36px;
+				}
+			}
+		}
+	}
+
+	.stats-show {
+		background-image: url("/bar.png");
+		background-repeat: repeat-x;
+		background-size: 100px @small-colorbrand-panel-width;
 	}
 }

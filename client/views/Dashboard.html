@@ -6,24 +6,7 @@
 			<div class="col-xs-8">
 				<div class="container-fluid">
 					{{#each mineTrips}}
-						<div class="col-xs-3 trip">
-							<div class="brand">
-								<span>
-									{{ parseInt stats.distance }}&nbsp;<small>km</small>
-								</span>
-							</div>
-							<div class="title">
-								{{#if isTrullyMineTrip}}
-									{{#linkTo route='edit-trip'}}
-										{{ name }}
-									{{/linkTo}}
-								{{else}}
-									{{#linkTo route='show-trip' data=comradeTripData}}
-										{{ name }}
-									{{/linkTo}}
-								{{/if}}
-							</div>
-						</div>
+						{{> PrintTrip data=this}}
 					{{/each}}
 					{{#if canAddTrip}}
 						<div class="col-xs-3 trip">
@@ -37,12 +20,118 @@
 				</div>
 			</div>
 			<div class="col-xs-4">
-				stats
+				{{> UserStats dbData=mineTrips showHelpTooltip="true"}}
 			</div>
 		</div>
 	</div>
 
 	<!-- {{> NewTripModal}} -->
+</template>
+
+<template name="PrintTrip">
+	{{#with data}}
+		<div class="col-xs-3 trip">
+			<div class="brand">
+				<span>
+					{{ parseInt stats.distance }}&nbsp;<small>km</small>
+				</span>
+			</div>
+			<div class="title">
+				{{#if isTrullyMineTrip}}
+					{{#linkTo route='edit-trip'}}
+						{{ name }}
+					{{/linkTo}}
+				{{else}}
+					{{#linkTo route='show-trip' data=comradeTripData}}
+						{{ name }}
+					{{/linkTo}}
+					
+					{{!-- {{#if isComradeTrip}}
+						{{#linkTo route='show-trip' data=comradeTripData}}
+							{{ name }}
+						{{/linkTo}}
+					{{else}}
+						{{#linkTo route='show-trip' data=publicTripData}}
+							{{ name }}
+						{{/linkTo}}
+					{{/if}} --}}
+				{{/if}}
+			</div>
+		</div>
+	{{/with}}
+</template>
+
+<template name="UserStats">
+	<div class="user-stats container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>
+					Statystyki tripów
+					{{#if showHelpTooltip}}
+						<span title="Statystyki obliczane są tylko dla opublikowanych podróży." data-toggle="tooltip">
+							<span class="glyphicon glyphicon-question-sign"></span>
+						</span>
+					{{/if}}
+				</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-4">
+				<div>
+					<img src="/drawings/odleglosc.png">
+					<div class="value">{{ distance }} <small>km</small></div>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div>
+					<img src="/drawings/dni.png">
+					<div class="value">{{ duration }} <small>dni</small></div>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div>
+					<img src="/drawings/kmdzien.png">
+					<div class="value">{{ distanceDivDuration }} <small>km</small></div>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div>
+					<img src="/drawings/czas.png">
+					<div class="value">{{ waitingTime }}</div>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				<div>
+					<img src="/drawings/spaliny.png">
+					<div class="value">{{ co2 }} <small>CO<sub>2</sub></small></div>
+				</div>
+			</div>
+			{{!--
+			<div class="col-xs-4">
+				<div>{{ drivers }}</div>
+			</div>
+			--}}
+		</div>
+		{{!-- <div class="row">
+			<div class="col-xs-12">
+				<h4>
+					W poszczególnych krajach...
+				</h4>
+				<table class="table">
+					<tbody>
+						{{#each countries}}
+							{{#with this}}
+								<tr>
+									<td>{{ countryName }}</td>
+									<td>{{ countryDistance }}</td>
+								</tr>
+							{{/with}}
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div> --}}
+	</div>
 </template>
 
 <template name="NewTripModal">

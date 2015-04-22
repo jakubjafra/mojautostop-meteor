@@ -717,37 +717,6 @@ client.js
 */
 
 (function(){
-	Template.Dashboard.events({
-		'click .trip-add-new a': function(){
-			Meteor.call('NewTrip', function(error, result){
-				Router.go('edit-trip', { _id: result });
-			});
-		}
-	});
-
-	Template.Dashboard.helpers({
-		'parseInt': function(x){
-			return Math.round(x);
-		},
-		'mineTrips': function(){
-			return Trips.find({}, {_id: 1});
-		},
-		'isTrullyMineTrip': function(){
-			return (this.user === Meteor.userId());
-		},
-		'comradeTripData': function(){
-			return {
-				_id: this.publish.id
-			};
-		},
-		'canAddTrip': function(){
-			console.log(Meteor.user());
-			return !Meteor.user().profile.isRace;
-		}
-	})
-})();
-
-(function(){
 	Template.BuyBook.events({
 		'click #book_submit': function(event){
 			var bookId = $("#book_id").val();

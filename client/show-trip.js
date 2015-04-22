@@ -139,7 +139,6 @@ Template.RB_RouteDesc.helpers({
 
 Template.RouteHead.helpers({
 	'user': function(){
-		console.log(Meteor.users.findOne(this.user));
 		return Meteor.users.findOne(this.user);
 	},
 	'duration': function(){
@@ -197,11 +196,11 @@ Template.RouteHead.helpers({
 	}
 });
 
-function getDurationForTrip(trip){
+getDurationForTrip = function(trip){
 	return Math.ceil((trip.endTime - trip.beginTime) / (24 * 60 * 60 * 1000));
 }
 
-function getWaitingTimeForTrip(trip){
+getWaitingTimeForTrip = function(trip){
 	return trip.points.reduce(function(prev, curr){
 		if(curr.route.waitingTime === null)
 			return prev;
@@ -270,6 +269,13 @@ Template.RouteCommonStats.helpers({
 });
 
 Template.PrintProfile.helpers({
+	'makesSenseToPrintUserProfile': function(){
+		var profile = Meteor.users.findOne(this.dataSource).profile;
+		return 	profile.photo !== '/default_profile_photo.jpg' ||
+				profile.firstName.length > 0 ||
+				profile.lastName.length > 0 ||
+				profile.specialNick.length > 0;
+	},
 	'source': function(){
 		return Meteor.users.findOne(this.dataSource);
 	},
@@ -279,7 +285,43 @@ Template.PrintProfile.helpers({
 	'sourceLink': function(){
 		var user = Meteor.users.findOne(this.dataSource);
 
+		console.log(user);
+
 		if(user.profile.isPremium)
 			return {id: user.profile.premiumBookId};
+		else
+			return {id: '#'};
+	}
+});
+
+Template.PrintProfile.onRendered(function(){
+	Template.instance().$('[data-toggle="tooltip"]').tooltip();
+});
+
+Template.PrintProfileBody.helpers({
+	'showAvatar': function(){
+		return this.source.profile.photo !== '/default_profile_photo.jpg';
+	},
+	'showFirstName': function(){
+		return this.source.profile.firstName.length > 0;
+	},
+	'showLastName': function(){
+		return this.source.profile.lastName.length > 0;
+	},
+	'showSpecialNick': function(){
+		return this.source.profile.specialNick.length > 0;
+	},
+	'anythingText': function(){
+		return 	profile.firstName.length > 0 ||
+				profile.lastName.length > 0 ||
+				profile.specialNick.length > 0;
+	}
+});
+
+Template.FbComments.helpers({
+	'configObj': function(){
+		return {
+			width: "100%"
+		};
 	}
 });

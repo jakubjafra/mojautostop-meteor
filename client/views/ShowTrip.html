@@ -81,21 +81,37 @@ AUTHORS-CONTAINER
 -->
 
 <template name="PrintProfile">
-	{{#if source.profile.isPremium}}
-		{{#linkFor route='book-owner-published-trips' data=sourceLink class='author'}}
-			<img src="{{ source.profile.photo }}" />
-			<span>
-				{{ source.profile.firstName }} {{ source.profile.lastName }}
-			</span>
-		{{/linkFor}}
-	{{else}}
-		<a href="#" class="author">
-			<img src="{{ source.profile.photo }}" />
-			<span>
-				{{ source.profile.firstName }} {{ source.profile.lastName }}
-			</span>
-		</a>
+	{{#if makesSenseToPrintUserProfile}}
+		{{#if source.profile.isPremium}}
+			<a href="{{pathFor route='book-owner-published-trips' data=sourceLink class='author'}}" class="author" data-toggle="tooltip" title="Przejdź do profilu">
+				{{> PrintProfileBody source=source}}
+			</a>
+		{{else}}
+			<a href="#" class="author" data-toggle="tooltip" title="Autor tripa">
+				{{> PrintProfileBody source=source}}
+			</a>
+		{{/if}}
 	{{/if}}
+</template>
+
+<template name="PrintProfileBody">
+	{{#if showAvatar}}
+		<img src="{{ source.profile.photo }}" />
+	{{/if}}
+	<span>
+		{{#if anythingText}}
+			{{#if showFirstName}}
+				{{ source.profile.firstName }}
+			{{/if}}
+			{{#if showSpecialName}}
+				"{{ source.profile.specialName }}"
+			{{/if}}
+			{{#if showLastName}}
+				{{ source.profile.lastName }}
+			{{/if}}
+		{{else}}
+		{{/if}}
+	</span>
 </template>
 
 <template name="RouteCommonStats">
@@ -104,21 +120,21 @@ AUTHORS-CONTAINER
 			<tr>
 				{{#if showDuration}}
 					<td style="text-align: right; width:100px;">
-						{{> PlaceKitten}}
+						<img src="/drawings/dni.png" width="100px" height="50px">
 					</td>
 					<td style="text-align: left; width:100px;">
 						{{ duration }} dni
 					</td>
 				{{/if}}
 				<td style="text-align: right; width:100px;">
-					{{> PlaceKitten}}
+					<img src="/drawings/odleglosc.png" width="100px" height="50px">
 				</td>
 				<td style="text-align: left; width:100px;">
 					{{ parseInt stats.distance }} km
 				</td>
 				{{#if showDistanceDivDuration }}
 					<td style="text-align: right; width:100px;">
-						{{> PlaceKitten}}
+						<img src="/drawings/kmdzien.png" width="100px" height="50px">
 					</td>
 					<td style="text-align: left; width:100px;">
 						{{ distanceDivDuration }} km / dzień
@@ -126,14 +142,14 @@ AUTHORS-CONTAINER
 				{{/if}}
 				{{#if showSummaricWaitingTime}}
 					<td style="text-align: right; width:100px;">
-						{{> PlaceKitten}}
+						<img src="/drawings/czas.png" width="100px" height="50px">
 					</td>
 					<td style="text-align: left; width:100px;">
 						{{ sumaricWaitingTime }} czekania
 					</td>
 				{{/if}}
 				<td style="text-align: right; width:100px;">
-					{{> PlaceKitten}}
+					<img src="/drawings/spaliny.png" width="100px" height="50px">
 				</td>
 				<td style="text-align: left; width:100px;">
 					{{ co2 }} CO<sub>2</sub>
@@ -222,7 +238,8 @@ AUTHORS-CONTAINER
 	<section class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				{{> facebookComments }}
+				<div class="fb-comments" data-width="800px" data-numposts="5" data-colorscheme="light">
+				</div>
 			</div>
 		</div>
 	</section>

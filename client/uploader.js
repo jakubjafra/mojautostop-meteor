@@ -22,4 +22,6 @@ Template.UploaderContainer.onRendered(function(){
 
 addUploaderEndPoint = function(callback){
 	endpoints.push(callback);
+	console.log("___ENDPOINTS___");
+	console.log(endpoints);
 };
