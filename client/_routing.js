@@ -20,7 +20,7 @@ Router.route('/', {
 	}
 });
 
-if(__isDev()){
+// if(__isDev()){
 	// Strony prywatne (dostępne po zalogowaniu):
 
 	Router.route('/dashboard', {
@@ -102,7 +102,7 @@ if(__isDev()){
 			this.render();
 		}
 	});
-}
+// }
 
 /*
 	Router.route('/history', {

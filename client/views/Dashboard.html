@@ -45,7 +45,7 @@
 					{{#linkTo route='show-trip' data=comradeTripData}}
 						{{ name }}
 					{{/linkTo}}
-					
+
 					{{!-- {{#if isComradeTrip}}
 						{{#linkTo route='show-trip' data=comradeTripData}}
 							{{ name }}
@@ -76,41 +76,57 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-4">
-				<div>
-					<img src="/drawings/odleglosc.png">
-					<div class="value">{{ distance }} <small>km</small></div>
+			{{#if anyStatsMakesSense}}
+				{{#if distanceMakesSense}}
+					<div class="col-xs-4">
+						<div>
+							<img src="/drawings/odleglosc.png">
+							<div class="value">{{ distance }} <small>km</small></div>
+						</div>
+					</div>
+				{{/if}}
+				{{#if durationMakesSense}}
+					<div class="col-xs-4">
+						<div>
+							<img src="/drawings/dni.png">
+							<div class="value">{{ duration }} <small>dni</small></div>
+						</div>
+					</div>
+				{{/if}}
+				{{#if distanceDivDurationMakesSense}}
+					<div class="col-xs-4">
+						<div>
+							<img src="/drawings/kmdzien.png">
+							<div class="value">{{ distanceDivDuration }} <small>km</small></div>
+						</div>
+					</div>
+				{{/if}}
+				{{#if waitingTimeMakesSense}}
+					<div class="col-xs-4">
+						<div>
+							<img src="/drawings/czas.png">
+							<div class="value">{{ waitingTime }}</div>
+						</div>
+					</div>
+				{{/if}}
+				{{#if co2MakesSense}}
+					<div class="col-xs-4">
+						<div>
+							<img src="/drawings/spaliny.png">
+							<div class="value">{{ co2 }} <small>CO<sub>2</sub></small></div>
+						</div>
+					</div>
+				{{/if}}
+				{{!--
+				<div class="col-xs-4">
+					<div>{{ drivers }}</div>
 				</div>
-			</div>
-			<div class="col-xs-4">
-				<div>
-					<img src="/drawings/dni.png">
-					<div class="value">{{ duration }} <small>dni</small></div>
+				--}}
+			{{else}}
+				<div class="col-xs-12">
+					Opublikuj swoją pierwszą trasę by uzyskać dostęp do statystyk!
 				</div>
-			</div>
-			<div class="col-xs-4">
-				<div>
-					<img src="/drawings/kmdzien.png">
-					<div class="value">{{ distanceDivDuration }} <small>km</small></div>
-				</div>
-			</div>
-			<div class="col-xs-4">
-				<div>
-					<img src="/drawings/czas.png">
-					<div class="value">{{ waitingTime }}</div>
-				</div>
-			</div>
-			<div class="col-xs-4">
-				<div>
-					<img src="/drawings/spaliny.png">
-					<div class="value">{{ co2 }} <small>CO<sub>2</sub></small></div>
-				</div>
-			</div>
-			{{!--
-			<div class="col-xs-4">
-				<div>{{ drivers }}</div>
-			</div>
-			--}}
+			{{/if}}
 		</div>
 		{{!-- <div class="row">
 			<div class="col-xs-12">

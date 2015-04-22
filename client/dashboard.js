@@ -132,5 +132,36 @@ Template.UserStats.helpers({
 				countryDistance: countries[country] + ""
 			};
 		});
+	},
+	'distanceMakesSense': function(){
+		var trips = this.dbData.fetch();
+		return getDistanceSum(trips) > 0;
+	},
+	'durationMakesSense': function(){
+		var trips = this.dbData.fetch();
+		return getDurationSum(trips) > 0;
+	},
+	'distanceDivDurationMakesSense': function(){
+		var trips = this.dbData.fetch();
+		return getDurationSum(trips) > 0 && getDistanceSum(trips) > 0;
+	},
+	'waitingTimeMakesSense': function(){
+		if(this.dbData === undefined)
+			return "-";
+
+		var trips = this.dbData.fetch();
+		try {
+			return juration.stringify(Math.round(sumOf(trips, getWaitingTimeForTrip)), { format: 'micro' }).length > 0;
+		} catch(error){
+			return false;
+		}
+	},
+	'co2MakesSense': function(){
+		var trips = this.dbData.fetch();
+		return getDistanceSum(trips) > 0;
+	},
+	'anyStatsMakesSense': function(){
+		var trips = this.dbData.fetch();
+		return getDistanceSum(trips) > 0;
 	}
 });
