@@ -633,19 +633,18 @@ Meteor.startup(function(){
 		var publishedTrip = PublishedTrips.findOne({ _id: publishTripId, 'publish.visible': true });
 
 		if(publishedTrip === undefined) {
-			return [
-				PublishedTrips.find({ _id: publishTripId, 'publish.visible': true })
-			];
+			return [];
 		} else {
-			return [
-				PublishedTrips.find({ _id: publishTripId, 'publish.visible': true }),
-				Meteor.users.find({
-					$or: [
-						{ _id: publishedTrip.user },
-						{ _id: publishedTrip.comrades.race }
-					]
-				})
-			];
+			return PublishedTrips.find({ _id: publishTripId, 'publish.visible': true });
+			// return [
+			// 	PublishedTrips.find({ _id: publishTripId, 'publish.visible': true }),
+			// 	Meteor.users.find({
+			// 		$or: [
+			// 			{ _id: publishedTrip.user },
+			// 			{ _id: publishedTrip.comrades.race }
+			// 		]
+			// 	})
+			// ];
 		}
 	});
 
