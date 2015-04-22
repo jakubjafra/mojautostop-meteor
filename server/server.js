@@ -318,7 +318,14 @@ Meteor.methods({
 			};
 		}
 
-		if(maybeTrip.points[0].route.gmap_directions.length === 0){
+		var allGood = true;
+
+		for(var i = 0; i < (maybeTrip.points.length - 1); i++){
+			if(maybeTrip.points[i].route.gmap_directions.length === 0)
+				allGood = false;
+		}
+
+		if(!allGood){
 			console.log("Waiting for gmap_directions for trip #" + tripId + " ...");
 
 			// Zaczynamy zabawę w czekanie...
@@ -673,6 +680,8 @@ Meteor.startup(function(){
 				})
 			];
 		}
+		else
+			this.ready();
 	});
 
 	// Meteor.publish("book-user-profile", function(bookId){
