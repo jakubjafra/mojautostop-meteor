@@ -42,11 +42,7 @@
 						{{ name }}
 					{{/linkTo}}
 				{{else}}
-					{{#linkTo route='show-trip' data=comradeTripData}}
-						{{ name }}
-					{{/linkTo}}
-
-					{{!-- {{#if isComradeTrip}}
+					{{#if isComradeTrip}}
 						{{#linkTo route='show-trip' data=comradeTripData}}
 							{{ name }}
 						{{/linkTo}}
@@ -54,7 +50,7 @@
 						{{#linkTo route='show-trip' data=publicTripData}}
 							{{ name }}
 						{{/linkTo}}
-					{{/if}} --}}
+					{{/if}}
 				{{/if}}
 			</div>
 		</div>

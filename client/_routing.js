@@ -21,6 +21,76 @@ Router.route('/', {
 });
 
 // if(__isDev()){
+
+	// Strony publiczne:
+
+	Router.route('/show/:_id', {
+		name: 'show-trip',
+		template: 'ShowTrip',
+
+		waitOn: function(){
+			return Meteor.subscribe('get-published-trip-data', this.params._id);;
+		},
+		data: function(){
+			return PublishedTrips.findOne({ _id: this.params._id });
+		},
+		action: function(){
+			this.render();
+		}
+	});
+
+	Router.route('/book/:id', {
+		name: 'book-owner-published-trips',
+		template: 'Profile',
+
+		waitOn: function(){
+			return Meteor.subscribe('book-user-trips', this.params.id);
+			// return [
+			// 	Meteor.subscribe('book-user-trips', this.params.id),
+			// 	Meteor.subscribe('book-user-profile', this.params.id)
+			// ];
+		},
+		data: function(){
+			return PublishedTrips.find({});
+		},
+		action: function(){
+			this.render();
+		}
+	});
+
+	Router.route('/hints', {
+		name: 'hints',
+		template: 'Hints',
+
+		waitOn: function(){
+		},
+		action: function(){
+			this.render();
+		}
+	});
+
+	Router.route('/insurance', {
+		name: 'insurance',
+		template: 'Insurance',
+
+		waitOn: function(){
+		},
+		action: function(){
+			this.render();
+		}
+	});
+
+	Router.route('/letters/about', {
+		name: 'letters-about',
+		template: 'LettersAbout',
+
+		waitOn: function(){
+		},
+		action: function(){
+			this.render();
+		}
+	});
+
 	// Strony prywatne (dostępne po zalogowaniu):
 
 	Router.route('/dashboard', {
@@ -67,36 +137,12 @@ Router.route('/', {
 		}
 	});
 
-	// Strony publiczne:
-
-	Router.route('/show/:_id', {
-		name: 'show-trip',
-		template: 'ShowTrip',
-
-		waitOn: function(){
-			return Meteor.subscribe('get-published-trip-data', this.params._id);;
-		},
-		data: function(){
-			return PublishedTrips.findOne({ _id: this.params._id });
-		},
-		action: function(){
-			this.render();
-		}
-	});
-
-	Router.route('/book/:id', {
-		name: 'book-owner-published-trips',
-		template: 'Profile',
+	Router.route('/letters', {
+		name: 'letters',
+		template: 'Letters',
+		controller: 'BouncerController',
 
 		waitOn: function(){
-			return Meteor.subscribe('book-user-trips', this.params.id);
-			// return [
-			// 	Meteor.subscribe('book-user-trips', this.params.id),
-			// 	Meteor.subscribe('book-user-profile', this.params.id)
-			// ];
-		},
-		data: function(){
-			return PublishedTrips.find({});
 		},
 		action: function(){
 			this.render();

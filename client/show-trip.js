@@ -312,9 +312,9 @@ Template.PrintProfileBody.helpers({
 		return this.source.profile.specialNick.length > 0;
 	},
 	'anythingText': function(){
-		return 	profile.firstName.length > 0 ||
-				profile.lastName.length > 0 ||
-				profile.specialNick.length > 0;
+		return 	this.source.profile.firstName.length > 0 ||
+				this.source.profile.lastName.length > 0 ||
+				this.source.profile.specialNick.length > 0;
 	}
 });
 

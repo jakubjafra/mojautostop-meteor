@@ -642,16 +642,16 @@ Meteor.startup(function(){
 		if(publishedTrip === undefined) {
 			return [];
 		} else {
-			return PublishedTrips.find({ _id: publishTripId, 'publish.visible': true });
-			// return [
-			// 	PublishedTrips.find({ _id: publishTripId, 'publish.visible': true }),
-			// 	Meteor.users.find({
-			// 		$or: [
-			// 			{ _id: publishedTrip.user },
-			// 			{ _id: publishedTrip.comrades.race }
-			// 		]
-			// 	})
-			// ];
+			// return PublishedTrips.find({ _id: publishTripId, 'publish.visible': true });
+			return [
+				PublishedTrips.find({ _id: publishTripId, 'publish.visible': true }),
+				Meteor.users.find({
+					$or: [
+						{ _id: publishedTrip.user },
+						{ _id: publishedTrip.comrades.race }
+					]
+				})
+			];
 		}
 	});
 
@@ -677,7 +677,8 @@ Meteor.startup(function(){
 						{ user: book.userId },
 						{$and: [{'comrades.race': book.userId}, {'publish.visible': true}]}
 					]
-				})
+				}),
+				Meteor.users.find({ _id: book.userId })
 			];
 		}
 		else

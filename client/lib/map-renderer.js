@@ -15,6 +15,10 @@ RouteMapRenderer = function(){
 				options
 			);
 
+			directionsDisplays.forEach(function(display){
+				display.setMap(null);
+			});
+
 			directionsDisplays = [];
 		},
 		pushRoute: function(trip, showPoints, processPoints){

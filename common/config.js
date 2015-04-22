@@ -1,6 +1,6 @@
 if(__isProd()){
 	Accounts.config({
-		forbidClientAccountCreation: false
+		forbidClientAccountCreation: true
 	});
 } else {
 	Accounts.config({

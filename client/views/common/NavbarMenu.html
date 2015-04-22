@@ -15,28 +15,34 @@
 								moje trasy
 							{{/linkTo}}
 						</li>
-
-						{{!-- {{#if isDev}} --}}
-							<li>
-								<a href="#">
-									wskazówki
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									list
-								</a>
-							</li>
-
-							<li>
-								<a href="#">
-									ubezpieczenie
-								</a>
-							</li>
-						{{!-- {{/if}} --}}
 					{{/if}}
-					
+
+						<li>
+							{{#linkTo route='hints' class='text-uppercase'}}
+								wskazówki
+							{{/linkTo}}
+						</li>
+
+					{{#if currentUser}}
+						<li>
+							{{#linkTo route='letters' class='text-uppercase'}}
+								list
+							{{/linkTo}}
+						</li>
+					{{else}}
+						<li>
+							{{#linkTo route='letters-about' class='text-uppercase'}}
+								list
+							{{/linkTo}}
+						</li>
+					{{/if}}
+
+						<li>
+							{{#linkTo route='insurance' class='text-uppercase'}}
+								ubezpieczenie
+							{{/linkTo}}
+						</li>
+
 					{{> loginButtons}}
 				</ul>
 			</div>

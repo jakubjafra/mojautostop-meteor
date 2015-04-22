@@ -24,13 +24,18 @@ Template.PrintTrip.helpers({
 		return (this.user === Meteor.userId());
 	},
 	'isComradeTrip': function(){
-		return this.comrades.race === Meteor.userId();
+		return Meteor.userId() !== null && this.comrades.race === Meteor.userId();
 	},
 	'comradeTripData': function(){
 		return {
 			_id: this.publish.id
 		};
 	},
+	'publicTripData': function(){
+		return {
+			_id: this._id
+		};
+	}
 });
 
 function sumOf(trips, func){
