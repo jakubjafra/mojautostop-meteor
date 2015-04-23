@@ -15,6 +15,12 @@
 								moje trasy
 							{{/linkTo}}
 						</li>
+					{{else}}
+						{{!-- <li>
+							{{#linkTo route='buy-book' class='text-uppercase'}}
+								książeczka
+							{{/linkTo}}
+						</li> --}}
 					{{/if}}
 
 						<li>
@@ -152,8 +158,8 @@
 		Edytuj profil
 	</a>
 
-	{{#linkTo route='buy-book' class='btn btn-default btn-block'}}
-		Książeczka
+	{{#linkTo route='bind-book' class='btn btn-default btn-block'}}
+		Powiąż książeczkę
 	{{/linkTo}}
 
 	<hr>

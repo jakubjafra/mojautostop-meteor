@@ -1,0 +1,252 @@
+/*
+
+static.less
+
+*/
+
+#static {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	background: url("pictures/bkg2_light.jpg") no-repeat center center fixed;
+	// background-size: 100%;
+	background-size: cover;
+
+	header, section, figure {
+		position: relative;
+		width: 100%;
+		height: 100%;
+	}
+
+	section {
+		padding: 40px;
+		box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+
+		article, figure {
+			padding-left: 10px;
+			padding-right: 10px;
+
+			float: left;
+
+			height: 100%;
+			width: 50%;
+			text-align: center;
+
+			display: table;
+			& > h1, & > div {
+				display: table-cell;
+				vertical-align: middle;
+			}
+		}
+
+		h1 small {
+			font-size: 50%;
+		}
+	}
+
+	header {
+		display: table;
+
+		color: white;
+		text-shadow: 1px 1px 3px #000000;
+		background: rgba(0, 0, 0, 0.2);
+
+		& > div {
+			vertical-align: middle;
+			display: table-cell;
+			text-align: center;
+		}
+
+		h1 {
+			font-weight: bold;
+			font-size: 60px;
+		}
+
+		h3 {
+			font-size: 25px;
+
+			&.newsletter-text {
+				& > span {
+					display: block;
+					margin-bottom: 10px;
+				}
+
+				& > div.newsletter-form {
+					display: inline-block;
+					width: 400px;
+				}
+			}
+		}
+	}
+
+	#navbar-menu {
+		position: fixed;
+	}
+
+	div.divider {
+		position: absolute;
+		left: 0;
+		top: 100%;
+
+		margin-top: -150px;
+
+		width: 100%;
+		height: 300px;
+
+		background-size: cover;
+		background-position: left;
+		background-image: url("pictures/background.png");
+
+		z-index: 80;
+	}
+
+	section {
+		height: 80%;
+		background-color: white;
+	}
+
+	figure {
+		height: 60%;
+
+		background-size: cover;
+		background-position: center;
+
+		&.fig1 {
+			background-image: url("pictures/1.jpg");
+		}
+
+		&.fig2 {
+			background-image: url("pictures/2.jpg");
+		}
+
+		&.fig3 {
+			background-image: url("pictures/3.jpg");
+		}
+
+		&.fig4 {
+			background-image: url("pictures/4.jpg");
+		}
+
+		&.fig5 {
+			background-image: url("pictures/5.jpg");
+		}
+	}
+
+	aside {
+		position: absolute;
+
+		bottom: 0px;
+		left: 0px;
+		width: 100%;
+		height: 50px;
+
+		text-align: center;
+		display: table;
+
+		z-index: 200;
+
+		a {
+			font-size: 30px;
+			text-decoration: none;
+
+			display: table-cell;
+			vertical-align: middle;
+
+			span {
+				cursor: pointer;
+				padding: 10px;
+
+				text-shadow: 1px 1px 2px #000000;
+				color: darken(white, 5%);
+
+				transition: text-shadow 0.5s, color 0.5s;
+
+				&:hover {
+					text-shadow: 2px 2px 8px #000000;
+				}
+
+				&:hover, &:focus, &:visited {
+					color: white;
+				}
+			}
+		}
+
+		@aside-max-color: rgba(0, 0, 0, 0.25);
+		@aside-mid-color: rgba(0, 0, 0, 0);
+		@aside-min-color: rgba(0, 0, 0, 0);
+
+		background: radial-gradient(at bottom, @aside-max-color, @aside-mid-color, @aside-min-color);
+
+		&.no-background {
+			background: none;
+		}
+	}
+
+	section {
+		height: 300px;
+
+		article {
+			// ...
+		}
+
+		figure {
+			img {
+				width: auto;
+				height: 100%;
+			}
+		}
+	}
+
+	section.newsletter {
+		article {
+			display: block;
+
+			h1 {
+				display: block;
+			}
+
+			div.newsletter-form {
+				margin-top: 20px;
+
+				div.input-group {
+					width: 70%;
+					left: 15%;
+				}
+			}
+		}
+	}
+
+	a.buy-book {
+		display: inline-block;
+		margin-top: 10px;
+		margin: 20px 0;
+		background-color: @bar-red;
+		border: none;
+		padding: 15px 30px;
+		border-radius: 30px;
+		text-transform: uppercase;
+		font-size: 16px;
+		font-weight: bold;
+		font-family: georgia, Arial, serif;
+		box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+		color: white;
+		cursor: pointer;
+		text-decoration: none;
+
+		&:hover {
+			background-color: lighten(@bar-red, 2%);
+		}
+	}
+
+	/*
+	position: fixed;
+	z-index: 100;
+
+	background-image: url("http://s3.amazonaws.com/lyah/bg.png");
+	background-repeat: repeat-x;
+	background-size: 100px 20px;
+	*/
+}

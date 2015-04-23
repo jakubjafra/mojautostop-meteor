@@ -91,6 +91,17 @@ Router.route('/', {
 		}
 	});
 
+	// Router.route('/buy-book', {
+	// 	name: 'buy-book',
+	// 	template: 'BuyBook',
+
+	// 	waitOn: function(){
+	// 	},
+	// 	action: function(){
+	// 		this.render();
+	// 	}
+	// });
+
 	// Strony prywatne (dostępne po zalogowaniu):
 
 	Router.route('/dashboard', {
@@ -125,9 +136,9 @@ Router.route('/', {
 		}
 	});
 
-	Router.route('/buy-book', {
-		name: 'buy-book',
-		template: 'BuyBook',
+	Router.route('/bind-book', {
+		name: 'bind-book',
+		template: 'BindBook',
 		controller: 'BouncerController',
 
 		waitOn: function(){
@@ -143,6 +154,10 @@ Router.route('/', {
 		controller: 'BouncerController',
 
 		waitOn: function(){
+			return Meteor.subscribe('letters-collection');
+		},
+		data: function(){
+			return Letters.find({});
 		},
 		action: function(){
 			this.render();

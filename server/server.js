@@ -705,4 +705,81 @@ Meteor.startup(function(){
 		uploadDir: process.env.PWD + '/.uploads/',
 		checkCreateDirectories: true //create the directories for you
 	});
+
+	// ~~~
+
+	Letters.remove({});
+
+	var letters = {
+		"afrikaans": "afrikaans.pdf",
+		"gujarati": "gujarati.jpg",
+		"punjabi": "punjabi.JPG",
+		"albanski": "albanski.pdf",
+		"hiszpański": "hiszpański.pdf",
+		"rosyjski": "rosyjski.pdf",
+		"angielski": "angielski.pdf",
+		"holenderski": "holenderski.pdf",
+		"serbski": "serbski.pdf",
+		"arabski": "arabski.pdf",
+		"indonezyjski": "indonezyjski.pdf",
+		"słowacki": "słowacki.pdf",
+		"azerski": "azerski.pdf",
+		"japoński": "japoński.pdf",
+		"słoweński": "słoweński.pdf",
+		"bengalski": "bengalski.pdf",
+		"katalonski": "katalonski.pdf",
+		"swahili": "swahili.pdf",
+		"białoruski": "białoruski.pdf",
+		"kazachski": "kazachski.pdf",
+		"szwedzki": "szwedzki.pdf",
+		"bułgarski": "bułgarski.pdf",
+		"kennada": "kennada.pdf",
+		"tagalog (filipiny)": "tagalog(filipiny).pdf",
+		"chiński uproszczony": "chińskisimplified.pdf",
+		"koreański": "koreański.pdf",
+		"tajski": "tajski.pdf",
+		"chiński tradycyjny": "chińskitradycyjny.pdf",
+		"litewski": "litewski.pdf",
+		"tamil": "tamil.pdf",
+		"chorwacki": "chorwacki.pdf",
+		"łotewski": "łotewski.pdf",
+		"turecki": "turecki.pdf",
+		"czarnogórski": "czarnogórski.pdf",
+		"macedoński": "macedoński.pdf",
+		"turkmeński": "turkmeński.pdf",
+		"czeski": "czeski.pdf",
+		"malajski": "malajski.pdf",
+		"ukraiński": "ukraiński.pdf",
+		"dari": "dari.pdf",
+		"marathi": "marathi.pdf",
+		"uzbecki": "uzbecki.pdf",
+		"estoński": "estoński.pdf",
+		"niemiecki": "niemiecki.pdf",
+		"walijski": "walijski.pdf",
+		"farsi (iran)": "farsi(iran).pdf",
+		"norweski": "norweski.pdf",
+		"docx": "węgierski.docx.pdf",
+		"finski": "finski.pdf",
+		"oriya": "oriya.pdf",
+		"wietnamski": "wietnamski.pdf",
+		"francuski": "francuski.pdf",
+		"ormiański": "ormiański.pdf",
+		"włoski": "włoski.pdf",
+		"grecki": "grecki.pdf",
+		"polski": "polski.pdf",
+		"gruziński": "gruziński.pdf",
+		"portugalski": "portugalski.pdf"
+	};
+
+	for(var key in letters){
+		var val = letters[key];
+
+		var niceKey = key[0].toUpperCase() + key.slice(1);
+
+		Letters.insert(new Letter(niceKey, "/letters/" + val));
+	}
+
+	Meteor.publish("letters-collection", function(){
+		return Letters.find({});
+	});
 });

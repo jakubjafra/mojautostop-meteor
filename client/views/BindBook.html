@@ -1,0 +1,114 @@
+<!-- <template name="BindBook">
+	{{> StaticTopBar}}
+
+	<div class="container" style="margin-top: 20px;">
+		<div class="row">
+			<div class="col-xs-5">
+				<div class="form-group">
+					<label for="book_id">
+						Numer książeczki
+					</label>
+					<input type="text" id="book_id" class="form-control" />
+				</div>
+				<div class="form-group">
+					<label for="book_key">
+						Klucz wydrukowany na ostatniej stronie książeczki
+					</label>
+					<input type="text" id="book_key" class="form-control" />
+				</div>
+				<div class="form-group">
+					<input type="submit" id="book_submit" class="form-control btn btn-primary" value="Dodaj książeczkę" />
+				</div>
+			</div>
+			<div class="col-xs-5 col-xs-offset-2">
+				{{#if currentUser.profile.isPremium}}
+					<div class="alert alert-success">
+						Jesteś właścicielem książeczki numer <b>{{ currentUser.profile.premiumBookId }}</b>.
+					</div>
+				{{/if}}
+			</div>
+		</div>
+	</div>
+</template> -->
+
+<template name="BindBook">
+	{{> StaticTopBar}}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-8 col-xs-offset-2" style="margin-top: 15px;">
+				<h2 class="text-center">
+					Masz już swoją książeczkę?
+				</h2>
+			</div>
+
+				{{#if currentUser.profile.isPremium}}
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="alert alert-success">
+					Jesteś właścicielem książeczki numer: <b>{{ currentUser.profile.premiumBookId }}</b>.
+				</div>
+			</div>
+				{{else}}
+			<div class="col-xs-6 col-xs-offset-3">
+				<div class="well" style="margin: 0px;">
+					<div class="form-group">
+						Wpisz poniżej numer oraz klucz z pierwszej strony i ciesz się wersją premium aplikacji!
+					</div>
+					<div class="form-group">
+						<label for="book_id">
+							Numer książeczki
+						</label>
+						<input type="text" id="book_id" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="book_key">
+							Klucz wydrukowany na pierwszej stronie książeczki
+						</label>
+						<input type="text" id="book_key" class="form-control" />
+					</div>
+					<div class="form-group">
+						<input type="submit" id="book_submit" class="form-control btn btn-primary" value="Dodaj książeczkę" />
+					</div>
+				</div>
+			</div>
+				{{/if}}
+
+			<div class="col-xs-8 col-xs-offset-2">
+				<hr>
+				<div class="text-center">
+					<h4>
+						Jeżeli wciąż nie masz swojej książeczki - nic straconego. Kliknij poniżej i zdobądź swój własny dziennik z podróży, który da Ci nieograniczone możliwości przechowywania wspomnień.
+					</h4>
+
+					<a class="btn btn-success btn-lg" style="margin: 10px;" href="http://allegro.pl/moj-autostop-twoj-nowy-dziennik-z-podrozy-i5283168365.html">
+						Kup teraz
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5 col-xs-offset-1">
+				<ul class="make-more-space-kurwa">
+					<li>
+						Opcję parowania się z eventami (np. autostop race'ami)
+					</li>
+					<li>
+						Twój unikatowy publiczny profil
+					</li>
+					<li>
+						Dostęp do spersonalizowanych naklejek
+					</li>
+					<li>
+						Opcję parowania się z innymi użytkownikami <small class="text-danger">(coming soon)</small>
+					</li>
+					<li>
+						Możliwość porównania swoich statystyk z innymi <small class="text-danger">(coming soon)</small>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-5 col-xs-offset-1 text-center">
+				<img src="/brand_book.png" style="height: 200px; width: auto;" />
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,5 +1,59 @@
 <template name="Letters">
 	{{> StaticTopBar}}
 
-	letters
+	<div class="container" style="margin-top: 15px;">
+		<div class="row">
+			<div class="col-xs-12 text-center">
+				<h2>List do kierowcy</h2>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+			<div class="col-xs-8 col-xs-offset-2">
+				<table>
+					<tr>
+						<td>
+							<h4>Przy współpracy z ludźmi z całego świata stworzyliśmy uniwersalny list do kierowcy.</h4>
+							<br>
+							Wystarczy, że ze spisu wybierzesz język, który potrzebujesz, a na ekranie pojawi się wiadomość w jego ojczystym języku, która w kilku zdaniach wyjaśni Twoja sytuację. Nie musisz już z pomocą mini rozmówek łamać języka próbując wytłumaczyć, że jesteś głodnym przygód podróżnikiem!
+						</td>
+						<td>
+							<img src="/drawings/listdokierowcy.png" style="height: 150px; width: auto;" />
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+			<div class="col-xs-8 col-xs-offset-2">
+				<h4>Wybierz język:</h4>
+				<select class="form-control" id="choose-language">
+					<option value="">wybierz...</option>
+					{{#each letters}}
+						<option value="{{ fileName }}">{{ name }}</option>
+					{{/each}}
+				</select>
+				<div class="text-center" style="margin-top: 10px; margin-bottom: 10px;">
+					{{#if showCurrentLetter}}
+						<a href="{{ currentLetterPath }}" class="btn btn-success btn-lg" target="_blank">
+							Pobierz list do kierowcy
+						</a>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+			<div class="col-xs-8 col-xs-offset-2">
+				<h4>Abyś wiedział co wpisać w dane pole, udostępniamy Ci polską wersję listu:</h4>
+				<div class="well">
+					„Cześć,<br>
+					<br>
+					Mam na imię ________________ , mam _____ lat i pochodzę z _________ . Podróżuję od miasta do miasta bez pieniędzy, tylko dzięki uprzejmości kierowców. Nie potrzebuję pociągu, autobusu ani taksówki. Jeżeli jedziesz w stronę miasta, którego nazwę mam napisaną na kartce, będę Ci bardzo wdzięczny jeśli weźmiesz mnie ze sobą i pomożesz mi poznać twój niesamowity kraj i jego kulturę.<br>
+					<br>
+					Dziękuję!”
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{> Footer}}
 </template>

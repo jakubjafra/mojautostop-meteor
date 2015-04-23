@@ -150,6 +150,13 @@ NewsletterApplication = function(email){
 
 // ~~~
 
+Letter = function(name, fileName){
+	this.name = name;
+	this.fileName = fileName;
+};
+
+// ~~~
+
 Trips = new Mongo.Collection("trips");
 PublishedTrips = new Mongo.Collection("public_trips");
 
@@ -158,3 +165,5 @@ RemovedTrips = new Mongo.Collection("removed_trips");
 Books = new Mongo.Collection("books");
 
 Newsletter = new Mongo.Collection("newsletter");
+
+Letters = new Mongo.Collection("letters");
