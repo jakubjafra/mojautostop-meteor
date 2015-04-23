@@ -714,16 +714,16 @@ Meteor.startup(function(){
 
 	// ~~~
 
-	if(Meteor.users.findOne({'emails.0.address': 'autostoprace1@mail.com'}) !== undefined)
-		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace1@mail.com'})._id, "Auto Stop Race - Chalkidiki - 2015", 1001);
-	if(Meteor.users.findOne({'emails.0.address': 'autostoprace2@mail.com'}) !== undefined)
-		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace2@mail.com'})._id, "Wyścig Autostopem - Budapeszt - 2015", 1002);
-	if(Meteor.users.findOne({'emails.0.address': 'autostoprace3@mail.com'}) !== undefined)
-		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace3@mail.com'})._id, "Mistrzostwa Autostopowe - Cesky Krumlov - 2015", 1003);
-	if(Meteor.users.findOne({'emails.0.address': 'autostoprace4@mail.com'}) !== undefined)
-		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace4@mail.com'})._id, "Krakostop - Monaco - Isolabona - 2015", 1004);
-	if(Meteor.users.findOne({'emails.0.address': 'autostoprace5@mail.com'}) !== undefined)
-		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace5@mail.com'})._id, "Polibośnia - Jajce - 2015", 1005);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace1@no-reply.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace1@no-reply.com'})._id, "Auto Stop Race - Chalkidiki - 2015", 1001);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace2@no-reply.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace2@no-reply.com'})._id, "Wyścig Autostopem - Budapeszt - 2015", 1002);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace3@no-reply.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace3@no-reply.com'})._id, "Mistrzostwa Autostopowe - Cesky Krumlov - 2015", 1003);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace4@no-reply.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace4@no-reply.com'})._id, "Krakostop - Monaco - Isolabona - 2015", 1004);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace5@no-reply.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace5@no-reply.com'})._id, "Polibośnia - Jajce - 2015", 1005);
 
 	// ~~~
 
