@@ -13,9 +13,11 @@
 					<br>
 					Narysujmy własną mapę świata!
 				</h3>
-				<button class="btn btn-lg btn-success">
-					Zarejestruj się i dołącz do nas!
-				</button>
+				<div>
+					<button id="register-button" class="btn btn-lg btn-success" data-toggle="dropdown" data-target="#login-dropdown-list">
+						Zarejestruj się i dołącz do nas!
+					</button>
+				</div>
 				{{!-- <h3 class="newsletter-text">
 					<span>
 						Nie czekaj, zapisz się do naszego newslettera!
@@ -228,6 +230,8 @@
 
 		{{> Footer}}
 	</div>
+
+	{{> RegisterModal}}
 </template>
 
 <template name="NavAsideDown">
@@ -246,4 +250,16 @@
 			</a>
 		</aside>
 	{{/if}}
+</template>
+
+<template name="RegisterModal">
+	<div class="modal fade" id="register-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					{{> loginButtons}}
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

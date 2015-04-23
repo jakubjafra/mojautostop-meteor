@@ -23,18 +23,21 @@ Template.StaticPage.helpers({
 });
 
 Template.StaticPage.events({
-	'click #newsletter-submit': function(event){
-		var email = $("#newsletter-email").val();
-
-		$("#newsletter-email, #newsletter-submit").attr('disabled', true);
-
-		Meteor.call('RegisterToNewsletter', email, function(){
-			$("#newsletter-submit")
-				.addClass("btn-success")
-				.removeClass("btn-primary")
-				.html('<span class="glyphicon glyphicon-ok"></span>');
-		});
+	'click #register-button': function(event){
+		Template.instance().$("#signup-link").click();
 	}
+	// 'click #newsletter-submit': function(event){
+	// 	var email = $("#newsletter-email").val();
+
+	// 	$("#newsletter-email, #newsletter-submit").attr('disabled', true);
+
+	// 	Meteor.call('RegisterToNewsletter', email, function(){
+	// 		$("#newsletter-submit")
+	// 			.addClass("btn-success")
+	// 			.removeClass("btn-primary")
+	// 			.html('<span class="glyphicon glyphicon-ok"></span>');
+	// 	});
+	// }
 	/*,
 	'keydown #newsletter-email': function(event){
 		if(!validateEmail($(event.currentTarget).val())){

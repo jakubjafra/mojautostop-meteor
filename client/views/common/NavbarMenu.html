@@ -21,6 +21,7 @@
 								książeczka
 							{{/linkTo}}
 						</li> --}}
+						<li></li>
 					{{/if}}
 
 						<li>
@@ -29,19 +30,11 @@
 							{{/linkTo}}
 						</li>
 
-					{{#if currentUser}}
 						<li>
 							{{#linkTo route='letters' class='text-uppercase'}}
 								list
 							{{/linkTo}}
 						</li>
-					{{else}}
-						<li>
-							{{#linkTo route='letters-about' class='text-uppercase'}}
-								list
-							{{/linkTo}}
-						</li>
-					{{/if}}
 
 						<li>
 							{{#linkTo route='insurance' class='text-uppercase'}}

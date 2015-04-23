@@ -30,7 +30,7 @@ i18n.map("pl-custom", {
 		or: "lub"
 	},
 	loginButtonsLoggedOutPasswordService: {
-		create: "Stwórz",
+		create: "Zarejestruj się",
 		signIn: "Zaloguj się ",
 		forgot: "Nie pamiętasz hasła?",
 		createAcc: "Utwórz konto"

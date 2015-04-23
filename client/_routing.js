@@ -80,16 +80,31 @@ Router.route('/', {
 		}
 	});
 
-	Router.route('/letters/about', {
-		name: 'letters-about',
-		template: 'LettersAbout',
+	Router.route('/letters', {
+		name: 'letters',
+		template: 'Letters',
 
 		waitOn: function(){
+			return Meteor.subscribe('letters-collection');
+		},
+		data: function(){
+			return Letters.find({});
 		},
 		action: function(){
 			this.render();
 		}
 	});
+
+	// Router.route('/letters/about', {
+	// 	name: 'letters-about',
+	// 	template: 'LettersAbout',
+
+	// 	waitOn: function(){
+	// 	},
+	// 	action: function(){
+	// 		this.render();
+	// 	}
+	// });
 
 	// Router.route('/buy-book', {
 	// 	name: 'buy-book',
@@ -148,21 +163,6 @@ Router.route('/', {
 		}
 	});
 
-	Router.route('/letters', {
-		name: 'letters',
-		template: 'Letters',
-		controller: 'BouncerController',
-
-		waitOn: function(){
-			return Meteor.subscribe('letters-collection');
-		},
-		data: function(){
-			return Letters.find({});
-		},
-		action: function(){
-			this.render();
-		}
-	});
 // }
 
 /*
