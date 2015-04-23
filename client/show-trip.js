@@ -141,6 +141,9 @@ Template.RouteHead.helpers({
 	'user': function(){
 		return Meteor.users.findOne(this.user);
 	},
+	'bindedUser': function(){
+		return Meteor.users.findOne(this.comrades.race);
+	},
 	'duration': function(){
 		return Math.ceil((this.endTime - this.beginTime) / (24 * 60 * 60 * 1000));
 	},

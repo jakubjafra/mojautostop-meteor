@@ -11,7 +11,7 @@ static.less
 	width: 100%;
 	height: 100%;
 
-	background: url("pictures/bkg2_light.jpg") no-repeat center center fixed;
+	background: url("pictures/new/1.jpg") no-repeat center center fixed;
 	// background-size: 100%;
 	background-size: cover;
 
@@ -52,7 +52,7 @@ static.less
 
 		color: white;
 		text-shadow: 1px 1px 3px #000000;
-		background: rgba(0, 0, 0, 0.2);
+		// background: rgba(0, 0, 0, 0.2);
 
 		& > div {
 			vertical-align: middle;
@@ -80,6 +80,16 @@ static.less
 				}
 			}
 		}
+
+		button.btn-lg {
+			padding: 15px 25px;
+			font-size: 18px;
+			line-height: 1.3333333;
+			border-radius: 6px;
+			text-transform: uppercase;
+			font-weight: bold;
+			margin-top: 10px;
+		}
 	}
 
 	#navbar-menu {
@@ -98,7 +108,7 @@ static.less
 
 		background-size: cover;
 		background-position: left;
-		background-image: url("pictures/background.png");
+		background-image: url("pictures/new/1.png");
 
 		z-index: 80;
 	}
@@ -115,24 +125,32 @@ static.less
 		background-position: center;
 
 		&.fig1 {
-			background-image: url("pictures/1.jpg");
+			background-image: url("pictures/new/2.jpg");
 		}
 
 		&.fig2 {
-			background-image: url("pictures/2.jpg");
+			background-image: url("pictures/new/3.jpg");
 		}
 
 		&.fig3 {
-			background-image: url("pictures/3.jpg");
+			background-image: url("pictures/new/4.jpg");
 		}
 
 		&.fig4 {
-			background-image: url("pictures/4.jpg");
+			background-image: url("pictures/new/5.jpg");
 		}
 
 		&.fig5 {
-			background-image: url("pictures/5.jpg");
+			background-image: url("pictures/new/6.jpg");
 		}
+
+		&.fig6 {
+			background-image: url("pictures/new/7.jpg");
+		}
+
+		// &.fig7 {
+		// 	background-image: url("pictures/new/7.jpg");
+		// }
 	}
 
 	aside {
@@ -189,7 +207,10 @@ static.less
 		height: 300px;
 
 		article {
-			// ...
+			a.buy-book {
+				margin-top: 10px;
+				text-transform: uppercase;
+			}
 		}
 
 		figure {

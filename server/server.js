@@ -587,14 +587,20 @@ Meteor.methods({
 
 	// ~~~
 
-	'MakeRace': function(userId, raceName){
+	'MakeRace': function(userId, raceName, bookId){
 		Meteor.users.update(userId, {
 			$set: {
 				'profile.isRace': true,
 				'profile.isPremium': true,
-				'profile.firstName': raceName
+				'profile.firstName': raceName,
+				'profile.premiumBookId': bookId
 			}
 		});
+
+		Books.insert(new Book(
+			bookId,
+			userId
+		));
 	},
 
 	// ~~~
@@ -705,6 +711,19 @@ Meteor.startup(function(){
 		uploadDir: process.env.PWD + '/.uploads/',
 		checkCreateDirectories: true //create the directories for you
 	});
+
+	// ~~~
+
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace1@mail.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace1@mail.com'})._id, "Auto Stop Race - Chalkidiki - 2015", 1001);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace2@mail.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace2@mail.com'})._id, "Wyścig Autostopem - Budapeszt - 2015", 1002);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace3@mail.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace3@mail.com'})._id, "Mistrzostwa Autostopowe - Cesky Krumlov - 2015", 1003);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace4@mail.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace4@mail.com'})._id, "Krakostop - Monaco - Isolabona - 2015", 1004);
+	if(Meteor.users.findOne({'emails.0.address': 'autostoprace5@mail.com'}) !== undefined)
+		Meteor.call("MakeRace", Meteor.users.findOne({'emails.0.address': 'autostoprace5@mail.com'})._id, "Polibośnia - Jajce - 2015", 1005);
 
 	// ~~~
 

@@ -25,20 +25,26 @@
 		</div>
 		<div class="row" style="margin-top: 20px; margin-bottom: 20px;">
 			<div class="col-xs-8 col-xs-offset-2">
-				<h4>Wybierz język:</h4>
-				<select class="form-control" id="choose-language">
-					<option value="">wybierz...</option>
-					{{#each letters}}
-						<option value="{{ fileName }}">{{ name }}</option>
-					{{/each}}
-				</select>
-				<div class="text-center" style="margin-top: 10px; margin-bottom: 10px;">
-					{{#if showCurrentLetter}}
-						<a href="{{ currentLetterPath }}" class="btn btn-success btn-lg" target="_blank">
-							Pobierz list do kierowcy
-						</a>
-					{{/if}}
-				</div>
+				{{#if currentUser}}
+					<h4>Wybierz język:</h4>
+					<select class="form-control" id="choose-language">
+						<option value="">wybierz...</option>
+						{{#each letters}}
+							<option value="{{ fileName }}">{{ name }}</option>
+						{{/each}}
+					</select>
+					<div class="text-center" style="margin-top: 10px; margin-bottom: 10px;">
+						{{#if showCurrentLetter}}
+							<a href="{{ currentLetterPath }}" class="btn btn-success btn-lg" target="_blank">
+								Pobierz list do kierowcy
+							</a>
+						{{/if}}
+					</div>
+				{{else}}
+					<div class="alert alert-warning">
+						Opcja ściągnięcia listu dla kierowcy jest dostępna tylko po <b>zalogowaniu</b>.
+					</div>
+				{{/if}}
 			</div>
 		</div>
 		<div class="row" style="margin-top: 10px; margin-bottom: 10px;">

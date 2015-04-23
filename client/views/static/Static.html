@@ -10,9 +10,13 @@
 				<h3>
 					Dopiero co wróciłeś z autostopowej podróży? A może właśnie się na nią wybierasz?<br>
 					Z pomocą naszej aplikacji możesz pomieścić wszystkie wspomnienia w jednym miejscu!<br>
+					<br>
 					Narysujmy własną mapę świata!
 				</h3>
-				<h3 class="newsletter-text">
+				<button class="btn btn-lg btn-success">
+					Zarejestruj się i dołącz do nas!
+				</button>
+				{{!-- <h3 class="newsletter-text">
 					<span>
 						Nie czekaj, zapisz się do naszego newslettera!
 					</span>
@@ -26,7 +30,7 @@
 							</div>
 						</div>
 					</div>
-				</h3>
+				</h3> --}}
 			</div>
 
 			{{> NavAsideDown target="#section1"}}
@@ -41,61 +45,85 @@
 		</figure>
 		--}}
 
-		<section id="section1">
+		<section id="section1" style="height: 530px;">
 			<article>
-				<h1>
-					Twórz własny dziennik z podróży
-					<br>
-					<small>
-						Dzięki naszej aplikacji możesz zaznaczać trasy, przypinać zdjęcia do konkretnych miejsc, a nawet podzielić się swoją podróżą ze znajomymi. Podróżuj, wyznaczaj, udostępniaj!
-					</small>
-				</h1>
+				<div>
+					<h1>
+						Mój Autostop
+						<br>
+						<small>
+							Poznaj innowacyjną platformę, która pozwoli Ci przechowywać wszystkie wspomnienia w jednym miejscu. <a href="#" data-toggle="collapse" data-target="#collapse-well">Dowiedz się więcej.</a>
+						</small>
+					</h1>
+					<div class="collapse" id="collapse-well">
+						<div class="well" style="text-align: left; margin: 0px;">
+							<h3 class="text-center" style="margin-top: 0px;">Oto Mój Autostop:</h3>
+							<ul class="make-more-space-kurwa" style="margin-bottom: 0px;">
+								<li>Trasa z nielimitowaną ilością odcinków</li>
+								<li>Twoje zdjęcia i opisy z każdego miejsca</li>
+								<li>Największa baza statystyk z podróży</li>
+								<li>Niepowtarzalna pamiątka</li>
+							</ul>
+						</div>
+					</div>
+					<h1>
+						<small>
+							Przedstaw swoje wspomnienia, jak jeszcze nigdy dotąd i podziel się z innymi. Za darmo.
+						</small>
+					</h1>
+				</div>
 			</article>
 
 			<figure>
-				<img src="drawings/listdokierowcy.png" />
+				<img src="/big_logo.jpg" />
 			</figure>
 
 			{{> NavAsideDown target="#section2" noBkg="true"}}
 		</section>
 
-		<figure class="fig3">
+		<figure class="fig2">
 		</figure>
 
 		<section id="section2">
 			<figure>
-				<img src="drawings/wykres.png" />
+				<img src="/drawings/pamietnik.png" />
 			</figure>
 
 			<article>
 				<h1>
-					Buduj historię
+					Ksiażeczka autostopowicza
 					<br>
 					<small>
-						Zapisuj wszystkie pokonane kilometry. Miej swój udział w tworzeniu największej na świecie autostopowej statystyki. Porównuj swoje wyniki z innymi i stań się rekordzistą "Mojego Autostopu"!
+						Zdobądź nowe, współczesne wydanie książeczki autostopowicza. Zabierz ją w trasę i na bieżąco zapisuj szczegóły swoich podróży
 					</small>
+					<div>
+						<a class="buy-book btn btn-primary btn-lg text-uppercase" href="http://allegro.pl/moj-autostop-twoj-nowy-dziennik-z-podrozy-i5283168365.html">
+							Zakup książeczkę
+						</a>
+					</div>
 				</h1>
+				
 			</article>
 
 			{{> NavAsideDown target="#section3" noBkg="true"}}
 		</section>
 
-		<figure class="fig5">
+		<figure class="fig3">
 		</figure>
 
 		<section id="section3">
 			<article>
 				<h1>
-					Bądź wiarygodny dla kierowców
+					List do kierowcy
 					<br>
 					<small>
-						Zostań członkiem naszej społeczności, a nie będziesz już dłużej anonimowym podróżnikiem na trasie. Poczuj się bezpiecznie wykorzystując możliwości naszego portalu.
+						Podróżując autostopem nie zawsze trafiasz na kierowcę, który mówi w znanym Ci języku. A rozmowa jest przecież najważniejsza. Jak wytłumaczyć mu, że potrzebujesz jego pomocy i jednocześnie przełamać pierwsze lody? Mamy dla Ciebie rozwiązanie!
 					</small>
 				</h1>
 			</article>
 
 			<figure>
-				<img src="drawings/lupa2.png" />
+				<img src="/drawings/lupa2.png" />
 			</figure>
 
 			{{> NavAsideDown target="#section4" noBkg="true"}}
@@ -106,16 +134,16 @@
 
 		<section id="section4">
 			<figure>
-					<img src="drawings/pamietnik.png" />
+					<img src="/drawings/wskazowki2.png" />
 			</figure>
 
 			<article>
 				<div>
 					<h1>
-						Kolekcjonuj wspomnienia
+						Wskazówki dla autostopowiczów
 						<br>
 						<small>
-							 Dajemy Ci możliwość tworzenia wielowymiarowego dziennika z podróży. Jedyne takie miejsce, w którym możesz gromadzić nieskończoną ilość wspomnień. Bo prawdziwa podróż nie kończy się powrotem do domu!
+							Mój Autostop to nie tylko świetna aplikacja do przechowywania wspomnień, ale również doskonałe źródło wskazówek i pomocnych narzędzi potrzebnych w trasie. Zapoznaj się z naszymi radami, a autostop będzie dla Ciebie czystą przyjemnością!
 						</small>
 					</h1>
 					{{!--
@@ -126,16 +154,58 @@
 				</div>
 			</article>
 
-			{{> NavAsideDown target="#footer" noBkg="true"}}
+			{{> NavAsideDown target="#section5" noBkg="true"}}
 		</section>
 
-		<figure class="fig1">
+		<figure class="fig5">
 		</figure>
-		
-		<section class="newsletter">
+
+		<section id="section5">
 			<article>
 				<div>
 					<h1>
+						Ubezpiecz się na podróż
+						<br>
+						<small>
+							Poczucie bezpieczeństwa jest bardzo ważne w podróży. Zwłaszcza dla autostopowicza. Z nami nie musisz się obawiać. Zadbamy o Twój spokój.
+						</small>
+					</h1>
+					{{!--
+					<a class="buy-book">
+						Zdobądź książeczkę autostopową
+					</a>
+					--}}
+				</div>
+			</article>
+
+			<figure>
+					<img src="/drawings/ubezpieczenie4.png" />
+			</figure>
+
+			{{> NavAsideDown target="#footer" noBkg="true"}}
+		</section>
+
+		<figure class="fig6">
+		</figure>
+		
+		<section class="newsletter">
+			<figure>
+				<img src="/drawings/ubezpieczenie4.png" />
+			</figure>
+
+			<article>
+				<div>
+					<h1>
+						Odkryj nowy wymiar podróży!
+						<br>
+						<small>
+							Dołącz do nas już dziś! Zamów książeczkę i bądź współtwórcą nowej epoki w historii podróży. Kup bilet do niezapomnianych wspomnień!
+						</small>
+						<a class="buy-book btn btn-primary btn-lg text-uppercase" href="http://allegro.pl/moj-autostop-twoj-nowy-dziennik-z-podrozy-i5283168365.html">
+							Zakup książeczkę
+						</a>
+					</h1>
+					{{!-- <h1>
 						Stay tuned!
 						<br>
 						<small>
@@ -151,13 +221,9 @@
 								</button>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</article>
-
-			<figure>
-				<img src="drawings/ubezpieczenie4.png" />
-			</figure>
 		</section>
 
 		{{> Footer}}
