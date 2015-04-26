@@ -167,3 +167,5 @@ Books = new Mongo.Collection("books");
 Newsletter = new Mongo.Collection("newsletter");
 
 Letters = new Mongo.Collection("letters");
+
+InsuranceEmails = new Mongo.Collection("insurance_emails");

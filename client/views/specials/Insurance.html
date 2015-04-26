@@ -1,5 +1,194 @@
 <template name="Insurance">
 	{{> StaticTopBar}}
 
-	insurance
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-10 col-xs-offset-1">
+				<h1 class="text-center">Ubezpieczenie podróżne</h1>
+				<div>
+					Zachęcamy do skorzystania ze specjalnego ubezpieczenia podróżnego dla autostopowiczów w bardzo atrakcyjnej cenie. Dzięki współpracy z firmą Compensa T.U. oferujemy Wam polisy już od kilkunastu złotych. <a href="#" data-toggle="collapse" data-target="#price-list">Kliknij by rozwinąć przykładowe oferty.</a>
+				</div>
+				<br>
+				<div class="collapse" id="price-list">
+					<div class="well">
+						<h4 style="margin-top: 0px;">
+							Ubezpieczenie obejmujące Europę wraz ze wszystkimi krajami basenu Morza Śródziemnego (wyłączając Polskę):
+						</h4>
+						<ol>
+							<li>
+								Dla osoby do 26 lat:
+								<table class="table">
+									<thead>
+										<tr>
+											<td>Okres</td>
+											<td>Kwota ubezpieczenia</td>
+											<td>Cena</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Do 7 dni</td>
+											<td>200 000 zł</td>
+											<td>20 zł</td>
+										</tr>
+										<tr>
+											<td>Do 7 dni</td>
+											<td>300 000 zł</td>
+											<td>25 zł</td>
+										</tr>
+										<tr>
+											<td>Do 14 dni</td>
+											<td>200 000 zł</td>
+											<td>40 zł</td>
+										</tr>
+										<tr>
+											<td>Do 14 dni</td>
+											<td>300 000 zł</td>
+											<td>50 zł</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+							<li>
+								Dla osoby od 26 do 65 lat:
+								<table class="table">
+									<thead>
+										<tr>
+											<td>Okres</td>
+											<td>Kwota ubezpieczenia</td>
+											<td>Cena</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Do 7 dni</td>
+											<td>200 000 zł</td>
+											<td>25 zł</td>
+										</tr>
+										<tr>
+											<td>Do 7 dni</td>
+											<td>300 000 zł</td>
+											<td>31 zł</td>
+										</tr>
+										<tr>
+											<td>Do 14 dni</td>
+											<td>200 000 zł</td>
+											<td>49 zł</td>
+										</tr>
+										<tr>
+											<td>Do 14 dni</td>
+											<td>300 000 zł</td>
+											<td>62 zł</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+						</ol>
+						<h4>
+							Ubezpieczenie obejmujące cały świat:
+						</h4>
+						<ol>
+							<li>
+								Dla osoby do 26 lat:
+								<table class="table">
+									<thead>
+										<tr>
+											<td>Okres</td>
+											<td>Kwota ubezpieczenia</td>
+											<td>Cena</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Do 14 dni</td>
+											<td>200 000 zł</td>
+											<td>67 zł</td>
+										</tr>
+									</tbody>
+								</table>
+							</li>
+						</ol>
+					</div>
+				</div>
+				<div>
+					Wyślij formularz by skontaktować się z naszym doradcą, który wyceni dla Ciebie polisę lub odpowie na Twoje pytania:<br>
+					<br>
+				</div>
+				<div class="well">
+					{{> InsuranceForm}}
+				</div>
+				<div>
+					Pamiętaj, aby w czasie podróży mieć przy sobie polisę w formie papierowej lub elektronicznej.
+				</div>
+				<h4 class="text-center">
+					Ważne! Kup polisę przynajmniej <b>1</b> dzień przed wyjazdem.
+				</h4>
+				<i class="text-center" style="display: block; width: 100%; margin-bottom: 50px;">
+					Zobacz <a href="/owu_compensa.pdf">Ogólne Warunki Ubezpieczenia Compensa Voyage</a>.
+				</i>
+			</div>
+		</div>
+	</div>
+
+	{{> Footer}}
+</template>
+
+<template name="InsuranceForm">
+	<form>
+		<div class="form-group">
+			<label>
+				Imię
+			</label>
+			<input type="text" name="surname" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>
+				Nazwisko
+			</label>
+			<input type="text" name="name" class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>
+				Pełen adres
+			</label>
+			<textarea name="address" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<label>
+				Data
+			</label>
+			<div class="input-daterange input-group" id="datepicker">
+				<span class="input-group-addon">od</span>
+				<input type="text" class="input-sm form-control" name="trip-start" id="start-time" />
+				<span class="input-group-addon">do</span>
+				<input type="text" class="input-sm form-control" name="trip-end" id="end-time" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label>
+				Dokąd
+			</label>
+			<select name="type" class="form-control">
+				<option value="europe">Kraje europejskie</option>
+				<option value="world">Świat</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>
+				Zapytanie
+			</label>
+			<textarea name="question" class="form-control"></textarea>
+		</div>
+		<div class="form-group">
+			<label>
+				Email zwrotny
+			</label>
+			<input type="email" name="email" class="form-control" />
+		</div>
+		<div class="form-group text-center">
+			<button id="form-submit" class="btn btn-primary">
+				Wyślij zapytanie
+			</button>
+		</div>
+	</form>
 </template>

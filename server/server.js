@@ -144,6 +144,10 @@ Meteor.methods({
 		return true;
 	},
 
+	'SendInsuranceEmail': function(data){
+		InsuranceEmails.insert(data);
+	},
+
 	// ~~~
 
 	'ChangeProfileData': function(firstName, lastName, specialNick, specialUrl){

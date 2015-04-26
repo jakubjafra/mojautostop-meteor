@@ -633,7 +633,7 @@ client.js
 
 	// ~~~
 
-	Template.EditTripDataModal.rendered = function(){
+	Template.EditTripDataModal.onRendered(function(){
 		var modal = $("#edit-trip-data-modal");
 		
 		$(modal).find('.input-daterange').datepicker({
@@ -650,7 +650,7 @@ client.js
 
 		if(Trips.findOne({}).points.length === 0)
 			$(modal).modal('show');
-	};
+	});
 
 	function formatDate(timestamp){
 		function addLeadingZero(number){
