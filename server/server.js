@@ -7,8 +7,9 @@ server.js
 Fiber = Npm.require("fibers");
 Future = Npm.require("fibers/future");
 
-var CONFIG = {
-	NEW_ID_ON_PUBLISH: false
+CONFIG = {
+	NEW_ID_ON_PUBLISH: false,
+	FULL_TRIP_STATS_PARSING: false
 };
 
 WAIT_TIME_FOR_GEOCODE_REQUESTS = 1500;
@@ -521,23 +522,28 @@ Meteor.methods({
 					var countryStats = {};
 					var lastCountry = countryBegin;
 
-					for(var i = 0; i < point.route.gmap_directions.length; i++){
-						var countryBegin = getCountryCodeForCoords(point.route.gmap_directions[i].coordsBegin);
-						var countryEnd = getCountryCodeForCoords(point.route.gmap_directions[i].coordsEnd);
+					if(CONFIG.FULL_TRIP_STATS_PARSING){
+						for(var i = 0; i < point.route.gmap_directions.length; i++){
+							var countryBegin = getCountryCodeForCoords(point.route.gmap_directions[i].coordsBegin);
+							var countryEnd = getCountryCodeForCoords(point.route.gmap_directions[i].coordsEnd);
 
-						if(countryStats[countryBegin] == undefined)
-							countryStats[countryBegin] = 0;
+							if(countryStats[countryBegin] == undefined)
+								countryStats[countryBegin] = 0;
 
-						if(countryStats[countryEnd] == undefined)
-							countryStats[countryEnd] = 0;
+							if(countryStats[countryEnd] == undefined)
+								countryStats[countryEnd] = 0;
 
-						if(countryBegin === countryEnd)
-							countryStats[countryBegin] += point.route.gmap_directions[i].distance;
-						else {
-							// to jest still chujowe
-							countryStats[countryBegin] += Math.floor(point.route.gmap_directions[i].distance / 2);
-							countryStats[countryEnd] += Math.floor(point.route.gmap_directions[i].distance / 2);
+							if(countryBegin === countryEnd)
+								countryStats[countryBegin] += point.route.gmap_directions[i].distance;
+							else {
+								// to jest still chujowe
+								countryStats[countryBegin] += Math.floor(point.route.gmap_directions[i].distance / 2);
+								countryStats[countryEnd] += Math.floor(point.route.gmap_directions[i].distance / 2);
+							}
 						}
+					} else {
+						countryStats[countryBegin] += Math.floor(dist / 2);
+						countryStats[countryEnd] += Math.floor(dist / 2);
 					}
 
 					point.route.stats.countries = [];
@@ -781,7 +787,7 @@ Meteor.startup(function(){
 		"walijski": "walijski.pdf",
 		"farsi (iran)": "farsi(iran).pdf",
 		"norweski": "norweski.pdf",
-		"docx": "węgierski.docx.pdf",
+		"węgierski": "węgierski.docx.pdf",
 		"finski": "finski.pdf",
 		"oriya": "oriya.pdf",
 		"wietnamski": "wietnamski.pdf",
