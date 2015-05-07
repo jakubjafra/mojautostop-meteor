@@ -59,7 +59,7 @@ function getCountryCodeForCoords(coords){
 			}
 		} catch(error){
 			console.log(error);
-			return getCountryCodeForCoords(coords);
+			fut['return'](getCountryCodeForCoords(coords));
 		}
 	}, WAIT_TIME_FOR_GEOCODE_REQUESTS);
 	
@@ -119,7 +119,7 @@ function getCountryCodeForName(name){
 			}
 		} catch(error){
 			console.log(error);
-			return getCountryCodeForName(name);
+			fut['return'](getCountryCodeForName(name));
 		}
 	}, WAIT_TIME_FOR_GEOCODE_REQUESTS);
 	
