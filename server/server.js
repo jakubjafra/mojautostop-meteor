@@ -817,4 +817,17 @@ Meteor.startup(function(){
 	Meteor.publish("letters-collection", function(){
 		return Letters.find({});
 	});
+
+	// ~~~
+
+		Email.send({
+	      to: "jakub.jafra@gmail.com",
+	      from: "mojautostop@mojautostop.pl",
+	      subject: "TEST",
+	      text: "TEST2"
+	    });
 });
+
+
+
+
