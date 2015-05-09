@@ -8,7 +8,7 @@ Template.Dashboard.events({
 
 Template.Dashboard.helpers({
 	'mineTrips': function(){
-		return Trips.find({user: Meteor.userId()}, {_id: 1});
+		return Trips.find({user: Meteor.userId()}, {sort: {createdAt: 1}});
 	},
 	'canAddTrip': function(){
 		console.log(Meteor.user());

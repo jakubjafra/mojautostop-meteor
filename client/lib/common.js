@@ -8,7 +8,7 @@
 	});
 })();
 
-window.fbAsyncInit = function() {
+window.fbAsyncInit = function(){
 	FB.init({
 		appId      : '1421996818107296',
 		status     : true,

@@ -2,7 +2,7 @@ CurrLetter = new ReactiveVar("");
 
 Template.Letters.helpers({
 	'letters': function(){
-		return Letters.find({});
+		return Letters.find({}, {sort: {name: 1}});
 	},
 	'showCurrentLetter': function(){
 		return CurrLetter.get().length > 0;

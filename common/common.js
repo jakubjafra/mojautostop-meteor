@@ -53,6 +53,9 @@ Trip = function(name, userId){
 
 	// koniec tripa (timestamp)
 	this.endTime = 0;
+
+	// czas utworzenia
+	this.createdAt = (new Date()).getTime();
 };
 
 RoutePoint = function(name){
