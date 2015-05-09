@@ -331,6 +331,11 @@ Meteor.methods({
 		}
 
 		if(!allGood){
+			if(observedTrips[tripId] !== undefined){
+				console.log("Still waiting for gmap_directions for trip #" + tripId + " don't observe too much ;).");
+				return;
+			}
+
 			console.log("Waiting for gmap_directions for trip #" + tripId + " ...");
 
 			// Zaczynamy zabawę w czekanie...
