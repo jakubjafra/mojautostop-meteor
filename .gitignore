@@ -10,5 +10,7 @@ client/styles/bootstrap/custom.bootstrap.mixins.import.less
 
 .meteor/versions
 .meteor/release
-
 .DS_Store
+logs.txt
+dump/*
+
