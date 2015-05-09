@@ -337,7 +337,8 @@ Meteor.methods({
 			observedTrips[tripId] = Trips.find({
 				_id: tripId
 			}).observe({
-				changed: function(newDoc, oldDoc){				
+				changed: function(newDoc, oldDoc){
+					console.log("Observed that gmap_directions updated, firing PublishTrip");		
 					Meteor.call('PublishTrip', tripId);
 				}
 			});
