@@ -22,7 +22,7 @@ Template._loginButtonsLoggedInDropdown_CUSTOM.replaces("_loginButtonsLoggedInDro
 // ~~~
 
 Template.ProfileEdit.onCreated(function(){
-	addUploaderEndPoint(function(url){
+	addUploaderEndPoint("profile_picture", function(url){
 		Meteor.call("ChangeProfilePicture", url);
 	});
 });

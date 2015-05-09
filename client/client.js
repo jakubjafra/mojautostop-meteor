@@ -454,7 +454,7 @@ client.js
 	Template.DescriptionContents.onCreated(function(){
 		if(!wasBinded){
 			wasBinded = true;
-			addUploaderEndPoint(function(url){
+			addUploaderEndPoint("point_description", function(url){
 				var pics = pictures.get();
 				pics.push(url);
 				pictures.set(pics);
