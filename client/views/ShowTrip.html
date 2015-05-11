@@ -123,21 +123,21 @@ AUTHORS-CONTAINER
 			<tr>
 				{{#if showDuration}}
 					<td style="text-align: right; width:100px;">
-						<img src="/drawings/dni.png" width="100px" height="50px">
+						<img src="/drawings/dni.png" width="100px" height="50px" data-toggle="tooltip" title="Czas trwania trasy">
 					</td>
 					<td style="text-align: left; width:100px;">
 						{{ duration }} dni
 					</td>
 				{{/if}}
 				<td style="text-align: right; width:100px;">
-					<img src="/drawings/odleglosc.png" width="100px" height="50px">
+					<img src="/drawings/odleglosc.png" width="100px" height="50px" data-toggle="tooltip" title="Długość trasy">
 				</td>
 				<td style="text-align: left; width:100px;">
 					{{ parseInt stats.distance }} km
 				</td>
 				{{#if showDistanceDivDuration }}
 					<td style="text-align: right; width:100px;">
-						<img src="/drawings/kmdzien.png" width="100px" height="50px">
+						<img src="/drawings/kmdzien.png" width="100px" height="50px" data-toggle="tooltip" title="Średnio kilometrów na dzień">
 					</td>
 					<td style="text-align: left; width:100px;">
 						{{ distanceDivDuration }} km / dzień
@@ -145,14 +145,14 @@ AUTHORS-CONTAINER
 				{{/if}}
 				{{#if showSummaricWaitingTime}}
 					<td style="text-align: right; width:100px;">
-						<img src="/drawings/czas.png" width="100px" height="50px">
+						<img src="/drawings/czas.png" width="100px" height="50px" data-toggle="tooltip" title="Sumaryczny czas czekania na podwózkę">
 					</td>
 					<td style="text-align: left; width:100px;">
 						{{ sumaricWaitingTime }} czekania
 					</td>
 				{{/if}}
 				<td style="text-align: right; width:100px;">
-					<img src="/drawings/spaliny.png" width="100px" height="50px">
+					<img src="/drawings/spaliny.png" width="100px" height="50px" data-toggle="tooltip" title="Ilość oszczędzonego CO2 dzięki współdzieleniu samochodu">
 				</td>
 				<td style="text-align: left; width:100px;">
 					{{ co2 }} CO<sub>2</sub>
@@ -216,9 +216,9 @@ AUTHORS-CONTAINER
 				{{#each valueify desc.pictures}}
 					<div class="col-xs-3 image-file-cell">
 						<div class="fancybox-container">
-							<div href="{{ value }}" class="fancybox-image">
+							<a href="{{ value }}" class="fancybox-image" rel="{{ pointHashName }}" onclick="return false;">
 								<img src="{{ value }}" />
-							</div>
+							</a>
 						</div>
 					</div>
 				{{/each}}
@@ -241,7 +241,7 @@ AUTHORS-CONTAINER
 	<section class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="fb-comments" data-width="800px" data-numposts="5" data-colorscheme="light">
+				<div class="fb-comments" data-width="100%" data-numposts="5" data-colorscheme="light">
 				</div>
 			</div>
 		</div>

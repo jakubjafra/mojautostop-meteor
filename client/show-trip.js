@@ -201,7 +201,7 @@ Template.RouteHead.helpers({
 
 getDurationForTrip = function(trip){
 	return Math.ceil((trip.endTime - trip.beginTime) / (24 * 60 * 60 * 1000));
-}
+};
 
 getWaitingTimeForTrip = function(trip){
 	return trip.points.reduce(function(prev, curr){
@@ -210,7 +210,11 @@ getWaitingTimeForTrip = function(trip){
 		else
 			return prev + parseInt(curr.route.waitingTime);
 	}, 0);
-}
+};
+
+Template.RouteCommonStats.onRendered(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+})
 
 Template.RouteCommonStats.helpers({
 	'showDuration': function(){
@@ -327,4 +331,11 @@ Template.FbComments.helpers({
 			width: "100%"
 		};
 	}
+});
+
+Template.RB_PointDesc.helpers({
+    'pointHashName': function(){
+        console.log("__ POINT HASH NAME");
+        return CryptoJS.HmacMD5(Template.instance().data.name, "test").toString();
+    }
 });

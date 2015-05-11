@@ -74,42 +74,42 @@
 		<div class="row">
 			{{#if anyStatsMakesSense}}
 				{{#if distanceMakesSense}}
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<div>
 							<img src="/drawings/odleglosc.png">
-							<div class="value">{{ distance }} <small>km</small></div>
+							<div class="value"><small>Przejechałeś już</small> {{ distance }} <small>km.</small></div>
 						</div>
 					</div>
 				{{/if}}
 				{{#if durationMakesSense}}
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<div>
 							<img src="/drawings/dni.png">
-							<div class="value">{{ duration }} <small>dni</small></div>
+							<div class="value"><small>W trasie spędziłeś</small> {{ duration }} <small>dni.</small></div>
 						</div>
 					</div>
 				{{/if}}
 				{{#if distanceDivDurationMakesSense}}
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<div>
 							<img src="/drawings/kmdzien.png">
-							<div class="value">{{ distanceDivDuration }} <small>km</small></div>
+							<div class="value"><small>Średnio pokonywałeś</small> {{ distanceDivDuration }} <small>km na dzień.</small></div>
 						</div>
 					</div>
 				{{/if}}
 				{{#if waitingTimeMakesSense}}
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<div>
 							<img src="/drawings/czas.png">
-							<div class="value">{{ waitingTime }}</div>
+							<div class="value"><small>Sumarycznie czekałeś</small> {{ waitingTime }} <small>na podwózkę.</small></div>
 						</div>
 					</div>
 				{{/if}}
 				{{#if co2MakesSense}}
-					<div class="col-xs-4">
+					<div class="col-xs-6">
 						<div>
 							<img src="/drawings/spaliny.png">
-							<div class="value">{{ co2 }} <small>CO<sub>2</sub></small></div>
+							<div class="value"><small>Dzięki współdzieleniu samochodów oczędziłeś</small> {{ co2 }} <small>CO<sub>2</sub>.</small></div>
 						</div>
 					</div>
 				{{/if}}
