@@ -2,16 +2,179 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7565384e-ec66-423c-9b8e-6e6678784e62" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/mojautostop.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/views/Dashboard.html" afterPath="$PROJECT_DIR$/client/views/Dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/views/ShowTrip.html" afterPath="$PROJECT_DIR$/client/views/ShowTrip.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/styles/index.import.less" afterPath="$PROJECT_DIR$/client/styles/index.import.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/show-trip.js" afterPath="$PROJECT_DIR$/client/show-trip.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/styles/static.import.less" afterPath="$PROJECT_DIR$/client/styles/static.import.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_browser.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/meteor_packages_auto_import_npm.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/markdown-navigator.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/.dockerignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Dockerfile" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/docker-compose.yml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mojautostop.sublime-project" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/.finished-upgraders" afterPath="$PROJECT_DIR$/app/.meteor/.finished-upgraders" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/.gitignore" afterPath="$PROJECT_DIR$/app/.meteor/.gitignore" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/.id" afterPath="$PROJECT_DIR$/app/.meteor/.id" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/packages" afterPath="$PROJECT_DIR$/app/.meteor/packages" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/platforms" afterPath="$PROJECT_DIR$/app/.meteor/platforms" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/release" afterPath="$PROJECT_DIR$/app/.meteor/release" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.meteor/versions" afterPath="$PROJECT_DIR$/app/.meteor/versions" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/_routing.js" afterPath="$PROJECT_DIR$/app/client/_routing.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/bind-book.js" afterPath="$PROJECT_DIR$/app/client/bind-book.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/client.js" afterPath="$PROJECT_DIR$/app/client/client.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/dashboard.js" afterPath="$PROJECT_DIR$/app/client/dashboard.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/history.js" afterPath="$PROJECT_DIR$/app/client/history.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/i18n.js" afterPath="$PROJECT_DIR$/app/client/i18n.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/insurance.js" afterPath="$PROJECT_DIR$/app/client/insurance.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/letters.js" afterPath="$PROJECT_DIR$/app/client/letters.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/lib/common.js" afterPath="$PROJECT_DIR$/app/client/lib/common.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/lib/map-renderer.js" afterPath="$PROJECT_DIR$/app/client/lib/map-renderer.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/navbar-menu.js" afterPath="$PROJECT_DIR$/app/client/navbar-menu.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/profile.js" afterPath="$PROJECT_DIR$/app/client/profile.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/show-trip.js" afterPath="$PROJECT_DIR$/app/client/show-trip.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/static.js" afterPath="$PROJECT_DIR$/app/client/static.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/allin.less" afterPath="$PROJECT_DIR$/app/client/styles/allin.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/bootstrap/custom.bootstrap.import.less" afterPath="$PROJECT_DIR$/app/client/styles/bootstrap/custom.bootstrap.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/bootstrap/custom.bootstrap.json" afterPath="$PROJECT_DIR$/app/client/styles/bootstrap/custom.bootstrap.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/common/_varibles.import.less" afterPath="$PROJECT_DIR$/app/client/styles/common/_varibles.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/common/common.import.less" afterPath="$PROJECT_DIR$/app/client/styles/common/common.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/footer.import.less" afterPath="$PROJECT_DIR$/app/client/styles/footer.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/history.import.less" afterPath="$PROJECT_DIR$/app/client/styles/history.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/index.import.less" afterPath="$PROJECT_DIR$/app/client/styles/index.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/navbar-menu.import.less" afterPath="$PROJECT_DIR$/app/client/styles/navbar-menu.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/show-trip.import.less" afterPath="$PROJECT_DIR$/app/client/styles/show-trip.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/styles/static.import.less" afterPath="$PROJECT_DIR$/app/client/styles/static.import.less" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/uploader.js" afterPath="$PROJECT_DIR$/app/client/uploader.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/BindBook.html" afterPath="$PROJECT_DIR$/app/client/views/BindBook.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/Dashboard.html" afterPath="$PROJECT_DIR$/app/client/views/Dashboard.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/EditTrip.html" afterPath="$PROJECT_DIR$/app/client/views/EditTrip.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/LandingPage.html" afterPath="$PROJECT_DIR$/app/client/views/LandingPage.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/NotFound.html" afterPath="$PROJECT_DIR$/app/client/views/NotFound.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/Profile.html" afterPath="$PROJECT_DIR$/app/client/views/Profile.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/ShowTrip.html" afterPath="$PROJECT_DIR$/app/client/views/ShowTrip.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/StaticTopBar.html" afterPath="$PROJECT_DIR$/app/client/views/StaticTopBar.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/common/Footer.html" afterPath="$PROJECT_DIR$/app/client/views/common/Footer.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/common/NavbarMenu.html" afterPath="$PROJECT_DIR$/app/client/views/common/NavbarMenu.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/common/Uploader.html" afterPath="$PROJECT_DIR$/app/client/views/common/Uploader.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/specials/BuyBook.html" afterPath="$PROJECT_DIR$/app/client/views/specials/BuyBook.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/specials/Hints.html" afterPath="$PROJECT_DIR$/app/client/views/specials/Hints.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/specials/Insurance.html" afterPath="$PROJECT_DIR$/app/client/views/specials/Insurance.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/specials/Letters.html" afterPath="$PROJECT_DIR$/app/client/views/specials/Letters.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/specials/LettersAbout.html" afterPath="$PROJECT_DIR$/app/client/views/specials/LettersAbout.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/static/History.html" afterPath="$PROJECT_DIR$/app/client/views/static/History.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/views/static/Static.html" afterPath="$PROJECT_DIR$/app/client/views/static/Static.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/common/common.js" afterPath="$PROJECT_DIR$/app/common/common.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/common/config.js" afterPath="$PROJECT_DIR$/app/common/config.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/common/helpers/helpers.js" afterPath="$PROJECT_DIR$/app/common/helpers/helpers.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/dumpL.sh" afterPath="$PROJECT_DIR$/app/dumpL.sh" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/adventure_marker.png" afterPath="$PROJECT_DIR$/app/public/adventure_marker.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/bar.png" afterPath="$PROJECT_DIR$/app/public/bar.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/big_logo.jpg" afterPath="$PROJECT_DIR$/app/public/big_logo.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/brand_book.png" afterPath="$PROJECT_DIR$/app/public/brand_book.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/default_profile_photo.jpg" afterPath="$PROJECT_DIR$/app/public/default_profile_photo.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/checkpoint1.png" afterPath="$PROJECT_DIR$/app/public/drawings/checkpoint1.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/checkpoint2.png" afterPath="$PROJECT_DIR$/app/public/drawings/checkpoint2.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/checkpoint3.png" afterPath="$PROJECT_DIR$/app/public/drawings/checkpoint3.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/co to jest.png" afterPath="$PROJECT_DIR$/app/public/drawings/co to jest.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/czas.png" afterPath="$PROJECT_DIR$/app/public/drawings/czas.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/dni.png" afterPath="$PROJECT_DIR$/app/public/drawings/dni.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/kmdzien.png" afterPath="$PROJECT_DIR$/app/public/drawings/kmdzien.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/listdokierowcy.png" afterPath="$PROJECT_DIR$/app/public/drawings/listdokierowcy.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/lupa2.png" afterPath="$PROJECT_DIR$/app/public/drawings/lupa2.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/odleglosc.png" afterPath="$PROJECT_DIR$/app/public/drawings/odleglosc.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/pamietnik.png" afterPath="$PROJECT_DIR$/app/public/drawings/pamietnik.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/spaliny.png" afterPath="$PROJECT_DIR$/app/public/drawings/spaliny.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/ubezpieczenie4.png" afterPath="$PROJECT_DIR$/app/public/drawings/ubezpieczenie4.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/wskazowki.png" afterPath="$PROJECT_DIR$/app/public/drawings/wskazowki.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/wskazowki2.png" afterPath="$PROJECT_DIR$/app/public/drawings/wskazowki2.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/wykres.png" afterPath="$PROJECT_DIR$/app/public/drawings/wykres.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/drawings/znakizapytajki.png" afterPath="$PROJECT_DIR$/app/public/drawings/znakizapytajki.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/afrikaans.pdf" afterPath="$PROJECT_DIR$/app/public/letters/afrikaans.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/albanski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/albanski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/angielski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/angielski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/arabski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/arabski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/azerski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/azerski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/bengalski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/bengalski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/białoruski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/białoruski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/bułgarski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/bułgarski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/chińskisimplified.pdf" afterPath="$PROJECT_DIR$/app/public/letters/chińskisimplified.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/chińskitradycyjny.pdf" afterPath="$PROJECT_DIR$/app/public/letters/chińskitradycyjny.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/chorwacki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/chorwacki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/czarnogórski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/czarnogórski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/czeski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/czeski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/dari.pdf" afterPath="$PROJECT_DIR$/app/public/letters/dari.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/estoński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/estoński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/farsi(iran).pdf" afterPath="$PROJECT_DIR$/app/public/letters/farsi(iran).pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/finski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/finski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/francuski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/francuski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/grecki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/grecki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/gruziński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/gruziński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/gujarati.jpg" afterPath="$PROJECT_DIR$/app/public/letters/gujarati.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/hiszpański.pdf" afterPath="$PROJECT_DIR$/app/public/letters/hiszpański.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/holenderski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/holenderski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/indonezyjski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/indonezyjski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/japoński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/japoński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/katalonski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/katalonski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/kazachski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/kazachski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/kennada.pdf" afterPath="$PROJECT_DIR$/app/public/letters/kennada.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/koreański.pdf" afterPath="$PROJECT_DIR$/app/public/letters/koreański.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/litewski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/litewski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/macedoński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/macedoński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/malajski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/malajski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/marathi.pdf" afterPath="$PROJECT_DIR$/app/public/letters/marathi.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/niemiecki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/niemiecki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/norweski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/norweski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/oriya.pdf" afterPath="$PROJECT_DIR$/app/public/letters/oriya.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/ormiański.pdf" afterPath="$PROJECT_DIR$/app/public/letters/ormiański.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/polski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/polski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/portugalski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/portugalski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/punjabi.JPG" afterPath="$PROJECT_DIR$/app/public/letters/punjabi.JPG" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/rosyjski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/rosyjski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/serbski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/serbski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/swahili.pdf" afterPath="$PROJECT_DIR$/app/public/letters/swahili.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/szwedzki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/szwedzki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/słowacki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/słowacki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/słoweński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/słoweński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/tagalog(filipiny).pdf" afterPath="$PROJECT_DIR$/app/public/letters/tagalog(filipiny).pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/tajski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/tajski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/tamil.pdf" afterPath="$PROJECT_DIR$/app/public/letters/tamil.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/turecki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/turecki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/turkmeński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/turkmeński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/ukraiński.pdf" afterPath="$PROJECT_DIR$/app/public/letters/ukraiński.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/uzbecki.pdf" afterPath="$PROJECT_DIR$/app/public/letters/uzbecki.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/walijski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/walijski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/wietnamski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/wietnamski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/węgierski.docx.pdf" afterPath="$PROJECT_DIR$/app/public/letters/węgierski.docx.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/włoski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/włoski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/letters/łotewski.pdf" afterPath="$PROJECT_DIR$/app/public/letters/łotewski.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/owu_compensa.pdf" afterPath="$PROJECT_DIR$/app/public/owu_compensa.pdf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/1.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/2.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/3.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/3.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/4.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/4.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/5.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/5.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/background.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/background.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/background.png" afterPath="$PROJECT_DIR$/app/public/pictures/background.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/bkg1.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/bkg1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/bkg2.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/bkg2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/bkg2_light.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/bkg2_light.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/1.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/2.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/3.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/3.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/4.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/4.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/5.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/5.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/6.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/6.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/new/7.jpg" afterPath="$PROJECT_DIR$/app/public/pictures/new/7.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/pictures/test1.png" afterPath="$PROJECT_DIR$/app/public/pictures/test1.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/sleep_marker.png" afterPath="$PROJECT_DIR$/app/public/sleep_marker.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/small_logo.png" afterPath="$PROJECT_DIR$/app/public/small_logo.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/through_marker.png" afterPath="$PROJECT_DIR$/app/public/through_marker.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/unused/passing_marker.png" afterPath="$PROJECT_DIR$/app/public/unused/passing_marker.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/server/algorythms.js" afterPath="$PROJECT_DIR$/app/server/algorythms.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/app/server/server.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/mojautostop.iml" afterPath="$PROJECT_DIR$/.idea/mojautostop.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="mojautostop.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,96 +186,126 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="mojautostop" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="ShowTrip.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/views/ShowTrip.html">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.import.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/client/styles/index.import.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.627451" vertical-offset="2881" max-vertical-offset="4050">
-              <caret line="218" column="121" selection-start-line="218" selection-start-column="121" selection-end-line="218" selection-end-column="121" />
+            <state relative-caret-position="15">
+              <caret line="788" column="36" lean-forward="false" selection-start-line="788" selection-start-column="36" selection-end-line="788" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/dashboard.js">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="165">
+                <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+                <folding />
+              </first_editor>
+              <second_editor>
+                <js_state />
+              </second_editor>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dockerfile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Dockerfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2655">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="38" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Dashboard.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/views/Dashboard.html">
+      <file leaf-file-name=".dockerignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/.dockerignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.25" vertical-offset="1350" max-vertical-offset="2595">
-              <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
-              <caret line="84" column="40" selection-start-line="84" selection-start-column="40" selection-end-line="84" selection-end-column="40" />
-              <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
-              <caret line="100" column="40" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
-              <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+            <state relative-caret-position="0">
+              <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="algorythms.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/algorythms.js">
+      <file leaf-file-name="docker-compose.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/docker-compose.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-              <caret line="16" column="47" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="47" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/lib/common.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.import.less" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/styles/index.import.less">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72115386" vertical-offset="11445" max-vertical-offset="12795">
-              <caret line="788" column="36" selection-start-line="788" selection-start-column="36" selection-end-line="788" selection-end-column="36" />
+            <state relative-caret-position="240">
+              <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show-trip.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/show-trip.js">
+      <file leaf-file-name="versions" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/.meteor/versions">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.148149" vertical-offset="4673" max-vertical-offset="5190">
-              <caret line="337" column="42" selection-start-line="337" selection-start-column="42" selection-end-line="337" selection-end-column="42" />
+            <state relative-caret-position="291">
+              <caret line="50" column="5" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="platforms" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/.meteor/platforms">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="packages" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/.meteor/packages">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="release" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/.meteor/release">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="7" lean-forward="true" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>mongo</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,26 +317,25 @@
         <option value="$PROJECT_DIR$/client/views/ShowTrip.html" />
         <option value="$PROJECT_DIR$/client/views/Dashboard.html" />
         <option value="$PROJECT_DIR$/client/styles/index.import.less" />
+        <option value="$PROJECT_DIR$/app/.gitignore" />
+        <option value="$PROJECT_DIR$/app/.dockerignore" />
+        <option value="$PROJECT_DIR$/app/Dockerfile" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="width" value="1440" />
     <option name="height" value="900" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -156,8 +348,11 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -166,14 +361,8 @@
               <option name="myItemId" value="mojautostop" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
+              <option name="myItemId" value="mojautostop-meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -183,25 +372,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
+              <option name="myItemId" value="mojautostop-meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -211,69 +386,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
+              <option name="myItemId" value="mojautostop-meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mojautostop" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
+              <option name="myItemId" value=".meteor" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -288,31 +409,107 @@
     <property name="HbShouldOpenHtmlAsHb" value="enabled" />
     <property name="js.meteor.project" value="true" />
     <property name="js.meteor.library.was.enabled" value="true" />
+    <property name="ignore_missing_gitignore" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner />
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
-    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartTestRunConfigurationType" factoryName="Dart Test">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
-    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
-      <BehatRunner />
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method />
     </configuration>
-    <list size="0" />
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -321,34 +518,42 @@
       <changelist id="7565384e-ec66-423c-9b8e-6e6678784e62" name="Default" comment="" />
       <created>1431364631715</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1431364631715</updated>
+      <workItem from="1496684896527" duration="4157000" />
     </task>
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="4157000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24305555" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24242425" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -361,106 +566,249 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/app/client/views/ShowTrip.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="3270">
+          <caret line="218" column="121" lean-forward="false" selection-start-line="218" selection-start-column="121" selection-end-line="218" selection-end-column="121" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/app/client/dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dumpL.sh">
+    <entry file="file://$PROJECT_DIR$/app/client/views/Dashboard.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29090908" vertical-offset="0" max-vertical-offset="825">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="1620">
+          <caret line="76" column="40" lean-forward="false" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
+          <caret line="84" column="40" lean-forward="false" selection-start-line="84" selection-start-column="40" selection-end-line="84" selection-end-column="40" />
+          <caret line="92" column="40" lean-forward="false" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
+          <caret line="100" column="40" lean-forward="false" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
+          <caret line="108" column="40" lean-forward="false" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/algorythms.js">
+    <entry file="file://$PROJECT_DIR$/app/server/algorythms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-          <caret line="16" column="47" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="47" />
+        <state relative-caret-position="120">
+          <caret line="16" column="47" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="47" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/lib/common.js">
+    <entry file="file://$PROJECT_DIR$/app/client/lib/common.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/show-trip.js">
+    <entry file="file://$PROJECT_DIR$/app/client/show-trip.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.148149" vertical-offset="4673" max-vertical-offset="5190">
-          <caret line="337" column="42" selection-start-line="337" selection-start-column="42" selection-end-line="337" selection-end-column="42" />
+        <state relative-caret-position="5055">
+          <caret line="337" column="42" lean-forward="false" selection-start-line="337" selection-start-column="42" selection-end-line="337" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/views/ShowTrip.html">
+    <entry file="file://$PROJECT_DIR$/app/client/styles/index.import.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.627451" vertical-offset="2881" max-vertical-offset="4050">
-          <caret line="218" column="121" selection-start-line="218" selection-start-column="121" selection-end-line="218" selection-end-column="121" />
+        <state relative-caret-position="11820">
+          <caret line="788" column="36" lean-forward="false" selection-start-line="788" selection-start-column="36" selection-end-line="788" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/dashboard.js">
+    <entry file="file://$PROJECT_DIR$/app/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2655">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/views/Dashboard.html">
+    <entry file="file://$PROJECT_DIR$/app/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.25" vertical-offset="1350" max-vertical-offset="2595">
-          <caret line="76" column="40" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
-          <caret line="84" column="40" selection-start-line="84" selection-start-column="40" selection-end-line="84" selection-end-column="40" />
-          <caret line="92" column="40" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
-          <caret line="100" column="40" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
-          <caret line="108" column="40" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/styles/index.import.less">
+    <entry file="file://$PROJECT_DIR$/app/server/algorythms.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72115386" vertical-offset="11445" max-vertical-offset="12795">
-          <caret line="788" column="36" selection-start-line="788" selection-start-column="36" selection-end-line="788" selection-end-column="36" />
+        <state relative-caret-position="120">
+          <caret line="16" column="47" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="47" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/client/lib/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/client/show-trip.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5055">
+          <caret line="337" column="42" lean-forward="false" selection-start-line="337" selection-start-column="42" selection-end-line="337" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/client/views/ShowTrip.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3270">
+          <caret line="218" column="121" lean-forward="false" selection-start-line="218" selection-start-column="121" selection-end-line="218" selection-end-column="121" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/client/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/client/views/Dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="76" column="40" lean-forward="false" selection-start-line="76" selection-start-column="40" selection-end-line="76" selection-end-column="40" />
+          <caret line="84" column="40" lean-forward="false" selection-start-line="84" selection-start-column="40" selection-end-line="84" selection-end-column="40" />
+          <caret line="92" column="40" lean-forward="false" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="40" />
+          <caret line="100" column="40" lean-forward="false" selection-start-line="100" selection-start-column="40" selection-end-line="100" selection-end-column="40" />
+          <caret line="108" column="40" lean-forward="false" selection-start-line="108" selection-start-column="40" selection-end-line="108" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/dumpL.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mojautostop.sublime-project">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/client/styles/index.import.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="788" column="36" lean-forward="false" selection-start-line="788" selection-start-column="36" selection-end-line="788" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.dockerignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="13" lean-forward="false" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.meteor/versions">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="50" column="5" lean-forward="false" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.meteor/release">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="7" lean-forward="true" selection-start-line="0" selection-start-column="7" selection-end-line="0" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.meteor/platforms">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/.meteor/packages">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="5" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="38" lean-forward="false" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="36" lean-forward="false" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="165">
+            <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+            <folding />
+          </first_editor>
+          <second_editor>
+            <js_state />
+          </second_editor>
         </state>
       </provider>
     </entry>
